@@ -1,0 +1,4 @@
+#Wed Nov 29 18:13:51 PKT 2023
+base.0=/Users/createex/Documents/GitHub/Comnow-App/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
