@@ -30,53 +30,63 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  getAssetPng('splash_logo.png'),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 1.h),
+                    child: getAssetPng('splash_logo.png'),
+                  ),
                   customWhiteMediumText(
                     text: 'Welcome to Comnow',
                     fontSize: 20.px,
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  customWhiteMediumText(
-                    text: 'Are you ?',
-                    fontSize: 18.px,
-                  ),
-                  getVerSpace(4.h),
-                  authButton(
-                    'Existing User',
-                    onTap: () {
-                      isSelected.value = true;
-                    },
-                    backgroundColor:
-                        isSelected.value ? blueButtonColor : whiteButtonColor,
-                    textColor: isSelected.value
-                        ? titleWhiteTextColor
-                        : titleBlackTextColor,
-                  ),
-                  getVerSpace(1.2.h),
-                  customWhiteMediumText(
-                    text: 'or',
-                    fontSize: 12.px,
-                  ),
-                  getVerSpace(1.2.h),
-                  authButton(
-                    'New User',
-                    onTap: () {
-                      isSelected.value = false;
-                    },
-                    backgroundColor:
-                        isSelected.value ? whiteButtonColor : blueButtonColor,
-                    textColor: isSelected.value
-                        ? titleBlackTextColor
-                        : titleWhiteTextColor,
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    customWhiteMediumText(
+                      text: 'Are you ?',
+                      fontSize: 18.px,
+                    ),
+                    getVerSpace(4.h),
+                    authButton(
+                      'Existing User',
+                      onTap: () {
+                        isSelected.value = true;
+                      },
+                      backgroundColor:
+                          isSelected.value ? blueButtonColor : whiteButtonColor,
+                      textColor: isSelected.value
+                          ? titleWhiteTextColor
+                          : titleBlackTextColor,
+                    ),
+                    getVerSpace(1.2.h),
+                    customWhiteMediumText(
+                      text: 'or',
+                      fontSize: 12.px,
+                    ),
+                    getVerSpace(1.2.h),
+                    authButton(
+                      'New User',
+                      onTap: () {
+                        isSelected.value = false;
+                      },
+                      backgroundColor:
+                          isSelected.value ? whiteButtonColor : blueButtonColor,
+                      textColor: isSelected.value
+                          ? titleBlackTextColor
+                          : titleWhiteTextColor,
+                    ),
+                  ],
+                ),
               ),
-              gradientButton(
-                'Next',
-                onTap: () => Get.to(const SelectTypeScreen()),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 6.5.h),
+                child: gradientButton(
+                  'Next',
+                  onTap: () => Get.to(()=>const SelectTypeScreen()),
+                ),
               ),
             ],
           ),

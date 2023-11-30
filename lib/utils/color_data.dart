@@ -12,6 +12,10 @@ Color selectUserCardBackgroundColor = "#FFFFFF".toColor();
 Color textFormFieldBackgroundColor = "#3A3A3A".toColor();
 Color hintColor = "#C1C1C1".toColor();
 Color blueTextColor = "#0E9AFF".toColor();
+Color textFormFieldBGColor = "#3A3A3A".toColor();
+Color textFormFieldHintColor = "#C1C1C1".toColor();
+Color tabBarColor = "#1B1B1B".toColor();
+Color tabBarTextColor = "#7D7D7D".toColor();
 
 
 

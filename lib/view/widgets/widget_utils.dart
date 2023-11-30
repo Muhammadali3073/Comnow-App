@@ -45,27 +45,27 @@ Widget getSvgImage(String image,
   );
 }
 
-Widget customWhiteMediumText({color, text, textAlign, fontSize}) {
+Widget customWhiteMediumText({color, text, textAlign, fontSize, fontFamily}) {
   return Text(
     text ?? '',
     textAlign: textAlign,
     style: TextStyle(
       color: color ?? titleWhiteTextColor,
       fontSize: fontSize,
-      fontFamily: Constant.fontsFamilyMedium,
+      fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
     ),
   );
 }
 
-Widget customBlackMediumText({text, textAlign, fontSize}) {
+Widget customBlackMediumText({text, textAlign, fontSize, fontFamily}) {
   return Text(
     text ?? '',
     textAlign: textAlign,
     style: TextStyle(
       color: titleBlackTextColor,
       fontSize: fontSize,
-      fontFamily: Constant.fontsFamilyMedium,
+      fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
     ),
   );
@@ -76,22 +76,56 @@ Widget gradientButton(text, {Function()? onTap}) {
     onTap: onTap,
     child: Container(
       alignment: Alignment.center,
-      height: 3.5.h,
-      width: 13.h,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 1.h),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3.2.h),
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                topButtonColor,
-                bottomButtonColor,
-              ])),
+        borderRadius: BorderRadius.circular(3.2.h),
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              topButtonColor,
+              bottomButtonColor,
+            ]),
+      ),
       child: customWhiteMediumText(
         text: text,
-        fontSize: 12.px,
+        fontSize: 14.sp,
       ),
     ),
+  );
+}
+
+
+Widget loginSignUpAlreadyButton(whiteText, blueText, {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 1.h),
+        decoration: BoxDecoration(
+          color: whiteButtonColor,
+          borderRadius: BorderRadius.circular(3.2.h),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            customBlackMediumText(
+              text: whiteText,
+              fontSize: 14.sp,
+              fontFamily: Constant.fontsFamilyRegular,
+            ),
+            getHorSpace(0.5.h),
+            customWhiteMediumText(
+              text: blueText,
+              color: blueTextColor,
+              fontSize: 14.sp,
+              fontFamily: Constant.fontsFamilyRegular,
+            ),
+          ],
+        )),
   );
 }
 
@@ -100,8 +134,8 @@ Widget authButton(text, {Function()? onTap, textColor, backgroundColor}) {
     onTap: onTap,
     child: Container(
       alignment: Alignment.center,
-      height: 3.5.h,
-      width: 15.h,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 0.8.h),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(0.8.h),
@@ -112,7 +146,8 @@ Widget authButton(text, {Function()? onTap, textColor, backgroundColor}) {
   );
 }
 
-Widget selectTypeCard(text, {Function()? onTap, textColor, imageUrl,backgroundColor}) {
+Widget selectTypeCard(text,
+    {Function()? onTap, textColor, imageUrl, backgroundColor}) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -155,12 +190,12 @@ Widget selectTypeCard(text, {Function()? onTap, textColor, imageUrl,backgroundCo
   );
 }
 
-getCustomTextStyleW6S14({color}) {
+getCustomTextStyleW4S12({color}) {
   return TextStyle(
     color: color,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
     fontFamily: Constant.fontsFamilyRegular,
-    fontSize: 14.px,
+    fontSize: 12.px,
   );
 }
 
@@ -179,36 +214,36 @@ Widget getCustomTextFormField(
   return TextFormField(
     keyboardType: keyboardType,
     obscureText: obscureText ?? false,
-    cursorColor: Colors.black,
+    cursorColor: blueButtonColor,
     controller: controller,
     validator: validator,
     onTap: onTap,
     onChanged: onChanged,
     readOnly: readOnly ?? false,
-    style: getCustomTextStyleW6S14(
-      color: Colors.black,
+    style: getCustomTextStyleW4S12(
+      color: titleWhiteTextColor,
     ),
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.0.px),
-          borderRadius: BorderRadius.circular(10.0.px)),
+          borderSide: BorderSide(color: textFormFieldBGColor, width: 1.0.px),
+          borderRadius: BorderRadius.circular(24.0.px)),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.0.px),
-          borderRadius: BorderRadius.circular(10.0.px)),
+          borderSide: BorderSide(color: textFormFieldBGColor, width: 1.0.px),
+          borderRadius: BorderRadius.circular(24.0.px)),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0.px)),
-      contentPadding: EdgeInsets.symmetric(vertical: 1.3.h, horizontal: 1.3.h),
+      contentPadding: EdgeInsets.symmetric(vertical: 1.2.h, horizontal: 2.h),
       suffixIconConstraints: BoxConstraints.tightFor(
           width: suffixIconConstraintsWidth ?? 6.0.h, height: 2.5.h),
       suffixIcon: suffixIcon,
       prefixIconConstraints:
-          BoxConstraints.tightFor(width: 7.0.h, height: 3.5.h),
+          BoxConstraints.tightForFinite(width: 5.h, height: 2.5.h),
       prefixIcon: prefixIcon,
       isCollapsed: true,
       filled: true,
-      fillColor: Colors.black,
+      fillColor: textFormFieldBGColor,
       hintText: hintText,
-      hintStyle: getCustomTextStyleW6S14(
-        color: Colors.black,
+      hintStyle: getCustomTextStyleW4S12(
+        color: textFormFieldHintColor,
       ),
       enabled: true,
     ),
