@@ -12,14 +12,22 @@ Color selectUserCardBackgroundColor = "#FFFFFF".toColor();
 Color textFormFieldBackgroundColor = "#3A3A3A".toColor();
 Color hintColor = "#C1C1C1".toColor();
 Color blueTextColor = "#0E9AFF".toColor();
-Color textFormFieldBGColor = "#3A3A3A".toColor();
 Color textFormFieldHintColor = "#C1C1C1".toColor();
 Color tabBarColor = "#1B1B1B".toColor();
 Color tabBarTextColor = "#7D7D7D".toColor();
+Color activeTabBarColor = "#F5F5F5".toColor();
 
-
-
-
+Color redColor = "#EA2A2A".toColor();
+Color orangeColor = "#E4951F".toColor();
+Color yellowColor = "#E4DC1F".toColor();
+Color greenColor = "#46E41F".toColor();
+Color skyBlueColor = "#1FE4C1".toColor();
+Color blueColor = "#218FF5".toColor();
+Color darkBlueColor = "#2F1FE4".toColor();
+Color purpleColor = "#C81FE4".toColor();
+Color pinkColor = "#E41FA1".toColor();
+Color leftMemberBGColor = "#C3C3C3".toColor();
+Color leftMemberBGCardColor = "#858585".toColor();
 
 extension ColorExtension on String {
   toColor() {

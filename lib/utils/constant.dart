@@ -6,3 +6,5 @@ class Constant {
   static const String fontsFamilyMedium = "Roboto-Medium";
   static const String fontsFamilyBold = "Roboto-Bold";
 }
+
+enum Options { addMember, pingToAll, sendMessageToAll, sendVoiceTolAll, sort }

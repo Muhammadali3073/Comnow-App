@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:comnow/utils/color_data.dart';
+
 class DataFile {
   static List<LanguageModel> languageList = [
     LanguageModel(
@@ -5,11 +9,14 @@ class DataFile {
     ),
     LanguageModel(
       "German",
-    ),LanguageModel(
+    ),
+    LanguageModel(
       "Spanish",
-    ),LanguageModel(
+    ),
+    LanguageModel(
       "French",
-    ),LanguageModel(
+    ),
+    LanguageModel(
       "Italian",
     ),
   ];
@@ -22,14 +29,39 @@ class DataFile {
       "Team Member",
     ),
   ];
+
+  static List<SortModel> sortModel = [
+    SortModel(
+      "Ascending",
+    ),
+    SortModel(
+      "Descending",
+    ),
+    SortModel(
+      "Custom",
+    ),
+  ];
+
+  static List<MemberModel> memberList = [
+    MemberModel("Mohsin", "Khan", "MOH", greenColor, "Online", '1'),
+    MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2'),
+    MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3'),
+    MemberModel("Ramzan", "Ali", "RNA", leftMemberBGColor, "Left team", '4'),
+  ];
 }
 
 ///// Models
-
 class LanguageModel {
   String? name;
 
   LanguageModel(this.name);
+}
+
+///// Sort
+class SortModel {
+  String? name;
+
+  SortModel(this.name);
 }
 
 /// Gender
@@ -37,6 +69,19 @@ class UserTypeModel {
   String? name;
 
   UserTypeModel(this.name);
+}
+
+/// Member Model
+class MemberModel {
+  String? firstName;
+  String? middleName;
+  String? initialName;
+  Color? initialBGColor;
+  String? type;
+  String? uniqueId;
+
+  MemberModel(this.firstName, this.middleName, this.initialName,
+      this.initialBGColor, this.type, this.uniqueId);
 }
 
 //// Images for Slider
