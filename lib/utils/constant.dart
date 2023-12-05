@@ -7,4 +7,20 @@ class Constant {
   static const String fontsFamilyBold = "Roboto-Bold";
 }
 
-enum Options { addMember, pingToAll, sendMessageToAll, sendVoiceTolAll, sort }
+enum OptionsForAllMembers {
+  addMember,
+  pingToAll,
+  sendMessageToAll,
+  sendVoiceTolAll,
+  sort
+}
+
+enum OptionsForGroups {
+  addMember,
+  pingToAll,
+  sendMessageToAll,
+  sendVoiceTolAll,
+  deleteGroup,
+  sort,
+  rename
+}

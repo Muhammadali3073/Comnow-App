@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -75,6 +76,7 @@ Widget customBlackMediumText({text, textAlign, fontSize, fontFamily}) {
 Widget gradientButton(text, {Function()? onTap}) {
   return InkWell(
     onTap: onTap,
+    borderRadius: BorderRadius.circular(3.2.h),
     child: Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -97,9 +99,53 @@ Widget gradientButton(text, {Function()? onTap}) {
   );
 }
 
+Widget outlineButton(text, {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(3.2.h),
+    child: Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 0.8.h),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3.2.h),
+          border: Border.all(
+            color: whiteButtonColor,
+          )),
+      child: customWhiteMediumText(
+        text: text,
+        fontSize: 14.sp,
+      ),
+    ),
+  );
+}
+
+Widget filledBlackButton(text, {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(3.2.h),
+    child: Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 0.8.h),
+      decoration: BoxDecoration(
+          color: titleBlackTextColor,
+          borderRadius: BorderRadius.circular(3.2.h),
+          border: Border.all(
+            color: titleBlackTextColor,
+          )),
+      child: customWhiteMediumText(
+        text: text,
+        fontSize: 14.sp,
+      ),
+    ),
+  );
+}
+
 Widget loginSignUpAlreadyButton(whiteText, blueText, {Function()? onTap}) {
   return InkWell(
     onTap: onTap,
+    borderRadius: BorderRadius.circular(3.2.h),
     child: Container(
         alignment: Alignment.center,
         width: double.infinity,
@@ -193,7 +239,8 @@ Widget mainMemberCard(listOfMembers, {Function()? onTap}) {
       padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 1.h),
       margin: EdgeInsets.only(bottom: 1.4.h),
       decoration: BoxDecoration(
-        color: listOfMembers.type == 'Left team'
+        color: listOfMembers.type == 'Left team' &&
+                listOfMembers.isBlocked == false
             ? leftMemberBGCardColor
             : textFormFieldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
@@ -207,7 +254,10 @@ Widget mainMemberCard(listOfMembers, {Function()? onTap}) {
               children: [
                 CircleAvatar(
                   radius: 2.5.h,
-                  backgroundColor: listOfMembers.initialBGColor,
+                  backgroundColor: listOfMembers.type == 'Left team' &&
+                          listOfMembers.isBlocked == false
+                      ? leftMemberBGColor
+                      : listOfMembers.initialBGColor,
                   child: customWhiteMediumText(
                       text: listOfMembers.initialName, fontSize: 14.sp),
                 ),
@@ -221,18 +271,20 @@ Widget mainMemberCard(listOfMembers, {Function()? onTap}) {
                       fontFamily: Constant.fontsFamilyRegular,
                     ),
                     getVerSpace(0.4.h),
-                    customWhiteMediumText(
-                      text: listOfMembers.type,
-                      color: listOfMembers.type == 'Online'
-                          ? greenColor
-                          : listOfMembers.type == 'Offline'
-                              ? redColor
-                              : listOfMembers.type == 'Away'
-                                  ? yellowColor
-                                  : titleBlackTextColor,
-                      fontSize: 13.sp,
-                      fontFamily: Constant.fontsFamilyRegular,
-                    ),
+                    listOfMembers.isBlocked == true
+                        ? Container()
+                        : customWhiteMediumText(
+                            text: listOfMembers.type,
+                            color: listOfMembers.type == 'Online'
+                                ? greenColor
+                                : listOfMembers.type == 'Offline'
+                                    ? redColor
+                                    : listOfMembers.type == 'Away'
+                                        ? yellowColor
+                                        : titleBlackTextColor,
+                            fontSize: 13.sp,
+                            fontFamily: Constant.fontsFamilyRegular,
+                          ),
                   ],
                 ),
               ],
@@ -240,16 +292,18 @@ Widget mainMemberCard(listOfMembers, {Function()? onTap}) {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 0.5.h,
-                  backgroundColor: listOfMembers.type == 'Online'
-                      ? greenColor
-                      : listOfMembers.type == 'Offline'
-                          ? redColor
-                          : listOfMembers.type == 'Away'
-                              ? yellowColor
-                              : Colors.transparent,
-                ),
+                listOfMembers.isBlocked == true
+                    ? Container()
+                    : CircleAvatar(
+                        radius: 0.5.h,
+                        backgroundColor: listOfMembers.type == 'Online'
+                            ? greenColor
+                            : listOfMembers.type == 'Offline'
+                                ? redColor
+                                : listOfMembers.type == 'Away'
+                                    ? yellowColor
+                                    : Colors.transparent,
+                      ),
                 getHorSpace(1.5.h),
                 Container(
                   decoration: BoxDecoration(
@@ -261,6 +315,35 @@ Widget mainMemberCard(listOfMembers, {Function()? onTap}) {
                 getHorSpace(0.5.h),
               ],
             )
+          ]),
+    ),
+  );
+}
+
+Widget groupCard(groupName, numberOfMembers, {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.1.h),
+      margin: EdgeInsets.only(
+        bottom: 1.4.h,
+      ),
+      decoration: BoxDecoration(
+        color: textFormFieldBackgroundColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            customWhiteMediumText(
+              text: groupName,
+              fontSize: 14.sp,
+            ),
+            customWhiteMediumText(
+                text: numberOfMembers,
+                fontSize: 14.sp,
+                fontFamily: Constant.fontsFamilyRegular)
           ]),
     ),
   );
@@ -310,6 +393,35 @@ Widget selectTypeCard(text,
   );
 }
 
+Widget addMemberTextField(
+    {titleText,
+    hintText,
+    controller,
+    List<TextInputFormatter>? inputFormatters,
+    Function(String)? onChanged}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: EdgeInsets.only(left: 2.h),
+        child: customWhiteMediumText(
+          text: titleText,
+          fontFamily: Constant.fontsFamilyRegular,
+          fontSize: 14.sp,
+        ),
+      ),
+      getVerSpace(0.5.h),
+      getCustomTextFormField(
+        onChanged: onChanged,
+        inputFormatters: inputFormatters,
+        controller: controller,
+        hintText: hintText,
+        keyboardType: TextInputType.name,
+      ),
+    ],
+  );
+}
+
 getCustomTextStyleW4S12({color}) {
   return TextStyle(
     color: color,
@@ -327,10 +439,11 @@ Widget getCustomTextFormField(
     obscureText,
     keyboardType,
     prefixIcon,
-    onTap,
+    Function()? onTap,
     readOnly,
     suffixIconConstraintsWidth,
-    onChanged}) {
+    List<TextInputFormatter>? inputFormatters,
+    Function(String)? onChanged}) {
   return TextFormField(
     keyboardType: keyboardType,
     obscureText: obscureText ?? false,
@@ -369,11 +482,12 @@ Widget getCustomTextFormField(
       ),
       enabled: true,
     ),
+    inputFormatters: inputFormatters,
   );
 }
 
 // Popup Menu Item Design
-PopupMenuItem buildPopupMenuItem(
+PopupMenuItem allMemberPopupMenuItem(
     String title, String iconData, int position, int indexLast) {
   return PopupMenuItem(
       padding: EdgeInsets.zero,
@@ -401,30 +515,203 @@ PopupMenuItem buildPopupMenuItem(
       ));
 }
 
-// Outer Tab bar
-TabBar get tabBar => TabBar(
-      indicatorColor: blueButtonColor,
-      dividerColor: tabBarColor,
-      indicatorPadding: EdgeInsets.zero,
-      labelColor: blueTextColor,
-      unselectedLabelColor: tabBarTextColor,
-      indicatorSize: TabBarIndicatorSize.tab,
-      overlayColor: MaterialStatePropertyAll(blueButtonColor.withOpacity(0.1)),
-      indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(
-        color: blueTextColor,
-        width: 1,
-      )),
-      labelStyle:
-          TextStyle(fontSize: 14.sp, fontFamily: Constant.fontsFamilyMedium),
-      unselectedLabelStyle:
-          TextStyle(fontSize: 14.sp, fontFamily: Constant.fontsFamilyMedium),
-      tabs: const <Widget>[
-        Tab(
-          text: 'All Team Members',
+PopupMenuItem groupPopupMenuItem(
+    String title, String iconData, int position, int indexLast) {
+  return PopupMenuItem(
+      padding: EdgeInsets.zero,
+      height: 0.h,
+      value: position,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 1.4.h),
+        decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(
+          color: indexLast == 6 ? Colors.transparent : tabBarTextColor,
+        ))),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            getSvgImage(iconData, height: 20.px, width: 20.px),
+            getHorSpace(0.8.h),
+            customWhiteMediumText(
+              text: title,
+              fontSize: 14.sp,
+              fontFamily: Constant.fontsFamilyRegular,
+            ),
+          ],
         ),
-        Tab(
-          text: 'Groups ',
-        ),
-      ],
-    );
+      ));
+}
+
+Future<void> sortingDialogBox(BuildContext context, dataFile,
+    {RxInt? isSelectedSort}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              customWhiteMediumText(
+                  text: 'Sorting By',
+                  fontFamily: Constant.fontsFamilyRegular,
+                  fontSize: 16.sp),
+              InkWell(
+                  onTap: () => Get.back(),
+                  child: Icon(
+                    Icons.close,
+                    color: redColor,
+                    size: 2.5.h,
+                  ))
+            ],
+          ),
+          content: SizedBox(
+              height: 12.h,
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Obx(() => sortButton(
+                            dataFile.sortModel[0].name.toString(),
+                            isSelectedSort!.value,
+                            0,
+                            onTap: () {
+                              isSelectedSort.value = 0;
+                              Get.back();
+                            },
+                          )),
+                      Divider(
+                        color: tabBarTextColor,
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Obx(
+                        () => sortButton(
+                          dataFile.sortModel[1].name.toString(),
+                          isSelectedSort!.value,
+                          1,
+                          onTap: () {
+                            isSelectedSort.value = 1;
+                            Get.back();
+                          },
+                        ),
+                      ),
+                      Divider(
+                        color: tabBarTextColor,
+                      )
+                    ],
+                  ),
+                  Obx(
+                    () => sortButton(
+                      dataFile.sortModel[2].name.toString(),
+                      isSelectedSort!.value,
+                      2,
+                      onTap: () {
+                        isSelectedSort.value = 2;
+                        Get.back();
+                      },
+                    ),
+                  ),
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> createGroupDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+  createGroupController,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: customWhiteMediumText(
+              text: 'Create Group',
+              fontFamily: Constant.fontsFamilyRegular,
+              fontSize: 16.sp,
+              textAlign: TextAlign.center),
+          content: SizedBox(
+              height: 16.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  addMemberTextField(
+                    controller: createGroupController,
+                    titleText: 'Team Name',
+                    hintText: 'Group Name',
+                  ),
+                  getVerSpace(4.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'Cancel',
+                        onTap: () => Get.back(),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: filledBlackButton('Create', onTap: onCreate)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> leaveAppDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: getSvgImage('leave_app_warning.svg'),
+          content: SizedBox(
+              height: 12.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customWhiteMediumText(
+                    text:
+                        'Do you really want to close the app?\nIf you close the app, you will be shown as "offline"',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 14.sp,
+                  ),
+                  getVerSpace(3.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'Cancel',
+                        onTap: () => Get.back(),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: filledBlackButton('Leave', onTap: onCreate)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}

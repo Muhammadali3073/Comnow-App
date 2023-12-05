@@ -97,15 +97,16 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0.h),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0.h),
                       child: gradientButton(
                         'Login',
-                        onTap: () => Get.offAll(() => const BottomNavigationBarScreen()),
+                        onTap: () =>
+                            Get.offAll(() => const BottomNavigationBarScreen()),
                       ),
                     ),
                     getVerSpace(1.6.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0.h),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0.h),
                       child: gradientButton('Login With QR Code'),
                     ),
                     getVerSpace(2.4.h),

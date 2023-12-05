@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:comnow/utils/color_data.dart';
 
 class DataFile {
-  static List<LanguageModel> languageList = [
+  List<LanguageModel> languageList = [
     LanguageModel(
       "English",
     ),
@@ -21,7 +21,7 @@ class DataFile {
     ),
   ];
 
-  static List<UserTypeModel> userTypeList = [
+  List<UserTypeModel> userTypeList = [
     UserTypeModel(
       "Admin",
     ),
@@ -30,7 +30,7 @@ class DataFile {
     ),
   ];
 
-  static List<SortModel> sortModel = [
+  List<SortModel> sortModel = [
     SortModel(
       "Ascending",
     ),
@@ -42,11 +42,74 @@ class DataFile {
     ),
   ];
 
-  static List<MemberModel> memberList = [
-    MemberModel("Mohsin", "Khan", "MOH", greenColor, "Online", '1'),
-    MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2'),
-    MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3'),
-    MemberModel("Ramzan", "Ali", "RNA", leftMemberBGColor, "Left team", '4'),
+  List<InitialsColorModel> initialsColorModel = [
+    InitialsColorModel(
+      redColor,
+    ),
+    InitialsColorModel(
+      orangeColor,
+    ),
+    InitialsColorModel(
+      yellowColor,
+    ),
+    InitialsColorModel(
+      greenColor,
+    ),
+    InitialsColorModel(
+      skyBlueColor,
+    ),
+    InitialsColorModel(
+      blueColor,
+    ),
+    InitialsColorModel(
+      darkBlueColor,
+    ),
+    InitialsColorModel(
+      purpleColor,
+    ),
+    InitialsColorModel(
+      pinkColor,
+    ),
+  ];
+
+  List<MemberModel> memberList = [
+    MemberModel("Mohsin", "Khan", "MOH", greenColor, "Online", '1', false),
+    MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false),
+    MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true),
+    MemberModel("Luqman", "Qasim", "ANB", yellowColor, "Left team", '4', false),
+    MemberModel("Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true),
+    MemberModel("Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true),
+  ];
+
+  List<GroupModel> groupList = [
+    GroupModel(
+        "Group One",
+        "2",
+        [
+          MemberModel(
+              "Mohsin", "Khan", "MOH", greenColor, "Online", '1', false),
+          MemberModel(
+              "Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false),
+        ],
+        "1"),
+    GroupModel(
+        "Group Two",
+        "3",
+        [
+          MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true),
+          MemberModel(
+              "Luqman", "Qasim", "ANB", yellowColor, "Left team", '4', false),
+          MemberModel("Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true),
+        ],
+        "2"),
+    GroupModel(
+        "Group Three",
+        "1",
+        [
+          MemberModel(
+              "Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true),
+        ],
+        "3"),
   ];
 }
 
@@ -55,6 +118,13 @@ class LanguageModel {
   String? name;
 
   LanguageModel(this.name);
+}
+
+///// Sort
+class InitialsColorModel {
+  Color? color;
+
+  InitialsColorModel(this.color);
 }
 
 ///// Sort
@@ -79,9 +149,21 @@ class MemberModel {
   Color? initialBGColor;
   String? type;
   String? uniqueId;
+  bool? isBlocked;
 
   MemberModel(this.firstName, this.middleName, this.initialName,
-      this.initialBGColor, this.type, this.uniqueId);
+      this.initialBGColor, this.type, this.uniqueId, this.isBlocked);
+}
+
+/// Group Model
+class GroupModel {
+  String? groupName;
+  String? numberOfGroupMembers;
+  List<MemberModel>? membersOfGroup;
+  String? groupUniqueId;
+
+  GroupModel(this.groupName, this.numberOfGroupMembers, this.membersOfGroup,
+      this.groupUniqueId);
 }
 
 //// Images for Slider
