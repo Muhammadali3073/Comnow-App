@@ -1,0 +1,138 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.comnow"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml
+10
+11    <permission
+11-->[androidx.core:core:1.10.1] /Users/createex/.gradle/caches/transforms-3/889ce5bd12f1117e5357d5fcdb5e1305/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+12        android:name="com.example.comnow.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+12-->[androidx.core:core:1.10.1] /Users/createex/.gradle/caches/transforms-3/889ce5bd12f1117e5357d5fcdb5e1305/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+13        android:protectionLevel="signature" />
+13-->[androidx.core:core:1.10.1] /Users/createex/.gradle/caches/transforms-3/889ce5bd12f1117e5357d5fcdb5e1305/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+14
+15    <uses-permission android:name="com.example.comnow.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+15-->[androidx.core:core:1.10.1] /Users/createex/.gradle/caches/transforms-3/889ce5bd12f1117e5357d5fcdb5e1305/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+15-->[androidx.core:core:1.10.1] /Users/createex/.gradle/caches/transforms-3/889ce5bd12f1117e5357d5fcdb5e1305/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+16
+17    <application
+18        android:name="android.app.Application"
+18-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:4:9-42
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.10.1] /Users/createex/.gradle/caches/transforms-3/889ce5bd12f1117e5357d5fcdb5e1305/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
+20        android:extractNativeLibs="false"
+21        android:icon="@mipmap/ic_launcher"
+21-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:5:9-43
+22        android:label="Comnow" >
+22-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:3:9-31
+23        <activity
+23-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:6:9-26:20
+24            android:name="com.example.comnow.MainActivity"
+24-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:7:13-41
+25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+25-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:11:13-163
+26            android:exported="true"
+26-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:8:13-36
+27            android:hardwareAccelerated="true"
+27-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:12:13-47
+28            android:launchMode="singleTop"
+28-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:9:13-43
+29            android:theme="@style/LaunchTheme"
+29-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:10:13-47
+30            android:windowSoftInputMode="adjustResize" >
+30-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:13:13-55
+31
+32            <!--
+33                 Specifies an Android theme to apply to this Activity as soon as
+34                 the Android process has started. This theme is visible to the user
+35                 while the Flutter UI initializes. After that, this theme continues
+36                 to determine the Window background behind the Flutter UI.
+37            -->
+38            <meta-data
+38-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:18:13-21:17
+39                android:name="io.flutter.embedding.android.NormalTheme"
+39-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:19:15-70
+40                android:resource="@style/NormalTheme" />
+40-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:20:15-52
+41
+42            <intent-filter>
+42-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:22:13-25:29
+43                <action android:name="android.intent.action.MAIN" />
+43-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:23:17-68
+43-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:23:25-66
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+45-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:24:17-76
+45-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:24:27-74
+46            </intent-filter>
+47        </activity>
+48        <!--
+49             Don't delete the meta-data below.
+50             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+51        -->
+52        <meta-data
+52-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:29:9-31:33
+53            android:name="flutterEmbedding"
+53-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:30:13-44
+54            android:value="2" />
+54-->/Users/createex/Documents/GitHub/Comnow-App/android/app/src/main/AndroidManifest.xml:31:13-30
+55        <!--
+56           Declares a provider which allows us to store files to share in
+57           '.../caches/share_plus' and grant the receiving action access
+58        -->
+59        <provider
+59-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:15:9-23:20
+60            android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
+60-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-77
+61            android:authorities="com.example.comnow.flutter.share_provider"
+61-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-74
+62            android:exported="false"
+62-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-37
+63            android:grantUriPermissions="true" >
+63-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-47
+64            <meta-data
+64-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:20:13-22:68
+65                android:name="android.support.FILE_PROVIDER_PATHS"
+65-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:21:17-67
+66                android:resource="@xml/flutter_share_file_paths" />
+66-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:22:17-65
+67        </provider>
+68        <!--
+69           This manifest declared broadcast receiver allows us to use an explicit
+70           Intent when creating a PendingItent to be informed of the user's choice
+71        -->
+72        <receiver
+72-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:28:9-34:20
+73            android:name="dev.fluttercommunity.plus.share.SharePlusPendingIntent"
+73-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:29:13-82
+74            android:exported="false" >
+74-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-37
+75            <intent-filter>
+75-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:31:13-33:29
+76                <action android:name="EXTRA_CHOSEN_COMPONENT" />
+76-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-65
+76-->[:share_plus] /Users/createex/Documents/GitHub/Comnow-App/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:32:25-62
+77            </intent-filter>
+78        </receiver>
+79
+80        <uses-library
+80-->[androidx.window:window:1.0.0-beta04] /Users/createex/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+81            android:name="androidx.window.extensions"
+81-->[androidx.window:window:1.0.0-beta04] /Users/createex/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+82            android:required="false" />
+82-->[androidx.window:window:1.0.0-beta04] /Users/createex/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+83        <uses-library
+83-->[androidx.window:window:1.0.0-beta04] /Users/createex/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+84            android:name="androidx.window.sidecar"
+84-->[androidx.window:window:1.0.0-beta04] /Users/createex/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+85            android:required="false" />
+85-->[androidx.window:window:1.0.0-beta04] /Users/createex/.gradle/caches/transforms-3/076eb9235982ee06112d76594ea8585f/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+86    </application>
+87
+88</manifest>
