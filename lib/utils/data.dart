@@ -42,6 +42,21 @@ class DataFile {
     ),
   ];
 
+  List<MessageTemplatesModel> messageTemplatesModel = [
+    MessageTemplatesModel(
+      "Give me water",
+      '1',
+    ),
+    MessageTemplatesModel(
+      "Send next person",
+      '2',
+    ),
+    MessageTemplatesModel(
+      "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
+      '3',
+    ),
+  ];
+
   List<InitialsColorModel> initialsColorModel = [
     InitialsColorModel(
       redColor,
@@ -73,12 +88,41 @@ class DataFile {
   ];
 
   List<MemberModel> memberList = [
-    MemberModel("Mohsin", "Khan", "MOH", greenColor, "Online", '1', false),
-    MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false),
-    MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true),
-    MemberModel("Luqman", "Qasim", "ANB", yellowColor, "Left team", '4', false),
-    MemberModel("Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true),
-    MemberModel("Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true),
+    MemberModel(
+        "Mohsin", "Khan", "MOH", greenColor, "Online", '1', false, acceptColor),
+    MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false,
+        declineColor),
+    MemberModel(
+        "Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true, pendingColor),
+    MemberModel("Luqman", "Qasim", "ANB", yellowColor, "Left team", '4', false,
+        pendingColor),
+    MemberModel(
+        "Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true, declineColor),
+    MemberModel(
+        "Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true, acceptColor),
+  ];
+
+  List<DayByNotificationModel> notificationModelList = [
+    DayByNotificationModel("Today", [
+      NotificationModel("Ali", 'ping', '23:36 Thu', false),
+      NotificationModel("Mohsin", 'text', '23:36 Thu', true),
+      NotificationModel("Zeeshan", 'voice', '23:36 Thu', true),
+    ]),
+    DayByNotificationModel("Yesterday", [
+      NotificationModel("Ali", 'ping', '23:36 Thu', true),
+      NotificationModel("Mohsin", 'text', '23:36 Thu', true),
+      NotificationModel("Zeeshan", 'voice', '23:36 Thu', true),
+    ]),
+    DayByNotificationModel("11/NOV/2023", [
+      NotificationModel("Ali", 'ping', '23:36 Thu', true),
+      NotificationModel("Mohsin", 'text', '23:36 Thu', true),
+      NotificationModel("Zeeshan", 'voice', '23:36 Thu', true),
+    ]),
+    DayByNotificationModel("03/NOV/2023", [
+      NotificationModel("Ali", 'ping', '23:36 Thu', true),
+      NotificationModel("Mohsin", 'text', '23:36 Thu', true),
+      NotificationModel("Zeeshan", 'voice', '23:36 Thu', true),
+    ]),
   ];
 
   List<GroupModel> groupList = [
@@ -86,28 +130,30 @@ class DataFile {
         "Group One",
         "2",
         [
-          MemberModel(
-              "Mohsin", "Khan", "MOH", greenColor, "Online", '1', false),
-          MemberModel(
-              "Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false),
+          MemberModel("Mohsin", "Khan", "MOH", greenColor, "Online", '1', false,
+              pendingColor),
+          MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false,
+              acceptColor),
         ],
         "1"),
     GroupModel(
         "Group Two",
         "3",
         [
-          MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true),
-          MemberModel(
-              "Luqman", "Qasim", "ANB", yellowColor, "Left team", '4', false),
-          MemberModel("Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true),
+          MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true,
+              acceptColor),
+          MemberModel("Luqman", "Qasim", "ANB", yellowColor, "Left team", '4',
+              false, declineColor),
+          MemberModel("Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true,
+              declineColor),
         ],
         "2"),
     GroupModel(
         "Group Three",
         "1",
         [
-          MemberModel(
-              "Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true),
+          MemberModel("Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true,
+              pendingColor),
         ],
         "3"),
   ];
@@ -141,6 +187,14 @@ class UserTypeModel {
   UserTypeModel(this.name);
 }
 
+/// Message Templates
+class MessageTemplatesModel {
+  String? message;
+  String? uniqueId;
+
+  MessageTemplatesModel(this.message, this.uniqueId);
+}
+
 /// Member Model
 class MemberModel {
   String? firstName;
@@ -150,9 +204,43 @@ class MemberModel {
   String? type;
   String? uniqueId;
   bool? isBlocked;
+  Color? pingStatus;
 
-  MemberModel(this.firstName, this.middleName, this.initialName,
-      this.initialBGColor, this.type, this.uniqueId, this.isBlocked);
+  MemberModel(
+      this.firstName,
+      this.middleName,
+      this.initialName,
+      this.initialBGColor,
+      this.type,
+      this.uniqueId,
+      this.isBlocked,
+      this.pingStatus);
+}
+
+/// Notification Model
+class NotificationModel {
+  String? firstName;
+  String? type;
+  String? timeOfDelivered;
+  bool? isView;
+
+  NotificationModel(
+    this.firstName,
+    this.type,
+    this.timeOfDelivered,
+    this.isView,
+  );
+}
+
+/// Notification Model
+class DayByNotificationModel {
+  String? dateOfDelivered;
+  List<NotificationModel>? notificationModel;
+
+  DayByNotificationModel(
+    this.dateOfDelivered,
+    this.notificationModel,
+  );
 }
 
 /// Group Model

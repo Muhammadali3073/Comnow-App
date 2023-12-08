@@ -1,10 +1,15 @@
+import 'package:comnow/view/popUpMenuScreens/voice_message_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../utils/color_data.dart';
 import '../../utils/constant.dart';
 import '../../utils/data.dart';
+import '../popUpMenuScreens/addMemberScreens/add_member_screen.dart';
+import '../popUpMenuScreens/addMemberScreens/share_qr_code_screen.dart';
+import '../popUpMenuScreens/message_templates_screen.dart';
 import '../widgets/widget_utils.dart';
 
 //ignore: must_be_immutable
@@ -21,18 +26,12 @@ class SeparateGroupScreen extends StatefulWidget {
 class _SeparateGroupScreenState extends State<SeparateGroupScreen>
     with SingleTickerProviderStateMixin {
   DataFile dataFile = DataFile();
+  var isPingToAll = false.obs;
   var isSelectedSortItem = 2.obs;
   var appBarHeight = AppBar().preferredSize.height - 0.4.h;
+  TextEditingController createGroupController = TextEditingController();
 
   TabController? tabController;
-
-  void onReorder(int oldIndex, int newIndex) {
-    setState(() {
-      final newIdx = newIndex > oldIndex ? newIndex - 1 : newIndex;
-      final item = dataFile.memberList.removeAt(oldIndex);
-      dataFile.memberList.insert(newIdx, item);
-    });
-  }
 
   @override
   void initState() {
@@ -49,14 +48,68 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
   // Popup Menu Item Routes
   onMenuItemSelected(int value) {
     if (value == OptionsForGroups.addMember.index) {
+      Get.to(() => const AddMemberScreen());
     } else if (value == OptionsForGroups.pingToAll.index) {
+      isPingToAll.value = true;
+      Fluttertoast.showToast(
+          msg: "Ping to all sent successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastColor,
+          textColor: titleWhiteTextColor,
+          fontSize: 14.sp);
+      Future.delayed(
+        const Duration(seconds: 5),
+        () => isPingToAll.value = false,
+      );
     } else if (value == OptionsForGroups.sendMessageToAll.index) {
+      Get.to(() => const MessageTemplatesScreen());
     } else if (value == OptionsForGroups.sendVoiceTolAll.index) {
+      Get.to(() => const VoiceMessageScreen());
     } else if (value == OptionsForGroups.deleteGroup.index) {
+      deleteGroupDialogBox(
+        context,
+        groupName: widget.titleOfGroup,
+        onCreate: () {
+          Get.back();
+          Get.back();
+          Fluttertoast.showToast(
+              msg: "${widget.titleOfGroup} deleted successfully",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: toastColor,
+              textColor: titleWhiteTextColor,
+              fontSize: 14.sp);
+        },
+      );
     } else if (value == OptionsForGroups.sort.index) {
       sortingDialogBox(context, dataFile,
           isSelectedSort: RxInt(isSelectedSortItem.value));
-    } else if (value == OptionsForGroups.rename.index) {}
+    } else if (value == OptionsForGroups.rename.index) {
+      createGroupController.text = widget.titleOfGroup.toString();
+      createGroupDialogBox(
+        context,
+        createGroupController: createGroupController,
+        dialogBoxTitle: 'Rename',
+        onCreateTitle: 'Save',
+        onCreate: () {
+          Get.back();
+          if (createGroupController.text.isNotEmpty) {
+            Fluttertoast.showToast(
+                msg: "${createGroupController.text} rename successfully",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: toastColor,
+                textColor: titleWhiteTextColor,
+                fontSize: 14.sp);
+          }
+          createGroupController.clear();
+        },
+      );
+    }
   }
 
   @override
@@ -83,7 +136,7 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
             color: popupMenuColor,
             shadowColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
-            constraints: BoxConstraints.tight(Size(24.h, 34.5.h)),
+            constraints: BoxConstraints.tight(Size(24.5.h, 300)),
             onSelected: (value) {
               onMenuItemSelected(value as int);
             },
@@ -145,8 +198,9 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
           topBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          bottomBackgroundColor,          bottomBackgroundColor,
+
+              topBackgroundColor,
         ])),
         child: Column(
           children: [
@@ -226,16 +280,125 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                       canvasColor: Colors.transparent,
                     ),
                     child: ReorderableListView(
-                      onReorder: onReorder,
+                      onReorder: (oldIndex, newIndex) {
+                        final newIdx =
+                            newIndex > oldIndex ? newIndex - 1 : newIndex;
+                        final item = dataFile.memberList.removeAt(oldIndex);
+                        dataFile.memberList.insert(newIdx, item);
+                      },
                       shrinkWrap: true,
                       children: [
                         for (final item in widget.groupMemberList!
                             .where((element) => element.isBlocked == false))
                           Container(
-                              key: Key(item.uniqueId.toString()),
-                              margin: EdgeInsets.symmetric(horizontal: 2.4.h),
-                              // Show Cards in List
-                              child: mainMemberCard(item))
+                            key: Key(item.uniqueId.toString()),
+                            margin: EdgeInsets.symmetric(horizontal: 2.4.h),
+                            // Show Cards in List
+                            child: mainMemberCard(
+                              item,
+                              isPingToAll: isPingToAll.value,
+                              onTap: () => item.type == 'Left team'
+                                  ? leftMemberDialogBox(
+                                      context,
+                                      item.firstName,
+                                      onRemoveTap: () {
+                                        Get.back();
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "${item.firstName} is removed successfully",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastColor,
+                                            textColor: titleWhiteTextColor,
+                                            fontSize: 14.sp);
+                                      },
+                                      onScanTap: () {
+                                        Get.back();
+                                        Get.to(() => ShareQRCodeScreen(
+                                              memberName: item.firstName,
+                                            ));
+                                      },
+                                    )
+                                  : memberCardBottomSheet(
+                                      context,
+                                      pingOnTap: () {
+                                        Get.back();
+                                      },
+                                      textMessageOnTap: () {
+                                        Get.back();
+                                        Get.to(() =>
+                                            const MessageTemplatesScreen());
+                                      },
+                                      voiceMessageOnTap: () {
+                                        Get.back();
+                                        Get.to(
+                                            () => const VoiceMessageScreen());
+                                      },
+                                      blockOnTap: () {
+                                        Get.back();
+                                        blockDialogBox(
+                                          context,
+                                          userName: item.firstName,
+                                          onCreate: () {
+                                            Get.back();
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "${item.firstName} is blocked now",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastColor,
+                                                textColor: titleWhiteTextColor,
+                                                fontSize: 14.sp);
+                                          },
+                                        );
+                                      },
+                                      deleteOnTap: () {
+                                        Get.back();
+                                        deleteGroupDialogBox(
+                                          context,
+                                          groupName: item.firstName,
+                                          onCreate: () {
+                                            Get.back();
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "${item.firstName} is deleted",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastColor,
+                                                textColor: titleWhiteTextColor,
+                                                fontSize: 14.sp);
+                                          },
+                                        );
+                                      },
+                                      editOnTap: () {
+                                        Get.back();
+                                        editUserDialogBox(
+                                          context,
+                                          dataFile,
+                                          initialColor:
+                                              Rx(item.initialBGColor!),
+                                          initialsString:
+                                              RxString(item.initialName!),
+                                          onCreate: () {
+                                            Get.back();
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "${item.firstName} is edited successfully",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastColor,
+                                                textColor: titleWhiteTextColor,
+                                                fontSize: 14.sp);
+                                          },
+                                        );
+                                      },
+                                    ),
+                            ),
+                          )
                       ],
                     ),
                   ),
@@ -246,7 +409,12 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                       canvasColor: Colors.transparent,
                     ),
                     child: ReorderableListView(
-                      onReorder: onReorder,
+                      onReorder: (oldIndex, newIndex) {
+                        final newIdx =
+                            newIndex > oldIndex ? newIndex - 1 : newIndex;
+                        final item = dataFile.memberList.removeAt(oldIndex);
+                        dataFile.memberList.insert(newIdx, item);
+                      },
                       shrinkWrap: true,
                       children: [
                         for (final item in widget.groupMemberList!
@@ -255,7 +423,27 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                               key: Key(item.uniqueId.toString()),
                               margin: EdgeInsets.symmetric(horizontal: 2.4.h),
                               // Show Cards in List
-                              child: mainMemberCard(item))
+                              child: mainMemberCard(
+                                item,
+                                onTap: () {
+                                  unblockedDialogBox(
+                                    context,
+                                    item.firstName,
+                                    onUnblock: () {
+                                      Get.back();
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "${item.firstName} unblocked successfully",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: toastColor,
+                                          textColor: titleWhiteTextColor,
+                                          fontSize: 14.sp);
+                                    },
+                                  );
+                                },
+                              ))
                       ],
                     ),
                   ),

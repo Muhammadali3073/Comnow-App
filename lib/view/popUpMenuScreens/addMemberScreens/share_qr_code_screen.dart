@@ -41,6 +41,7 @@ class ShareQRCodeScreen extends StatelessWidget {
             gradient: LinearGradient(colors: [
           topBackgroundColor,
           bottomBackgroundColor,
+          bottomBackgroundColor,
           topBackgroundColor,
         ])),
         child: Column(

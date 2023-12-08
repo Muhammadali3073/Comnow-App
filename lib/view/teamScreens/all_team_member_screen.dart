@@ -1,4 +1,9 @@
+import 'package:comnow/view/popUpMenuScreens/addMemberScreens/share_qr_code_screen.dart';
+import 'package:comnow/view/popUpMenuScreens/message_templates_screen.dart';
+import 'package:comnow/view/popUpMenuScreens/voice_message_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../utils/color_data.dart';
@@ -6,8 +11,11 @@ import '../../utils/constant.dart';
 import '../../utils/data.dart';
 import '../widgets/widget_utils.dart';
 
+//ignore: must_be_immutable
 class AllTeamMemberScreen extends StatefulWidget {
-  const AllTeamMemberScreen({super.key});
+  AllTeamMemberScreen({super.key, this.isPingToAll});
+
+  RxBool? isPingToAll;
 
   @override
   State<AllTeamMemberScreen> createState() => _AllTeamMemberScreenState();
@@ -18,14 +26,6 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
   DataFile dataFile = DataFile();
 
   TabController? tabController;
-
-  void onReorder(int oldIndex, int newIndex) {
-    setState(() {
-      final newIdx = newIndex > oldIndex ? newIndex - 1 : newIndex;
-      final item = dataFile.memberList.removeAt(oldIndex);
-      dataFile.memberList.insert(newIdx, item);
-    });
-  }
 
   @override
   void initState() {
@@ -120,16 +120,122 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                   canvasColor: Colors.transparent,
                 ),
                 child: ReorderableListView(
-                  onReorder: onReorder,
+                  onReorder: (oldIndex, newIndex) {
+                    final newIdx =
+                        newIndex > oldIndex ? newIndex - 1 : newIndex;
+                    final item = dataFile.memberList.removeAt(oldIndex);
+                    dataFile.memberList.insert(newIdx, item);
+                  },
                   shrinkWrap: true,
                   children: [
                     for (final item in dataFile.memberList
                         .where((element) => element.isBlocked == false))
                       Container(
-                          key: Key(item.uniqueId.toString()),
-                          margin: EdgeInsets.symmetric(horizontal: 2.4.h),
-                          // Show Cards in List
-                          child: mainMemberCard(item))
+                        key: Key(item.uniqueId.toString()),
+                        margin: EdgeInsets.symmetric(horizontal: 2.4.h),
+                        // Show Cards in List
+                        child: mainMemberCard(
+                          item,
+                          isPingToAll: widget.isPingToAll!.value,
+                          onTap: () => item.type == 'Left team'
+                              ? leftMemberDialogBox(
+                                  context,
+                                  item.firstName,
+                                  onRemoveTap: () {
+                                    Get.back();
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "${item.firstName} is removed successfully",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: toastColor,
+                                        textColor: titleWhiteTextColor,
+                                        fontSize: 14.sp);
+                                  },
+                                  onScanTap: () {
+                                    Get.back();
+                                    Get.to(() => ShareQRCodeScreen(
+                                          memberName: item.firstName,
+                                        ));
+                                  },
+                                )
+                              : memberCardBottomSheet(
+                                  context,
+                                  pingOnTap: () {
+                                    Get.back();
+                                  },
+                                  textMessageOnTap: () {
+                                    Get.back();
+                                    Get.to(
+                                        () => const MessageTemplatesScreen());
+                                  },
+                                  voiceMessageOnTap: () {
+                                    Get.back();
+                                    Get.to(() => const VoiceMessageScreen());
+                                  },
+                                  blockOnTap: () {
+                                    Get.back();
+                                    blockDialogBox(
+                                      context,
+                                      userName: item.firstName,
+                                      onCreate: () {
+                                        Get.back();
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "${item.firstName} is blocked now",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastColor,
+                                            textColor: titleWhiteTextColor,
+                                            fontSize: 14.sp);
+                                      },
+                                    );
+                                  },
+                                  deleteOnTap: () {
+                                    Get.back();
+                                    deleteGroupDialogBox(
+                                      context,
+                                      groupName: item.firstName,
+                                      onCreate: () {
+                                        Get.back();
+                                        Fluttertoast.showToast(
+                                            msg: "${item.firstName} is deleted",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastColor,
+                                            textColor: titleWhiteTextColor,
+                                            fontSize: 14.sp);
+                                      },
+                                    );
+                                  },
+                                  editOnTap: () {
+                                    Get.back();
+                                    editUserDialogBox(
+                                      context,
+                                      dataFile,
+                                      initialColor: Rx(item.initialBGColor!),
+                                      initialsString:
+                                          RxString(item.initialName!),
+                                      onCreate: () {
+                                        Get.back();
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "${item.firstName} is edited successfully",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastColor,
+                                            textColor: titleWhiteTextColor,
+                                            fontSize: 14.sp);
+                                      },
+                                    );
+                                  },
+                                ),
+                        ),
+                      )
                   ],
                 ),
               ),
@@ -140,7 +246,12 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                   canvasColor: Colors.transparent,
                 ),
                 child: ReorderableListView(
-                  onReorder: onReorder,
+                  onReorder: (oldIndex, newIndex) {
+                    final newIdx =
+                        newIndex > oldIndex ? newIndex - 1 : newIndex;
+                    final item = dataFile.memberList.removeAt(oldIndex);
+                    dataFile.memberList.insert(newIdx, item);
+                  },
                   shrinkWrap: true,
                   children: [
                     for (final item in dataFile.memberList
@@ -149,7 +260,27 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                           key: Key(item.uniqueId.toString()),
                           margin: EdgeInsets.symmetric(horizontal: 2.4.h),
                           // Show Cards in List
-                          child: mainMemberCard(item))
+                          child: mainMemberCard(
+                            item,
+                            onTap: () {
+                              unblockedDialogBox(
+                                context,
+                                item.firstName,
+                                onUnblock: () {
+                                  Get.back();
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "${item.firstName} unblocked successfully",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: toastColor,
+                                      textColor: titleWhiteTextColor,
+                                      fontSize: 14.sp);
+                                },
+                              );
+                            },
+                          ))
                   ],
                 ),
               ),

@@ -22,7 +22,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   TextEditingController otpController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
   var selectedIndex = 1.obs;
-  var isBack = true.obs;
+  var isBack = false.obs;
 
   @override
   void dispose() {
@@ -36,6 +36,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Obx(
       () => PopScope(
         canPop: isBack.value,
+        onPopInvoked: (didPop) {
+          if (didPop == false && selectedIndex.value == 3) {
+            selectedIndex.value = 2;
+          } else if (didPop == false && selectedIndex.value == 2) {
+            selectedIndex.value = 1;
+            isBack.value = true;
+          }
+        },
         child: Scaffold(
           body: SingleChildScrollView(
             child: Container(
@@ -90,6 +98,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 text: 'Enter your OTP', fontSize: 20.px),
                             getVerSpace(4.h),
                             PinCodeTextField(
+                              autoDisposeControllers: false,
                               autoFocus: false,
                               length: 4,
                               keyboardType: TextInputType.phone,

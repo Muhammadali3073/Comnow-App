@@ -204,21 +204,35 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
         children: [
           isSelected == index
               ? Container(
-                  padding: EdgeInsets.all(0.01.h),
+                  padding: EdgeInsets.all(0.2.h),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: blueButtonColor)),
-                  child: Icon(
-                    Icons.circle_rounded,
-                    color: blueButtonColor,
-                    size: 1.5.h,
-                  ),
-                )
-              : Icon(
-                  Icons.circle_outlined,
-                  color: hintColor,
-                  size: 1.8.h,
-                ),
+                      border:
+                          Border.all(color: blueButtonColor, width: 1.5.px)),
+                  child: Container(
+                    width: 1.h,
+                    height: 1.h,
+                    decoration: BoxDecoration(
+                        color: blueColor,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: blueButtonColor)),
+                  ))
+              : Container(
+                  padding: EdgeInsets.all(0.2.h),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: tabBarTextColor,
+                        width: 1.5.px,
+                      )),
+                  child: Container(
+                    width: 1.0.h,
+                    height: 1.0.h,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.transparent)),
+                  )),
           getHorSpace(0.5.h),
           customWhiteMediumText(
             text: text,
@@ -232,91 +246,106 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
       ));
 }
 
-Widget mainMemberCard(listOfMembers, {Function()? onTap}) {
-  return InkWell(
-    onLongPress: onTap,
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 1.h),
-      margin: EdgeInsets.only(bottom: 1.4.h),
-      decoration: BoxDecoration(
-        color: listOfMembers.type == 'Left team' &&
-                listOfMembers.isBlocked == false
-            ? leftMemberBGCardColor
-            : textFormFieldBackgroundColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 2.5.h,
-                  backgroundColor: listOfMembers.type == 'Left team' &&
-                          listOfMembers.isBlocked == false
-                      ? leftMemberBGColor
-                      : listOfMembers.initialBGColor,
-                  child: customWhiteMediumText(
-                      text: listOfMembers.initialName, fontSize: 14.sp),
-                ),
-                getHorSpace(1.h),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    customWhiteMediumText(
-                      text: listOfMembers.firstName,
-                      fontSize: 15.sp,
-                      fontFamily: Constant.fontsFamilyRegular,
+Widget mainMemberCard(
+  listOfMembers, {
+  Function()? onTap,
+  isPingToAll = false,
+}) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 1.h),
+    margin: EdgeInsets.only(bottom: 1.4.h),
+    decoration: BoxDecoration(
+      color:
+          listOfMembers.type == 'Left team' && listOfMembers.isBlocked == false
+              ? leftMemberBGCardColor
+              : isPingToAll
+                  ? listOfMembers.pingStatus == acceptColor
+                      ? acceptColor
+                      : listOfMembers.pingStatus == declineColor
+                          ? declineColor
+                          : listOfMembers.pingStatus == pendingColor
+                              ? pendingColor
+                              : textFormFieldBackgroundColor
+                  : textFormFieldBackgroundColor,
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 2.5.h,
+                backgroundColor: listOfMembers.type == 'Left team' &&
+                        listOfMembers.isBlocked == false
+                    ? leftMemberBGColor
+                    : listOfMembers.initialBGColor,
+                child: customWhiteMediumText(
+                    text: listOfMembers.initialName, fontSize: 14.sp),
+              ),
+              getHorSpace(1.h),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customWhiteMediumText(
+                    text: listOfMembers.firstName,
+                    fontSize: 15.sp,
+                    fontFamily: Constant.fontsFamilyRegular,
+                  ),
+                  getVerSpace(0.4.h),
+                  listOfMembers.isBlocked == true
+                      ? Container()
+                      : customWhiteMediumText(
+                          text: listOfMembers.type,
+                          color: listOfMembers.type == 'Online'
+                              ? greenColor
+                              : listOfMembers.type == 'Offline'
+                                  ? redColor
+                                  : listOfMembers.type == 'Away'
+                                      ? yellowColor
+                                      : titleBlackTextColor,
+                          fontSize: 13.sp,
+                          fontFamily: Constant.fontsFamilyRegular,
+                        ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              listOfMembers.isBlocked == true
+                  ? Container()
+                  : CircleAvatar(
+                      radius: 0.5.h,
+                      backgroundColor: listOfMembers.type == 'Online'
+                          ? greenColor
+                          : listOfMembers.type == 'Offline'
+                              ? redColor
+                              : listOfMembers.type == 'Away'
+                                  ? yellowColor
+                                  : Colors.transparent,
                     ),
-                    getVerSpace(0.4.h),
-                    listOfMembers.isBlocked == true
-                        ? Container()
-                        : customWhiteMediumText(
-                            text: listOfMembers.type,
-                            color: listOfMembers.type == 'Online'
-                                ? greenColor
-                                : listOfMembers.type == 'Offline'
-                                    ? redColor
-                                    : listOfMembers.type == 'Away'
-                                        ? yellowColor
-                                        : titleBlackTextColor,
-                            fontSize: 13.sp,
-                            fontFamily: Constant.fontsFamilyRegular,
-                          ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                listOfMembers.isBlocked == true
-                    ? Container()
-                    : CircleAvatar(
-                        radius: 0.5.h,
-                        backgroundColor: listOfMembers.type == 'Online'
-                            ? greenColor
-                            : listOfMembers.type == 'Offline'
-                                ? redColor
-                                : listOfMembers.type == 'Away'
-                                    ? yellowColor
-                                    : Colors.transparent,
-                      ),
-                getHorSpace(1.5.h),
-                Container(
+              getHorSpace(1.5.h),
+              GestureDetector(
+                onTap: onTap,
+                child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(color: activeTabBarColor)),
-                  child: Icon(Icons.more_horiz_outlined,
-                      size: 2.3.h, color: activeTabBarColor),
+                  child: Icon(
+                    Icons.more_horiz_outlined,
+                    size: 2.3.h,
+                    color: activeTabBarColor,
+                  ),
                 ),
-                getHorSpace(0.5.h),
-              ],
-            )
-          ]),
-    ),
+              ),
+              getHorSpace(0.5.h),
+            ],
+          )
+        ]),
   );
 }
 
@@ -345,6 +374,101 @@ Widget groupCard(groupName, numberOfMembers, {Function()? onTap}) {
                 fontSize: 14.sp,
                 fontFamily: Constant.fontsFamilyRegular)
           ]),
+    ),
+  );
+}
+
+Widget notificationCard(notificationName, timeOfDelivered, typeMessage,
+    {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 1.2.h),
+      margin: EdgeInsets.only(
+        bottom: 1.4.h,
+      ),
+      decoration: BoxDecoration(
+        color: textFormFieldBackgroundColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customWhiteMediumText(
+                    text: notificationName,
+                    fontSize: 14.sp,
+                    fontFamily: Constant.fontsFamilyRegular),
+                customWhiteMediumText(
+                    text: timeOfDelivered,
+                    fontSize: 12.sp,
+                    fontFamily: Constant.fontsFamilyRegular)
+              ]),
+          customWhiteMediumText(
+            text: typeMessage == 'ping'
+                ? 'Ping'
+                : typeMessage == 'text'
+                    ? 'Message'
+                    : 'Voice message',
+            fontSize: 14.sp,
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget messageTemplatesCard(message, currentIndex, selectedMessage,
+    {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    child: Obx(
+      () => Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 1.8.h),
+        margin: EdgeInsets.only(
+          bottom: 1.4.h,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: selectedMessage == currentIndex
+                  ? blueButtonColor
+                  : textFormFieldBackgroundColor),
+          color: textFormFieldBackgroundColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: customWhiteMediumText(
+          textAlign: TextAlign.justify,
+          text: message,
+          fontSize: 14.sp,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget allMessagesCard(message, {Function()? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 1.8.h),
+      margin: EdgeInsets.only(
+        bottom: 1.4.h,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: textFormFieldBackgroundColor),
+        color: textFormFieldBackgroundColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: customWhiteMediumText(
+        textAlign: TextAlign.justify,
+        text: message,
+        fontSize: 14.sp,
+      ),
     ),
   );
 }
@@ -466,7 +590,7 @@ Widget getCustomTextFormField(
               BorderSide(color: textFormFieldBackgroundColor, width: 1.0.px),
           borderRadius: BorderRadius.circular(24.0.px)),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0.px)),
-      contentPadding: EdgeInsets.symmetric(vertical: 1.2.h, horizontal: 2.h),
+      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 2.h),
       suffixIconConstraints: BoxConstraints.tightFor(
           width: suffixIconConstraintsWidth ?? 6.0.h, height: 2.5.h),
       suffixIcon: suffixIcon,
@@ -494,7 +618,7 @@ PopupMenuItem allMemberPopupMenuItem(
       height: 0.h,
       value: position,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 1.4.h),
+        padding: EdgeInsets.only(top: 10, bottom: 10, left: 1.5.h),
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
@@ -522,7 +646,7 @@ PopupMenuItem groupPopupMenuItem(
       height: 0.h,
       value: position,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 1.4.h),
+        padding: EdgeInsets.only(top: 10, bottom: 10, left: 1.5.h),
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
@@ -625,10 +749,155 @@ Future<void> sortingDialogBox(BuildContext context, dataFile,
   );
 }
 
+Future<void> leftMemberDialogBox(BuildContext context, userName,
+    {Function()? onRemoveTap, Function()? onScanTap}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              customWhiteMediumText(
+                  text: '',
+                  fontFamily: Constant.fontsFamilyRegular,
+                  fontSize: 16.sp),
+              InkWell(
+                  onTap: () => Get.back(),
+                  child: Icon(
+                    Icons.close,
+                    color: redColor,
+                    size: 2.5.h,
+                  ))
+            ],
+          ),
+          content: SizedBox(
+              height: 20.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  getSvgImage('logout.svg'),
+                  customWhiteMediumText(
+                    text:
+                        '$userName leave the team if you want to add again\npress the below button scan QR code.',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 14.sp,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'Remove',
+                        onTap: onRemoveTap,
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: filledBlackButton('Scan QR Code',
+                              onTap: onScanTap)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> logoutDialogBox(BuildContext context, {Function()? onTap}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          content: SizedBox(
+              height: 22.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  getSvgImage('logout.svg'),
+                  customWhiteMediumText(
+                    text:
+                        'Do you want to logout?\nIf you logout, your team won\'t be able to contact you anymore.',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 14.sp,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'No',
+                        onTap: () => Get.back(),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: filledBlackButton('Yes', onTap: onTap)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> unblockedDialogBox(BuildContext context, userName,
+    {Function()? onUnblock}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: getSvgImage('unblock.svg'),
+          content: SizedBox(
+              height: 12.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  customWhiteMediumText(
+                    text: 'Do you want to unblock ?\n$userName',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 14.sp,
+                  ),
+                  getVerSpace(3.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'Cancel',
+                        onTap: () => Get.back(),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child:
+                              filledBlackButton('Unblock', onTap: onUnblock)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
 Future<void> createGroupDialogBox(
   BuildContext context, {
   Function()? onCreate,
   createGroupController,
+  String? dialogBoxTitle,
+  String? onCreateTitle,
 }) {
   return showDialog<void>(
     context: context,
@@ -639,7 +908,7 @@ Future<void> createGroupDialogBox(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: customWhiteMediumText(
-              text: 'Create Group',
+              text: dialogBoxTitle,
               fontFamily: Constant.fontsFamilyRegular,
               fontSize: 16.sp,
               textAlign: TextAlign.center),
@@ -650,8 +919,8 @@ Future<void> createGroupDialogBox(
                 children: [
                   addMemberTextField(
                     controller: createGroupController,
-                    titleText: 'Team Name',
-                    hintText: 'Group Name',
+                    titleText: 'Group Name',
+                    hintText: 'Enter Group Name',
                   ),
                   getVerSpace(4.h),
                   Row(
@@ -663,7 +932,8 @@ Future<void> createGroupDialogBox(
                       )),
                       getHorSpace(2.h),
                       Expanded(
-                          child: filledBlackButton('Create', onTap: onCreate)),
+                          child: filledBlackButton(onCreateTitle,
+                              onTap: onCreate)),
                     ],
                   )
                 ],
@@ -686,9 +956,9 @@ Future<void> leaveAppDialogBox(
               borderRadius: BorderRadius.circular(16.px)),
           title: getSvgImage('leave_app_warning.svg'),
           content: SizedBox(
-              height: 12.h,
+              height: 14.h,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   customWhiteMediumText(
                     text:
@@ -712,6 +982,789 @@ Future<void> leaveAppDialogBox(
                   )
                 ],
               )));
+    },
+  );
+}
+
+Future<void> deleteGroupDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+  String? groupName,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: getSvgImage('delete_group.svg'),
+          content: SizedBox(
+              height: 12.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  customWhiteMediumText(
+                    text: 'Do you really want to delete ?\n$groupName',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 14.sp,
+                  ),
+                  getVerSpace(3.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'Cancel',
+                        onTap: () => Get.back(),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: filledBlackButton('Delete', onTap: onCreate)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> editUserDialogBox(BuildContext context, dataFile,
+    {Function()? onCreate, Rx<Color>? initialColor, RxString? initialsString}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return Obx(
+        () => AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            surfaceTintColor: Colors.transparent,
+            backgroundColor: dialogBoxColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.px)),
+            title: CircleAvatar(
+              radius: 5.h,
+              backgroundColor: initialColor!.value,
+              child: customWhiteMediumText(
+                  text: initialsString!.value.toString().toUpperCase(),
+                  fontSize: 18.sp),
+            ),
+            content: SingleChildScrollView(
+              child: SizedBox(
+                  child: Padding(
+                padding:
+                    EdgeInsets.only(left: 1.6.h, right: 1.6.h, bottom: 2.6.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        addMemberTextField(
+                          titleText: 'First name',
+                          hintText: 'Enter first name',
+                        ),
+                        getVerSpace(1.6.h),
+                        addMemberTextField(
+                          titleText: 'Last name',
+                          hintText: 'Enter last name',
+                        ),
+                        getVerSpace(1.6.h),
+                        addMemberTextField(
+                            titleText: 'Initials',
+                            hintText: 'Enter Initials',
+                            onChanged: (value) {
+                              initialsString.value = value;
+                            },
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(3),
+                            ]),
+                        getVerSpace(2.4.h),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            customWhiteMediumText(
+                              text: 'Select color',
+                              fontFamily: Constant.fontsFamilyRegular,
+                              fontSize: 14.sp,
+                            ),
+                            getVerSpace(0.7.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[0].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[0].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[1].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[1].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[2].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[2].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[3].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[3].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[4].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[4].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[5].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[5].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[6].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[6].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[7].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[7].color,
+                                  ),
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(
+                                    1.1.h,
+                                  ),
+                                  splashColor: initialColor.value,
+                                  onTap: () {
+                                    initialColor.value =
+                                        dataFile.initialsColorModel[8].color!;
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 1.1.h,
+                                    backgroundColor:
+                                        dataFile.initialsColorModel[8].color,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    getVerSpace(3.h),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: outlineButton(
+                          'Cancel',
+                          onTap: () => Get.back(),
+                        )),
+                        getHorSpace(2.h),
+                        Expanded(
+                            child: filledBlackButton('Save', onTap: onCreate)),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+            )),
+      );
+    },
+  );
+}
+
+Future<void> blockDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+  String? userName,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: getSvgImage('do_you_want_block.svg'),
+          content: SizedBox(
+              height: 12.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  customWhiteMediumText(
+                    text: 'Do you want to block ?\n$userName',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 14.sp,
+                  ),
+                  getVerSpace(3.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: outlineButton(
+                        'Cancel',
+                        onTap: () => Get.back(),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: filledBlackButton('Block', onTap: onCreate)),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> pingNotificationDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+  String? userName,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          content: SizedBox(
+              height: 16.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      InkWell(
+                          onTap: () => Get.back(),
+                          child: Icon(
+                            Icons.close,
+                            color: redColor,
+                            size: 2.5.h,
+                          )),
+                    ],
+                  ),
+                  customWhiteMediumText(
+                    text: '\n$userName needs you',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 16.sp,
+                  ),
+                  getVerSpace(2.h),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(vertical: 0.8.h),
+                          decoration: BoxDecoration(
+                              color: redColor,
+                              borderRadius: BorderRadius.circular(3.2.h),
+                              border: Border.all(
+                                color: titleBlackTextColor,
+                              )),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.close,
+                                  color: whiteButtonColor, size: 2.h),
+                              getHorSpace(0.5.h),
+                              customWhiteMediumText(
+                                text: "Not now",
+                                fontSize: 14.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                      getHorSpace(2.h),
+                      Expanded(
+                          child: GestureDetector(
+                        onTap: onCreate,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(vertical: 0.8.h),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(3.2.h),
+                              border: Border.all(
+                                color: titleBlackTextColor,
+                              )),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.check,
+                                  color: whiteButtonColor, size: 2.h),
+                              getHorSpace(0.5.h),
+                              customWhiteMediumText(
+                                text: "Coming",
+                                fontSize: 14.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                    ],
+                  )
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> isViewPingNotificationDialogBox(BuildContext context,
+    {String? userName, isView}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          content: SizedBox(
+              height: 14.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      InkWell(
+                          onTap: () => Get.back(),
+                          child: Icon(
+                            Icons.close,
+                            color: redColor,
+                            size: 2.5.h,
+                          )),
+                    ],
+                  ),
+                  customWhiteMediumText(
+                    text: '\n$userName needs you',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 16.sp,
+                  ),
+                  getVerSpace(2.h),
+                  isView
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.check, color: Colors.green, size: 2.h),
+                            getHorSpace(0.5.h),
+                            customWhiteMediumText(
+                              text: "Coming",
+                              fontSize: 14.sp,
+                              color: Colors.green,
+                              fontFamily: Constant.fontsFamilyRegular,
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.close, color: redColor, size: 2.h),
+                            getHorSpace(0.5.h),
+                            customWhiteMediumText(
+                              text: "Not now",
+                              fontSize: 14.sp,
+                              color: redColor,
+                              fontFamily: Constant.fontsFamilyRegular,
+                            ),
+                          ],
+                        ),
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> messageNotificationDialogBox(
+  BuildContext context, {
+  String? userName,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          content: SizedBox(
+              height: 14.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      InkWell(
+                          onTap: () => Get.back(),
+                          child: Icon(
+                            Icons.close,
+                            color: redColor,
+                            size: 2.5.h,
+                          )),
+                    ],
+                  ),
+                  customWhiteMediumText(
+                    text: '\n$userName message',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 16.sp,
+                  ),
+                  getVerSpace(2.h),
+                  customWhiteMediumText(
+                    text: "Come to my office.",
+                    fontSize: 14.sp,
+                    fontFamily: Constant.fontsFamilyRegular,
+                  ),
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> voiceMessageNotificationDialogBox(
+  BuildContext context, {
+  String? userName,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          content: SizedBox(
+              height: 14.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      InkWell(
+                          onTap: () => Get.back(),
+                          child: Icon(
+                            Icons.close,
+                            color: redColor,
+                            size: 2.5.h,
+                          )),
+                    ],
+                  ),
+                  customWhiteMediumText(
+                    text: '\n$userName voice message',
+                    textAlign: TextAlign.center,
+                    fontFamily: Constant.fontsFamilyRegular,
+                    fontSize: 16.sp,
+                  ),
+                  getVerSpace(2.h),
+                  getSvgImage('press_to_voice.svg', height: 4.h),
+                ],
+              )));
+    },
+  );
+}
+
+Future<void> memberCardBottomSheet(
+  BuildContext context, {
+  Function()? pingOnTap,
+  Function()? textMessageOnTap,
+  Function()? voiceMessageOnTap,
+  Function()? blockOnTap,
+  Function()? deleteOnTap,
+  Function()? editOnTap,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: dialogBoxColor,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.px))),
+    builder: (BuildContext context) {
+      return SizedBox(
+        height: 35.h,
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(top: 1.2.h),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 1.5.h),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(),
+                    InkWell(
+                        onTap: () => Get.back(),
+                        child: Icon(
+                          Icons.close,
+                          color: redColor,
+                          size: 2.5.h,
+                        )),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: pingOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('phone_ring.svg',
+                          height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Ping',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: textMessageOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('message.svg', height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Send a message',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: voiceMessageOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('mic.svg', height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Send voice message',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: blockOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('blocked_icon.svg',
+                          height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Block',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: deleteOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('delete_icon.svg',
+                          height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Delete',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: editOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: Colors.transparent,
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('rename_icon.svg',
+                          height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Edit',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     },
   );
 }

@@ -3487,7 +3487,9 @@ kotlin.collections.AbstractIterator$WhenMappings
 kotlin.collections.AbstractIterator
 kotlin.collections.AbstractList$Companion:
     public final void checkBoundsIndexes$kotlin_stdlib(int,int,int)
+    public final int newCapacity$kotlin_stdlib(int,int)
 kotlin.collections.AbstractList:
+    private static final int maxArraySize
     public abstract int getSize()
 kotlin.collections.AbstractMap$Companion
 kotlin.collections.AbstractMap$keys$1$iterator$1
@@ -5508,13 +5510,14 @@ kotlin.collections.CollectionsKt__CollectionsJVMKt:
     private static final java.util.List buildListInternal(kotlin.jvm.functions.Function1)
     private static final int checkCountOverflow(int)
     private static final int checkIndexOverflow(int)
-    private static final java.lang.Object[] copyToArrayImpl(java.util.Collection)
-    private static final java.lang.Object[] copyToArrayImpl(java.util.Collection,java.lang.Object[])
+    private static final java.lang.Object[] collectionToArray(java.util.Collection)
+    private static final java.lang.Object[] collectionToArray(java.util.Collection,java.lang.Object[])
     public static final java.lang.Object[] copyToArrayOfAny(java.lang.Object[],boolean)
     public static final java.util.List createListBuilder()
     public static final java.util.List createListBuilder(int)
     public static final java.util.List shuffled(java.lang.Iterable)
     public static final java.util.List shuffled(java.lang.Iterable,java.util.Random)
+    public static final java.lang.Object[] terminateCollectionToArray(int,java.lang.Object[])
     private static final java.util.List toList(java.util.Enumeration)
 kotlin.collections.CollectionsKt__CollectionsKt$binarySearchBy$1
 kotlin.collections.CollectionsKt__CollectionsKt:
@@ -5534,6 +5537,8 @@ kotlin.collections.CollectionsKt__CollectionsKt:
     public static synthetic int binarySearchBy$default(java.util.List,java.lang.Comparable,int,int,kotlin.jvm.functions.Function1,int,java.lang.Object)
     private static final java.util.List buildList(int,kotlin.jvm.functions.Function1)
     private static final java.util.List buildList(kotlin.jvm.functions.Function1)
+    public static final java.lang.Object[] collectionToArrayCommonImpl(java.util.Collection)
+    public static final java.lang.Object[] collectionToArrayCommonImpl(java.util.Collection,java.lang.Object[])
     private static final boolean containsAll(java.util.Collection,java.util.Collection)
     public static final kotlin.ranges.IntRange getIndices(java.util.Collection)
     private static final java.lang.Object ifEmpty(java.util.Collection,kotlin.jvm.functions.Function0)
@@ -6342,13 +6347,16 @@ kotlin.coroutines.jvm.internal.RestrictedSuspendLambda
 kotlin.coroutines.jvm.internal.RunSuspend
 kotlin.coroutines.jvm.internal.RunSuspendKt
 kotlin.coroutines.jvm.internal.SuspendFunction
+kotlin.enums.EnumEntriesJVMKt
 kotlin.enums.EnumEntriesKt:
+    public static final synthetic kotlin.enums.EnumEntries enumEntries()
     public static final kotlin.enums.EnumEntries enumEntries(kotlin.jvm.functions.Function0)
 kotlin.enums.EnumEntriesList:
     private final java.lang.Object writeReplace()
 kotlin.enums.EnumEntriesSerializationProxy$Companion
 kotlin.enums.EnumEntriesSerializationProxy
 kotlin.experimental.BitwiseOperationsKt
+kotlin.experimental.ExperimentalNativeApi
 kotlin.experimental.ExperimentalObjCName
 kotlin.experimental.ExperimentalObjCRefinement
 kotlin.experimental.ExperimentalTypeInference
@@ -6558,6 +6566,9 @@ kotlin.io.path.PathsKt__PathRecursiveFunctionsKt
 kotlin.io.path.PathsKt__PathUtilsKt
 kotlin.jdk7.AutoCloseableKt
 kotlin.js.ExperimentalJsExport
+kotlin.js.ExperimentalJsFileName
+kotlin.js.ExperimentalJsReflectionCreateInstance
+kotlin.jvm.ImplicitlyActualizedByJvmDeclaration
 kotlin.jvm.JvmClassMappingKt:
     public static final kotlin.reflect.KClass getAnnotationClass(java.lang.annotation.Annotation)
     private static final java.lang.Class getDeclaringJavaClass(java.lang.Enum)
@@ -7195,11 +7206,15 @@ kotlin.reflect.KClassifier
 kotlin.reflect.KDeclarationContainer:
     public abstract java.util.Collection getMembers()
 kotlin.reflect.KFunction$DefaultImpls
+kotlin.reflect.KMutableProperty$DefaultImpls
 kotlin.reflect.KMutableProperty$Setter
+kotlin.reflect.KMutableProperty0$DefaultImpls
 kotlin.reflect.KMutableProperty0$Setter
 kotlin.reflect.KMutableProperty0
+kotlin.reflect.KMutableProperty1$DefaultImpls
 kotlin.reflect.KMutableProperty1$Setter
 kotlin.reflect.KMutableProperty1
+kotlin.reflect.KMutableProperty2$DefaultImpls
 kotlin.reflect.KMutableProperty2$Setter
 kotlin.reflect.KMutableProperty2
 kotlin.reflect.KMutableProperty
@@ -7209,10 +7224,13 @@ kotlin.reflect.KParameter
 kotlin.reflect.KProperty$Accessor
 kotlin.reflect.KProperty$DefaultImpls
 kotlin.reflect.KProperty$Getter
+kotlin.reflect.KProperty0$DefaultImpls
 kotlin.reflect.KProperty0$Getter
 kotlin.reflect.KProperty0
+kotlin.reflect.KProperty1$DefaultImpls
 kotlin.reflect.KProperty1$Getter
 kotlin.reflect.KProperty1
+kotlin.reflect.KProperty2$DefaultImpls
 kotlin.reflect.KProperty2$Getter
 kotlin.reflect.KProperty2
 kotlin.reflect.KProperty

@@ -53,8 +53,8 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           body: widgetOptions.elementAt(selectedIndex.value),
           bottomNavigationBar: Theme(
             data: ThemeData(
-              splashColor: blueButtonColor.withOpacity(0.1),
-              highlightColor: blueButtonColor.withOpacity(0.1),
+              splashColor: titleBlackTextColor,
+              highlightColor: titleBlackTextColor,
             ),
             child: BottomNavigationBar(
               items: <BottomNavigationBarItem>[

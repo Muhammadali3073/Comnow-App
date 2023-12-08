@@ -49,8 +49,9 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
               topBackgroundColor,
-              bottomBackgroundColor,
-              topBackgroundColor,
+              bottomBackgroundColor,          bottomBackgroundColor,
+
+                  topBackgroundColor,
             ])),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,38 +90,144 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 2.h),
-                            child: customWhiteMediumText(
-                              text: 'Select color',
-                              fontFamily: Constant.fontsFamilyRegular,
-                              fontSize: 14.sp,
-                            ),
+                          customWhiteMediumText(
+                            text: 'Select color',
+                            fontFamily: Constant.fontsFamilyRegular,
+                            fontSize: 14.sp,
                           ),
                           getVerSpace(0.7.h),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 3.h,
-                            child: ListView.builder(
-                              itemCount: dataFile.initialsColorModel.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    initialColor.value = dataFile
-                                        .initialsColorModel[index].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 2.2.h,
-                                    backgroundColor: dataFile
-                                        .initialsColorModel[index].color,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[0].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[0].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[1].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[1].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[2].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[2].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[3].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[3].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[4].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[4].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[5].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[5].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[6].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[6].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[7].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[7].color,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(
+                                  1.5.h,
+                                ),
+                                onTap: () {
+                                  initialColor.value =
+                                      dataFile.initialsColorModel[8].color!;
+                                },
+                                child: CircleAvatar(
+                                  radius: 1.5.h,
+                                  backgroundColor:
+                                      dataFile.initialsColorModel[8].color,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ],

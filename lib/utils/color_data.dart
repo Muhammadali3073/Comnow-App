@@ -19,7 +19,10 @@ Color activeTabBarColor = "#F5F5F5".toColor();
 Color dialogBoxColor = "#292929".toColor();
 Color popupMenuColor = "#292929".toColor();
 Color toastColor = "#464646".toColor();
-
+Color acceptColor = "#AF2C2D".toColor();
+Color declineColor = "#D2BD07".toColor();
+Color pendingColor = "#1E7409".toColor();
+Color voiceNoteColor = "#969696".toColor();
 Color redColor = "#EA2A2A".toColor();
 Color orangeColor = "#E4951F".toColor();
 Color yellowColor = "#E4DC1F".toColor();
@@ -31,7 +34,8 @@ Color purpleColor = "#C81FE4".toColor();
 Color pinkColor = "#E41FA1".toColor();
 Color leftMemberBGColor = "#C3C3C3".toColor();
 Color leftMemberBGCardColor = "#858585".toColor();
-
+Color lightGreenCardColor = "#ADE903".toColor();
+Color settingTitleBGColor = "#4E4E4E".toColor();
 
 extension ColorExtension on String {
   toColor() {

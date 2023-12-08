@@ -1,4 +1,3 @@
-import 'package:comnow/view/teamScreens/group_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -8,8 +7,11 @@ import '../../utils/color_data.dart';
 import '../../utils/constant.dart';
 import '../../utils/data.dart';
 import '../popUpMenuScreens/addMemberScreens/add_member_screen.dart';
+import '../popUpMenuScreens/message_templates_screen.dart';
+import '../popUpMenuScreens/voice_message_screen.dart';
 import '../widgets/widget_utils.dart';
 import 'all_team_member_screen.dart';
+import 'group_screen.dart';
 
 class MyTeamScreen extends StatefulWidget {
   const MyTeamScreen({super.key});
@@ -22,6 +24,7 @@ class _MyTeamScreenState extends State<MyTeamScreen> {
   TextEditingController createGroupController = TextEditingController();
 
   DataFile dataFile = DataFile();
+  var isPingToAll = false.obs;
   var isSelectedSortItem = 2.obs;
   var changeColor = true.obs;
   var reverseSort = true.obs;
@@ -65,8 +68,24 @@ class _MyTeamScreenState extends State<MyTeamScreen> {
     if (value == OptionsForAllMembers.addMember.index) {
       Get.to(() => const AddMemberScreen());
     } else if (value == OptionsForAllMembers.pingToAll.index) {
+      isPingToAll.value = true;
+      Fluttertoast.showToast(
+          msg: "Ping to all sent successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastColor,
+          textColor: titleWhiteTextColor,
+          fontSize: 14.sp);
+
+      Future.delayed(
+        const Duration(seconds: 5),
+        () => isPingToAll.value = false,
+      );
     } else if (value == OptionsForAllMembers.sendMessageToAll.index) {
+      Get.to(() => const MessageTemplatesScreen());
     } else if (value == OptionsForAllMembers.sendVoiceTolAll.index) {
+      Get.to(() => const VoiceMessageScreen());
     } else if (value == OptionsForAllMembers.sort.index) {
       sortingDialogBox(context, dataFile,
           isSelectedSort: RxInt(isSelectedSortItem.value));
@@ -111,7 +130,7 @@ class _MyTeamScreenState extends State<MyTeamScreen> {
                       color: popupMenuColor,
                       shadowColor: Colors.transparent,
                       surfaceTintColor: Colors.transparent,
-                      constraints: BoxConstraints.tight(Size(24.h, 25.h)),
+                      constraints: BoxConstraints.tight(Size(24.5.h, 220)),
                       onSelected: (value) {
                         onMenuItemSelected(value as int);
                       },
@@ -169,14 +188,15 @@ class _MyTeamScreenState extends State<MyTeamScreen> {
                 gradient: LinearGradient(colors: [
               topBackgroundColor,
               bottomBackgroundColor,
+              bottomBackgroundColor,
               topBackgroundColor,
             ])),
-            child: const TabBarView(
+            child: TabBarView(
               children: <Widget>[
                 // first outer tab bar view widget
-                AllTeamMemberScreen(),
+                AllTeamMemberScreen(isPingToAll: RxBool(isPingToAll.value)),
                 // second outer tab bar view widget
-                GroupScreen(),
+                const GroupScreen(),
               ],
             ),
           ),
@@ -186,14 +206,16 @@ class _MyTeamScreenState extends State<MyTeamScreen> {
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   backgroundColor: textFormFieldBackgroundColor,
-                  mini: true,
+                  mini: false,
                   shape: const CircleBorder(side: BorderSide.none),
                   child: getSvgImage('floating_button_icon.svg',
-                      width: 2.4.h, height: 2.4.h),
+                      width: 3.h, height: 3.h),
                   onPressed: () {
                     createGroupDialogBox(
                       context,
                       createGroupController: createGroupController,
+                      dialogBoxTitle: 'Create Group',
+                      onCreateTitle: 'Create',
                       onCreate: () {
                         Get.back();
                         if (createGroupController.text.isNotEmpty) {

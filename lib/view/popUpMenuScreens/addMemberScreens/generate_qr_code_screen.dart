@@ -35,8 +35,9 @@ class GenerateQRCodeScreen extends StatelessWidget {
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
           topBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          bottomBackgroundColor,          bottomBackgroundColor,
+
+              topBackgroundColor,
         ])),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
