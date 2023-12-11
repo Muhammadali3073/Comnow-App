@@ -349,6 +349,90 @@ Widget mainMemberCard(
   );
 }
 
+Widget teamMemberMainMemberCard(
+  listOfMembers, {
+  Function()? onTap,
+}) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 1.h),
+    margin: EdgeInsets.only(bottom: 1.4.h),
+    decoration: BoxDecoration(
+      color: textFormFieldBackgroundColor,
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 2.5.h,
+                backgroundColor: listOfMembers.initialBGColor,
+                child: customWhiteMediumText(
+                    text: listOfMembers.initialName, fontSize: 14.sp),
+              ),
+              getHorSpace(1.h),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customWhiteMediumText(
+                    text: listOfMembers.firstName,
+                    fontSize: 15.sp,
+                    fontFamily: Constant.fontsFamilyRegular,
+                  ),
+                  getVerSpace(0.4.h),
+                  customWhiteMediumText(
+                    text: listOfMembers.type,
+                    color: listOfMembers.type == 'Online'
+                        ? greenColor
+                        : listOfMembers.type == 'Offline'
+                            ? redColor
+                            : listOfMembers.type == 'Away'
+                                ? yellowColor
+                                : titleBlackTextColor,
+                    fontSize: 13.sp,
+                    fontFamily: Constant.fontsFamilyRegular,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 0.5.h,
+                backgroundColor: listOfMembers.type == 'Online'
+                    ? greenColor
+                    : listOfMembers.type == 'Offline'
+                        ? redColor
+                        : listOfMembers.type == 'Away'
+                            ? yellowColor
+                            : Colors.transparent,
+              ),
+              getHorSpace(1.5.h),
+              GestureDetector(
+                onTap: onTap,
+                child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: activeTabBarColor)),
+                  child: Icon(
+                    Icons.more_horiz_outlined,
+                    size: 2.3.h,
+                    color: activeTabBarColor,
+                  ),
+                ),
+              ),
+              getHorSpace(0.5.h),
+            ],
+          )
+        ]),
+  );
+}
+
 Widget groupCard(groupName, numberOfMembers, {Function()? onTap}) {
   return InkWell(
     onTap: onTap,
@@ -840,8 +924,7 @@ Future<void> logoutDialogBox(BuildContext context, {Function()? onTap}) {
                         onTap: () => Get.back(),
                       )),
                       getHorSpace(2.h),
-                      Expanded(
-                          child: filledBlackButton('Yes', onTap: onTap)),
+                      Expanded(child: filledBlackButton('Yes', onTap: onTap)),
                     ],
                   )
                 ],
@@ -1753,6 +1836,123 @@ Future<void> memberCardBottomSheet(
                       const Spacer(),
                       customWhiteMediumText(
                         text: 'Edit',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Future<void> teamMemberCardBottomSheet(
+  BuildContext context, {
+  Function()? pingOnTap,
+  Function()? textMessageOnTap,
+  Function()? voiceMessageOnTap,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: dialogBoxColor,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.px))),
+    builder: (BuildContext context) {
+      return SizedBox(
+        height: 20.h,
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(top: 1.2.h),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 1.5.h),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(),
+                    InkWell(
+                        onTap: () => Get.back(),
+                        child: Icon(
+                          Icons.close,
+                          color: redColor,
+                          size: 2.5.h,
+                        )),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: pingOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('phone_ring.svg',
+                          height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Ping',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: textMessageOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: tabBarTextColor.withOpacity(0.5),
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('message.svg', height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Send a message',
+                        fontSize: 15.sp,
+                        fontFamily: Constant.fontsFamilyRegular,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: voiceMessageOnTap,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.2.h),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: Colors.transparent,
+                  ))),
+                  child: Row(
+                    children: [
+                      getSvgImage('mic.svg', height: 2.4.h, width: 2.4.h),
+                      const Spacer(),
+                      customWhiteMediumText(
+                        text: 'Send voice message',
                         fontSize: 15.sp,
                         fontFamily: Constant.fontsFamilyRegular,
                       ),

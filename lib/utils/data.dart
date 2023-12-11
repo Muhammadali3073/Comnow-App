@@ -102,6 +102,21 @@ class DataFile {
         "Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true, acceptColor),
   ];
 
+  List<TeamMemberModel> teamMemberList = [
+    TeamMemberModel(
+        "Mohsin", "Khan", "MOH", greenColor, "Online", '1', acceptColor),
+    TeamMemberModel(
+        "Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', declineColor),
+    TeamMemberModel(
+        "Raza", "Farooq", "RFQ", orangeColor, "Away", '3', pendingColor),
+    TeamMemberModel(
+        "Luqman", "Qasim", "ANB", yellowColor, "Online", '4', pendingColor),
+    TeamMemberModel(
+        "Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', declineColor),
+    TeamMemberModel(
+        "Ramzan", "Ali", "RNA", blueColor, "Online", '6', acceptColor),
+  ];
+
   List<DayByNotificationModel> notificationModelList = [
     DayByNotificationModel("Today", [
       NotificationModel("Ali", 'ping', '23:36 Thu', false),
@@ -215,6 +230,20 @@ class MemberModel {
       this.uniqueId,
       this.isBlocked,
       this.pingStatus);
+}
+
+/// Member Model
+class TeamMemberModel {
+  String? firstName;
+  String? middleName;
+  String? initialName;
+  Color? initialBGColor;
+  String? type;
+  String? uniqueId;
+  Color? pingStatus;
+
+  TeamMemberModel(this.firstName, this.middleName, this.initialName,
+      this.initialBGColor, this.type, this.uniqueId, this.pingStatus);
 }
 
 /// Notification Model

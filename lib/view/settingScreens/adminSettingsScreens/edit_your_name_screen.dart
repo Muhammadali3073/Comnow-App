@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../../../utils/color_data.dart';
+import '../../../utils/constant.dart';
+import '../../widgets/widget_utils.dart';
+
+class EditYourNameScreen extends StatelessWidget {
+  const EditYourNameScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: titleBlackTextColor,
+        centerTitle: true,
+        title: customWhiteMediumText(
+            text: 'Edit Your Profile',
+            fontFamily: Constant.fontsFamilyBold,
+            fontSize: 16.sp),
+        leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: whiteButtonColor,
+              size: 2.h,
+            )),
+      ),
+      body: Container(
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height,
+        padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 5.6.h),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          topBackgroundColor,
+          bottomBackgroundColor,
+          bottomBackgroundColor,
+          topBackgroundColor,
+        ])),
+        child: Column(children: [
+          addMemberTextField(
+            titleText: 'Your name',
+            hintText: 'Enter your name',
+          ),
+          getVerSpace(1.6.h),
+          addMemberTextField(
+            titleText: 'Initials',
+            hintText: 'Enter initials',
+          ),
+          getVerSpace(3.2.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.h),
+            child: gradientButton(
+              'Update',
+              onTap: () {
+                Get.back();
+                Fluttertoast.showToast(
+                    msg: "Update profile successfully",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: toastColor,
+                    textColor: titleWhiteTextColor,
+                    fontSize: 14.sp);
+              },
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+}

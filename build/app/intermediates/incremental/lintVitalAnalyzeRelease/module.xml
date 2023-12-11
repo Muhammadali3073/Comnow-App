@@ -7,7 +7,7 @@
     gradle="7.3.0"
     buildFolder="/Users/createex/Documents/GitHub/Comnow-App/build/app"
     bootClassPath="/Users/createex/Library/Android/sdk/platforms/android-33/android.jar:/Users/createex/Library/Android/sdk/build-tools/30.0.3/core-lambda-stubs.jar"
-    javaSourceLevel="1.8"
+    javaSourceLevel="17"
     compileTarget="android-33">
   <lintOptions
       abortOnError="true"

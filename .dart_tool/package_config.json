@@ -116,6 +116,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "js",
+      "rootUri": "file:///Users/createex/.pub-cache/hosted/pub.dev/js-0.6.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///Users/createex/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
@@ -222,6 +228,12 @@
       "rootUri": "file:///Users/createex/.pub-cache/hosted/pub.dev/qr-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.16"
+    },
+    {
+      "name": "qr_code_scanner",
+      "rootUri": "file:///Users/createex/.pub-cache/hosted/pub.dev/qr_code_scanner-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "qr_flutter",
@@ -428,7 +440,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2023-12-08T13:06:10.207400Z",
+  "generated": "2023-12-11T13:26:26.417719Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }

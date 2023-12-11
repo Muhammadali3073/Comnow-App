@@ -12,6 +12,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var isSelected = true.obs;
+    var alreadyHaveAccount = 'Existing User'.obs;
     return Obx(
       () => Scaffold(
         body: Container(
@@ -31,7 +32,7 @@ class WelcomeScreen extends StatelessWidget {
               Column(
                 children: [
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 1.h),
+                    padding: EdgeInsets.symmetric(horizontal: 1.h),
                     child: getAssetPng('splash_logo.png'),
                   ),
                   customWhiteMediumText(
@@ -54,6 +55,7 @@ class WelcomeScreen extends StatelessWidget {
                       'Existing User',
                       onTap: () {
                         isSelected.value = true;
+                        alreadyHaveAccount.value = 'Existing User';
                       },
                       backgroundColor:
                           isSelected.value ? blueButtonColor : whiteButtonColor,
@@ -71,6 +73,7 @@ class WelcomeScreen extends StatelessWidget {
                       'New User',
                       onTap: () {
                         isSelected.value = false;
+                        alreadyHaveAccount.value = 'New User';
                       },
                       backgroundColor:
                           isSelected.value ? whiteButtonColor : blueButtonColor,
@@ -85,7 +88,9 @@ class WelcomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 6.5.h),
                 child: gradientButton(
                   'Next',
-                  onTap: () => Get.to(()=>const SelectTypeScreen()),
+                  onTap: () => Get.to(() => SelectTypeScreen(
+                        alreadyHaveAccount: alreadyHaveAccount.value,
+                      )),
                 ),
               ),
             ],
