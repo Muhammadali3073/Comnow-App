@@ -2,17 +2,27 @@ import 'package:comnow/utils/constant.dart';
 import 'package:comnow/view/authScreens/adminAuthScreens/login_screen.dart';
 import 'package:comnow/view/widgets/widget_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
+import '../../../validations/validations.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var isSelected = true.obs;
+    var isSelectedTermAndCondition = false.obs;
+    TextEditingController fullNameTextController = TextEditingController();
+    TextEditingController userNameTextController = TextEditingController();
+    TextEditingController emailTextController = TextEditingController();
+    TextEditingController initialsTextController = TextEditingController();
+    TextEditingController passwordTextController = TextEditingController();
+    TextEditingController confirmPasswordTextController =
+        TextEditingController();
+
     return Obx(
       () => Scaffold(
         body: SingleChildScrollView(
@@ -42,6 +52,7 @@ class SignUpScreen extends StatelessWidget {
                         text: 'Create New Account', fontSize: 20.px),
                     getVerSpace(4.h),
                     getCustomTextFormField(
+                      controller: fullNameTextController,
                       hintText: 'Full Name',
                       keyboardType: TextInputType.name,
                       prefixIcon: Padding(
@@ -51,6 +62,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     getVerSpace(1.6.h),
                     getCustomTextFormField(
+                      controller: userNameTextController,
                       hintText: 'Username',
                       keyboardType: TextInputType.name,
                       prefixIcon: Padding(
@@ -60,6 +72,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     getVerSpace(1.6.h),
                     getCustomTextFormField(
+                      controller: emailTextController,
                       hintText: 'Email',
                       keyboardType: TextInputType.emailAddress,
                       prefixIcon: Padding(
@@ -69,15 +82,19 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     getVerSpace(1.6.h),
                     getCustomTextFormField(
-                      hintText: 'Initial',
-                      keyboardType: TextInputType.name,
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 1.6.h, right: 0.8.h),
-                        child: getSvgImage('initial_icon.svg'),
-                      ),
-                    ),
+                        controller: initialsTextController,
+                        hintText: 'Initials',
+                        keyboardType: TextInputType.name,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 1.6.h, right: 0.8.h),
+                          child: getSvgImage('initial_icon.svg'),
+                        ),
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(3),
+                        ]),
                     getVerSpace(1.6.h),
                     getCustomTextFormField(
+                      controller: passwordTextController,
                       hintText: 'Password',
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -88,6 +105,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     getVerSpace(1.6.h),
                     getCustomTextFormField(
+                      controller: confirmPasswordTextController,
                       hintText: 'Confirm Password',
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -101,27 +119,28 @@ class SignUpScreen extends StatelessWidget {
                       padding: EdgeInsets.only(left: 1.5.h),
                       child: GestureDetector(
                         onTap: () {
-                          isSelected.value = !isSelected.value;
+                          isSelectedTermAndCondition.value =
+                              !isSelectedTermAndCondition.value;
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            isSelected.value
+                            isSelectedTermAndCondition.value
                                 ? Icon(
-                                    Icons.circle_outlined,
-                                    color: hintColor,
+                                    Icons.check_circle_rounded,
+                                    color: blueButtonColor,
                                     size: 1.8.h,
                                   )
                                 : Icon(
-                                    Icons.check_circle_rounded,
-                                    color: blueButtonColor,
+                                    Icons.circle_outlined,
+                                    color: hintColor,
                                     size: 1.8.h,
                                   ),
                             getHorSpace(0.5.h),
                             Expanded(
                               child: customWhiteMediumText(
                                 text:
-                                    'Do you agreed with our Term & condition and Privacy policy',
+                                    'Do you agreed with our Term & Condition and Privacy policy',
                                 fontSize: 10.px,
                                 fontFamily: Constant.fontsFamilyRegular,
                               ),
@@ -137,11 +156,50 @@ class SignUpScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      gradientButton('Create Account'),
+                      gradientButton(
+                        'Create Account',
+                        onTap: () {
+                          if (Validations.handleSingUpScreenError(
+                                  fullNameTextController:
+                                      fullNameTextController,
+                                  userNameTextController:
+                                      userNameTextController,
+                                  emailTextController: emailTextController,
+                                  initialsTextController:
+                                      initialsTextController,
+                                  passwordTextController:
+                                      passwordTextController,
+                                  confirmPasswordTextController:
+                                      confirmPasswordTextController,
+                                  isSelectedTermAndCondition:
+                                      isSelectedTermAndCondition.value)
+                              .isNotEmpty) {
+                            customScaffoldMessenger(
+                                context,
+                                Validations.handleSingUpScreenError(
+                                    fullNameTextController:
+                                        fullNameTextController,
+                                    userNameTextController:
+                                        userNameTextController,
+                                    emailTextController: emailTextController,
+                                    initialsTextController:
+                                        initialsTextController,
+                                    passwordTextController:
+                                        passwordTextController,
+                                    confirmPasswordTextController:
+                                        confirmPasswordTextController,
+                                    isSelectedTermAndCondition:
+                                        isSelectedTermAndCondition.value));
+                          } else {
+                            Get.offAll(() => const LoginScreen());
+                          }
+                        },
+                      ),
                       getVerSpace(1.4.h),
                       loginSignUpAlreadyButton(
-                        onTap: () => Get.to(()=>const LoginScreen()),
-                          'Already have an account?', 'Login'),
+                          onTap: () => Get.to(() => const LoginScreen()),
+                          'Already have an account?',
+                          'Login'),
                     ],
                   ),
                 )

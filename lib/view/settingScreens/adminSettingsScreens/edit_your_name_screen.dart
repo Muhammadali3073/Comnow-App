@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
+import '../../../validations/validations.dart';
 import '../../widgets/widget_utils.dart';
 
 class EditYourNameScreen extends StatelessWidget {
@@ -12,6 +13,9 @@ class EditYourNameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController fullNameTextController = TextEditingController();
+    TextEditingController initialsTextController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: titleBlackTextColor,
@@ -41,11 +45,13 @@ class EditYourNameScreen extends StatelessWidget {
         ])),
         child: Column(children: [
           addMemberTextField(
-            titleText: 'Your name',
-            hintText: 'Enter your name',
+            controller: fullNameTextController,
+            titleText: 'Full name',
+            hintText: 'Enter your full name',
           ),
           getVerSpace(1.6.h),
           addMemberTextField(
+            controller: initialsTextController,
             titleText: 'Initials',
             hintText: 'Enter initials',
           ),
@@ -55,15 +61,28 @@ class EditYourNameScreen extends StatelessWidget {
             child: gradientButton(
               'Update',
               onTap: () {
-                Get.back();
-                Fluttertoast.showToast(
-                    msg: "Update profile successfully",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: toastColor,
-                    textColor: titleWhiteTextColor,
-                    fontSize: 14.sp);
+                if (Validations.handleEditProfileScreenError(
+                  fullNameTextController: fullNameTextController,
+                  initialsTextController: initialsTextController,
+                ).isNotEmpty) {
+                  customScaffoldMessenger(
+                    context,
+                    Validations.handleEditProfileScreenError(
+                      fullNameTextController: fullNameTextController,
+                      initialsTextController: initialsTextController,
+                    ),
+                  );
+                } else {
+                  Get.back();
+                  Fluttertoast.showToast(
+                      msg: "Update profile successfully",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: toastColor,
+                      textColor: titleWhiteTextColor,
+                      fontSize: 14.sp);
+                }
               },
             ),
           ),

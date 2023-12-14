@@ -8,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/data.dart';
+import '../../../validations/validations.dart';
 import '../../popUpMenuScreens/adminSidePopUpMenuScreens/addMemberScreens/share_qr_code_screen.dart';
 import '../../widgets/widget_utils.dart';
 
@@ -23,6 +24,10 @@ class AllTeamMemberScreen extends StatefulWidget {
 
 class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
     with SingleTickerProviderStateMixin {
+  TextEditingController firstNameTextController = TextEditingController();
+  TextEditingController lastNameTextController = TextEditingController();
+  TextEditingController initialsTextController = TextEditingController();
+
   DataFile dataFile = DataFile();
 
   TabController? tabController;
@@ -123,7 +128,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                   onReorder: (oldIndex, newIndex) {
                     setState(() {
                       final newIdx =
-                      newIndex > oldIndex ? newIndex - 1 : newIndex;
+                          newIndex > oldIndex ? newIndex - 1 : newIndex;
                       final item = dataFile.memberList.removeAt(oldIndex);
                       dataFile.memberList.insert(newIdx, item);
                     });
@@ -221,17 +226,56 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                       initialColor: Rx(item.initialBGColor!),
                                       initialsString:
                                           RxString(item.initialName!),
+                                      firstNameTextController:
+                                          firstNameTextController,
+                                      lastNameTextController:
+                                          lastNameTextController,
+                                      initialsTextController:
+                                          initialsTextController,
                                       onCreate: () {
-                                        Get.back();
-                                        Fluttertoast.showToast(
-                                            msg:
-                                                "${item.firstName} is edited successfully",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: toastColor,
-                                            textColor: titleWhiteTextColor,
-                                            fontSize: 14.sp);
+                                        if (Validations
+                                            .handleAddMemberScreenError(
+                                          firstNameTextController:
+                                              firstNameTextController,
+                                          lastNameTextController:
+                                              lastNameTextController,
+                                          initialsTextController:
+                                              initialsTextController,
+                                          selectedColor: item.initialBGColor!,
+                                        ).isNotEmpty) {
+                                          Fluttertoast.showToast(
+                                              msg: Validations
+                                                  .handleAddMemberScreenError(
+                                                firstNameTextController:
+                                                    firstNameTextController,
+                                                lastNameTextController:
+                                                    lastNameTextController,
+                                                initialsTextController:
+                                                    initialsTextController,
+                                                selectedColor:
+                                                    item.initialBGColor!,
+                                              ),
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: toastColor,
+                                              textColor: titleWhiteTextColor,
+                                              fontSize: 14.sp);
+                                        } else {
+                                          Get.back();
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  "${item.firstName} is edited successfully",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: toastColor,
+                                              textColor: titleWhiteTextColor,
+                                              fontSize: 14.sp);
+                                          firstNameTextController.clear();
+                                          lastNameTextController.clear();
+                                          initialsTextController.clear();
+                                        }
                                       },
                                     );
                                   },
@@ -251,7 +295,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                   onReorder: (oldIndex, newIndex) {
                     setState(() {
                       final newIdx =
-                      newIndex > oldIndex ? newIndex - 1 : newIndex;
+                          newIndex > oldIndex ? newIndex - 1 : newIndex;
                       final item = dataFile.memberList.removeAt(oldIndex);
                       dataFile.memberList.insert(newIdx, item);
                     });

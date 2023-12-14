@@ -217,8 +217,8 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                       dialogBoxTitle: 'Create Group',
                       onCreateTitle: 'Create',
                       onCreate: () {
-                        Get.back();
                         if (createGroupController.text.isNotEmpty) {
+                          Get.back();
                           Fluttertoast.showToast(
                               msg:
                                   "${createGroupController.text} created successfully",
@@ -228,8 +228,17 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                               backgroundColor: toastColor,
                               textColor: titleWhiteTextColor,
                               fontSize: 14.sp);
+                          createGroupController.clear();
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: 'Group name not be empty.',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: toastColor,
+                              textColor: titleWhiteTextColor,
+                              fontSize: 14.sp);
                         }
-                        createGroupController.clear();
                       },
                     );
                   },

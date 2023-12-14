@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
+import '../../../validations/validations.dart';
 import '../../widgets/widget_utils.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
@@ -12,6 +13,12 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController currentPasswordTextController =
+        TextEditingController();
+    TextEditingController newPasswordTextController = TextEditingController();
+    TextEditingController confirmPasswordTextController =
+        TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: titleBlackTextColor,
@@ -41,16 +48,19 @@ class ChangePasswordScreen extends StatelessWidget {
         ])),
         child: Column(children: [
           addMemberTextField(
+            controller: currentPasswordTextController,
             titleText: 'Current Password',
             hintText: 'Enter current password',
           ),
           getVerSpace(1.6.h),
           addMemberTextField(
+            controller: newPasswordTextController,
             titleText: 'New Password',
             hintText: 'Enter new password',
           ),
           getVerSpace(1.6.h),
           addMemberTextField(
+            controller: confirmPasswordTextController,
             titleText: 'Confirm Password',
             hintText: 'Enter confirm password',
           ),
@@ -60,15 +70,31 @@ class ChangePasswordScreen extends StatelessWidget {
             child: gradientButton(
               'Update',
               onTap: () {
-                Get.back();
-                Fluttertoast.showToast(
-                    msg: "Update password successfully",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: toastColor,
-                    textColor: titleWhiteTextColor,
-                    fontSize: 14.sp);
+                if (Validations.handleChangePasswordScreenError(
+                  currentPasswordTextController: currentPasswordTextController,
+                  newPasswordTextController: newPasswordTextController,
+                  confirmPasswordTextController: confirmPasswordTextController,
+                ).isNotEmpty) {
+                  customScaffoldMessenger(
+                      context,
+                      Validations.handleChangePasswordScreenError(
+                        currentPasswordTextController:
+                            currentPasswordTextController,
+                        newPasswordTextController: newPasswordTextController,
+                        confirmPasswordTextController:
+                            confirmPasswordTextController,
+                      ));
+                } else {
+                  Get.back();
+                  Fluttertoast.showToast(
+                      msg: "Update password successfully",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: toastColor,
+                      textColor: titleWhiteTextColor,
+                      fontSize: 14.sp);
+                }
               },
             ),
           ),

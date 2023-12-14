@@ -47,12 +47,13 @@ Widget getSvgImage(String image,
   );
 }
 
-Widget customWhiteMediumText(
-    {color,
-    text,
-    TextAlign? textAlign,
-    fontSize,
-    fontFamily,}) {
+Widget customWhiteMediumText({
+  color,
+  text,
+  TextAlign? textAlign,
+  fontSize,
+  fontFamily,
+}) {
   return Text(
     text ?? '',
     textAlign: textAlign,
@@ -609,7 +610,7 @@ Widget selectTypeCard(text,
 Widget addMemberTextField(
     {titleText,
     hintText,
-    controller,
+    TextEditingController? controller,
     List<TextInputFormatter>? inputFormatters,
     Function(String)? onChanged}) {
   return Column(
@@ -645,7 +646,7 @@ getCustomTextStyleW4S12({color}) {
 }
 
 Widget getCustomTextFormField(
-    {controller,
+    {TextEditingController? controller,
     validator,
     hintText,
     suffixIcon,
@@ -1118,8 +1119,48 @@ Future<void> deleteGroupDialogBox(
   );
 }
 
-Future<void> editUserDialogBox(BuildContext context, dataFile,
-    {Function()? onCreate, Rx<Color>? initialColor, RxString? initialsString}) {
+Future<void> timeOutExceptionDialogBox() {
+  return Get.defaultDialog(
+    backgroundColor: dialogBoxColor,
+    titlePadding: EdgeInsets.only(top: 3.h),
+    title: 'Oops, Something Went Wrong!',
+    titleStyle: TextStyle(
+      color: titleWhiteTextColor,
+      fontFamily: Constant.fontsFamilyMedium,
+      fontSize: 16.sp,
+    ),
+    content: Column(
+      children: [
+        customWhiteMediumText(
+          text:
+              'Don\'t worry - it\'s not your fault. Try to fix your Internet Connection.',
+          textAlign: TextAlign.center,
+          fontFamily: Constant.fontsFamilyRegular,
+          fontSize: 14.sp,
+        ),
+        getVerSpace(3.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.h),
+          child: outlineButton(
+            'Okay',
+            onTap: () => Get.back(),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Future<void> editUserDialogBox(
+  BuildContext context,
+  dataFile, {
+  Function()? onCreate,
+  Rx<Color>? initialColor,
+  RxString? initialsString,
+  TextEditingController? firstNameTextController,
+  TextEditingController? lastNameTextController,
+  TextEditingController? initialsTextController,
+}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -1149,16 +1190,19 @@ Future<void> editUserDialogBox(BuildContext context, dataFile,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         addMemberTextField(
+                          controller: firstNameTextController,
                           titleText: 'First name',
                           hintText: 'Enter first name',
                         ),
                         getVerSpace(1.6.h),
                         addMemberTextField(
+                          controller: lastNameTextController,
                           titleText: 'Last name',
                           hintText: 'Enter last name',
                         ),
                         getVerSpace(1.6.h),
                         addMemberTextField(
+                            controller: initialsTextController,
                             titleText: 'Initials',
                             hintText: 'Enter Initials',
                             onChanged: (value) {
@@ -1971,5 +2015,24 @@ Future<void> teamMemberCardBottomSheet(
         ),
       );
     },
+  );
+}
+
+customScaffoldMessenger(
+  BuildContext context,
+  String text,
+) {
+  return ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        text,
+        style: TextStyle(
+          fontFamily: Constant.fontsFamilyRegular,
+          fontSize: 14.sp,
+        ),
+      ),
+      backgroundColor: toastColor,
+      duration: const Duration(seconds: 2),
+    ),
   );
 }

@@ -9,8 +9,6 @@ import '../../../../utils/constant.dart';
 import '../../../../utils/data.dart';
 import '../../../widgets/widget_utils.dart';
 
-
-
 class AddNewMessagesScreen extends StatefulWidget {
   const AddNewMessagesScreen({super.key});
 
@@ -19,6 +17,7 @@ class AddNewMessagesScreen extends StatefulWidget {
 }
 
 class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
+  TextEditingController messageTextEditController = TextEditingController();
   DataFile dataFile = DataFile();
 
   @override
@@ -60,6 +59,7 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
             ),
             getVerSpace(3.2.h),
             TextFormField(
+              controller: messageTextEditController,
               keyboardType: TextInputType.text,
               cursorColor: blueButtonColor,
               style: getCustomTextStyleW4S12(
@@ -101,15 +101,20 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
               child: gradientButton(
                 'Add Template',
                 onTap: () {
-                  Get.back();
-                  Fluttertoast.showToast(
-                      msg: "Add template successfully",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: toastColor,
-                      textColor: titleWhiteTextColor,
-                      fontSize: 14.sp);
+                  if (messageTextEditController.text.isNotEmpty) {
+                    Get.back();
+                    Fluttertoast.showToast(
+                        msg: "Add template successfully",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: toastColor,
+                        textColor: titleWhiteTextColor,
+                        fontSize: 14.sp);
+                    messageTextEditController.clear();
+                  } else {
+                    customScaffoldMessenger(context, 'Message do not empty.');
+                  }
                 },
               ),
             ),

@@ -1,0 +1,1 @@
+ /Users/createex/Documents/GitHub/Comnow-App/.dart_tool/flutter_build/2bc1be2cf194b4d47583361cfa2b7597/native_assets.yaml: 

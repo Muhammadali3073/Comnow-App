@@ -8,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
+import '../../../validations/validations.dart';
 import '../../navBarScreen/admin_nav_bar_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,6 +17,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var changeColor = true.obs;
+    TextEditingController emailTextController = TextEditingController();
+    TextEditingController passwordTextController = TextEditingController();
+
     return Obx(
       () => Scaffold(
         body: SingleChildScrollView(
@@ -49,6 +53,7 @@ class LoginScreen extends StatelessWidget {
                         text: 'Login Account', fontSize: 20.px),
                     getVerSpace(4.h),
                     getCustomTextFormField(
+                      controller: emailTextController,
                       hintText: 'Email',
                       keyboardType: TextInputType.visiblePassword,
                       prefixIcon: Padding(
@@ -58,6 +63,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     getVerSpace(1.6.h),
                     getCustomTextFormField(
+                      controller: passwordTextController,
                       hintText: 'Password',
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -101,8 +107,23 @@ class LoginScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 10.0.h),
                       child: gradientButton(
                         'Login',
-                        onTap: () => Get.offAll(
-                            () => const AdminBottomNavigationBarScreen()),
+                        onTap: () {
+                          if (Validations.handleLoginScreenError(
+                            emailTextController: emailTextController,
+                            passwordTextController: passwordTextController,
+                          ).isNotEmpty) {
+                            customScaffoldMessenger(
+                                context,
+                                Validations.handleLoginScreenError(
+                                  emailTextController: emailTextController,
+                                  passwordTextController:
+                                      passwordTextController,
+                                ));
+                          } else {
+                            Get.offAll(
+                                () => const AdminBottomNavigationBarScreen());
+                          }
+                        },
                       ),
                     ),
                     getVerSpace(1.6.h),

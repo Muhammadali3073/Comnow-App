@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:comnow/utils/constant.dart';
-import 'package:comnow/view/authScreens/adminAuthScreens/login_screen.dart';
-import 'package:comnow/view/widgets/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
+import '../../../utils/constant.dart';
+import '../../../validations/validations.dart';
+import '../../widgets/widget_utils.dart';
+import 'login_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -19,7 +20,11 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController otpController = TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+  TextEditingController confirmPasswordTextController = TextEditingController();
+
+  TextEditingController otpTextController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
   var selectedIndex = 1.obs;
   var isBack = false.obs;
@@ -35,13 +40,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => PopScope(
-        canPop: isBack.value,
+        canPop: selectedIndex.value == 1 ? true : isBack.value,
         onPopInvoked: (didPop) {
           if (didPop == false && selectedIndex.value == 3) {
             selectedIndex.value = 2;
           } else if (didPop == false && selectedIndex.value == 2) {
             selectedIndex.value = 1;
-            isBack.value = true;
           }
         },
         child: Scaffold(
@@ -68,6 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             text: 'Enter your email', fontSize: 20.px),
                         getVerSpace(4.h),
                         getCustomTextFormField(
+                          controller: emailTextController,
                           hintText: 'Email',
                           keyboardType: TextInputType.visiblePassword,
                           prefixIcon: Padding(
@@ -81,7 +86,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           child: gradientButton(
                             'Next',
                             onTap: () {
-                              selectedIndex.value = 2;
+                              if (Validations
+                                  .handleForgotPasswordEmailScreenError(
+                                emailTextController: emailTextController,
+                              ).isNotEmpty) {
+                                customScaffoldMessenger(
+                                  context,
+                                  Validations
+                                      .handleForgotPasswordEmailScreenError(
+                                    emailTextController: emailTextController,
+                                  ),
+                                );
+                              } else {
+                                selectedIndex.value = 2;
+                              }
                             },
                           ),
                         ),
@@ -132,7 +150,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               enableActiveFill: true,
                               errorAnimationController: errorController,
-                              controller: otpController,
+                              controller: otpTextController,
                               onCompleted: (v) {},
                               onChanged: (value) {},
                               beforeTextPaste: (text) {
@@ -146,7 +164,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               child: gradientButton(
                                 'Next',
                                 onTap: () {
-                                  selectedIndex.value = 3;
+                                  if (Validations
+                                      .handleForgotPasswordOTPScreenError(
+                                    otpTextController: otpTextController,
+                                  ).isNotEmpty) {
+                                    customScaffoldMessenger(
+                                      context,
+                                      Validations
+                                          .handleForgotPasswordOTPScreenError(
+                                        otpTextController: otpTextController,
+                                      ),
+                                    );
+                                  } else {
+                                    selectedIndex.value = 3;
+                                  }
                                 },
                               ),
                             ),
@@ -162,6 +193,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 text: 'Set New Password', fontSize: 20.px),
                             getVerSpace(4.h),
                             getCustomTextFormField(
+                              controller: passwordTextController,
                               hintText: 'Password',
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
@@ -173,6 +205,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             ),
                             getVerSpace(1.6.h),
                             getCustomTextFormField(
+                              controller: confirmPasswordTextController,
                               hintText: 'Confirm Password',
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
@@ -187,7 +220,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 12.0.h),
                               child: gradientButton(
                                 'Save',
-                                onTap: () => Get.to(() => const LoginScreen()),
+                                onTap: () {
+                                  if (Validations
+                                      .handleForgotPasswordChangePasswordScreenError(
+                                    passwordTextController:
+                                        passwordTextController,
+                                    confirmPasswordTextController:
+                                        confirmPasswordTextController,
+                                  ).isNotEmpty) {
+                                    customScaffoldMessenger(
+                                      context,
+                                      Validations
+                                          .handleForgotPasswordChangePasswordScreenError(
+                                        passwordTextController:
+                                            passwordTextController,
+                                        confirmPasswordTextController:
+                                            confirmPasswordTextController,
+                                      ),
+                                    );
+                                  } else {
+                                    Get.to(() => const LoginScreen());
+                                  }
+                                },
                               ),
                             ),
                           ],

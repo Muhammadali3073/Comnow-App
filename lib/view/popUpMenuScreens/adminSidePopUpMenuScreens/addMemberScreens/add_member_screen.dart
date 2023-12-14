@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
 import '../../../../utils/color_data.dart';
 import '../../../../utils/constant.dart';
+import '../../../../validations/validations.dart';
 import '../../../widgets/widget_utils.dart';
 import 'generate_qr_code_screen.dart';
 
@@ -18,6 +18,10 @@ class AddMemberScreen extends StatefulWidget {
 }
 
 class _AddMemberScreenState extends State<AddMemberScreen> {
+  TextEditingController firstNameTextController = TextEditingController();
+  TextEditingController lastNameTextController = TextEditingController();
+  TextEditingController initialsTextController = TextEditingController();
+
   var initialsString = ''.obs;
   Rx<Color> initialColor = topButtonColor.obs;
   DataFile dataFile = DataFile();
@@ -50,9 +54,9 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
               topBackgroundColor,
-              bottomBackgroundColor,          bottomBackgroundColor,
-
-                  topBackgroundColor,
+              bottomBackgroundColor,
+              bottomBackgroundColor,
+              topBackgroundColor,
             ])),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,16 +73,19 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       ),
                       getVerSpace(2.5.h),
                       addMemberTextField(
+                        controller: firstNameTextController,
                         titleText: 'First name',
                         hintText: 'Enter first name',
                       ),
                       getVerSpace(1.6.h),
                       addMemberTextField(
+                        controller: lastNameTextController,
                         titleText: 'Last name',
                         hintText: 'Enter last name',
                       ),
                       getVerSpace(1.6.h),
                       addMemberTextField(
+                          controller: initialsTextController,
                           titleText: 'Initials',
                           hintText: 'Enter Initials',
                           onChanged: (value) {
@@ -237,7 +244,26 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 11.h),
                     child: gradientButton(
                       'Next',
-                      onTap: () => Get.to(() => const GenerateQRCodeScreen()),
+                      onTap: () {
+                        if (Validations.handleAddMemberScreenError(
+                          firstNameTextController: firstNameTextController,
+                          lastNameTextController: lastNameTextController,
+                          initialsTextController: initialsTextController,
+                          selectedColor: initialColor.value,
+                        ).isNotEmpty) {
+                          customScaffoldMessenger(
+                              context,
+                              Validations.handleAddMemberScreenError(
+                                firstNameTextController:
+                                    firstNameTextController,
+                                lastNameTextController: lastNameTextController,
+                                initialsTextController: initialsTextController,
+                                selectedColor: initialColor.value,
+                              ));
+                        } else {
+                          Get.to(() => const GenerateQRCodeScreen());
+                        }
+                      },
                     ),
                   )
                 ]),
