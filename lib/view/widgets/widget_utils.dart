@@ -47,7 +47,12 @@ Widget getSvgImage(String image,
   );
 }
 
-Widget customWhiteMediumText({color, text, textAlign, fontSize, fontFamily}) {
+Widget customWhiteMediumText(
+    {color,
+    text,
+    TextAlign? textAlign,
+    fontSize,
+    fontFamily,}) {
   return Text(
     text ?? '',
     textAlign: textAlign,

@@ -1,5 +1,6 @@
 import 'package:comnow/view/authScreens/adminAuthScreens/forgot_password_screen.dart';
 import 'package:comnow/view/authScreens/adminAuthScreens/sign_up_screen.dart';
+import 'package:comnow/view/authScreens/teamMemberAuthScreens/login_with_qr_screen.dart';
 import 'package:comnow/view/widgets/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -100,14 +101,17 @@ class LoginScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 10.0.h),
                       child: gradientButton(
                         'Login',
-                        onTap: () =>
-                            Get.offAll(() => const AdminBottomNavigationBarScreen()),
+                        onTap: () => Get.offAll(
+                            () => const AdminBottomNavigationBarScreen()),
                       ),
                     ),
                     getVerSpace(1.6.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0.h),
-                      child: gradientButton('Login With QR Code'),
+                      child: gradientButton(
+                        'Login With QR Code',
+                        onTap: () => Get.to(() => const LoginWithQRScreen()),
+                      ),
                     ),
                     getVerSpace(2.4.h),
                     Padding(

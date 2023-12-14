@@ -1,4 +1,4 @@
-#Mon Dec 11 18:28:15 PKT 2023
+#Tue Dec 12 18:02:46 PKT 2023
 base.0=/Users/createex/Documents/GitHub/Comnow-App/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

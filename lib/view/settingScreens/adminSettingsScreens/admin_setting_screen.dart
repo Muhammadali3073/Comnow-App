@@ -1,4 +1,5 @@
 import 'package:comnow/view/authScreens/welcome_screen.dart';
+import 'package:comnow/view/settingScreens/adminSettingsScreens/subscription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -11,7 +12,6 @@ import 'change_password_screen.dart';
 import 'contact_support_screen.dart';
 import 'edit_your_name_screen.dart';
 import 'language_screen.dart';
-
 
 class AdminSettingsScreen extends StatelessWidget {
   const AdminSettingsScreen({super.key});
@@ -158,20 +158,26 @@ class AdminSettingsScreen extends StatelessWidget {
                     fontSize: 15.sp,
                     fontFamily: Constant.fontsFamilyRegular),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 1.5.h),
-                child: Row(
-                  children: [
-                    getSvgImage(
-                      'subscription_icon.svg',
-                      height: 2.8.h,
+              InkWell(
+                onTap: () => Get.to(() => const SubscriptionScreen()),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                    child: Row(
+                      children: [
+                        getSvgImage(
+                          'subscription_icon.svg',
+                          height: 2.8.h,
+                        ),
+                        getHorSpace(1.h),
+                        customWhiteMediumText(
+                          text: 'Subscription',
+                          fontSize: 15.sp,
+                        ),
+                      ],
                     ),
-                    getHorSpace(1.h),
-                    customWhiteMediumText(
-                      text: 'Subscription',
-                      fontSize: 15.sp,
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Padding(

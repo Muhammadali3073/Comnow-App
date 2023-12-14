@@ -37,6 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   customWhiteMediumText(
                     text: 'Welcome to Comnow',
+                    textAlign: TextAlign.center,
                     fontSize: 20.px,
                   ),
                 ],

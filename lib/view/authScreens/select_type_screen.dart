@@ -42,6 +42,7 @@ class SelectTypeScreen extends StatelessWidget {
                   ),
                   customWhiteMediumText(
                     text: 'Select Your Account Type',
+                    textAlign: TextAlign.center,
                     fontSize: 20.px,
                   ),
                 ],

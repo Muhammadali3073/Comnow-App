@@ -125,7 +125,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   activeColor: textFormFieldBackgroundColor,
                                   activeFillColor: textFormFieldBackgroundColor,
                                   fieldOuterPadding:
-                                      EdgeInsets.symmetric(horizontal: 2.1.h)),
+                                      EdgeInsets.symmetric(horizontal: 1.5.h)),
                               animationDuration:
                                   const Duration(milliseconds: 200),
                               backgroundColor: Colors.transparent,

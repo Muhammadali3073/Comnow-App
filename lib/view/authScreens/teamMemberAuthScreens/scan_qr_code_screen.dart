@@ -8,7 +8,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
 import '../../navBarScreen/team_member_nav_bar_screen.dart';
-import '../../widgets/widget_utils.dart';
 
 class ScanQRCodeScreen extends StatefulWidget {
   const ScanQRCodeScreen({super.key});
@@ -34,38 +33,10 @@ class _ScanQRCodeScreenState extends State<ScanQRCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.sizeOf(context).height,
-        width: MediaQuery.sizeOf(context).width,
-        padding:
-            EdgeInsets.only(top: 4.h, left: 5.5.h, right: 5.5.h, bottom: 25.h),
-        decoration: BoxDecoration(
-            image: const DecorationImage(
-                image: AssetImage('assets/png/auth_background_image.png'),
-                fit: BoxFit.fitWidth),
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-                colors: [topBackgroundColor, bottomBackgroundColor])),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.h),
-                  child: getAssetPng('splash_logo.png'),
-                ),
-                customWhiteMediumText(
-                  text: 'Scan QR Code',
-                  fontSize: 20.px,
-                ),
-              ],
-            ),
-            SizedBox(height: 24.h, width: 24.h, child: buildQrView(context)),
-          ],
-        ),
+      body: Stack(
+        children: [
+          buildQrView(context),
+        ],
       ),
     );
   }
@@ -76,8 +47,8 @@ class _ScanQRCodeScreenState extends State<ScanQRCodeScreen> {
       onQRViewCreated: onQRViewCreated,
       overlay: QrScannerOverlayShape(
         borderColor: blueColor,
-        cutOutSize: 24.h,
-        overlayColor: Colors.transparent,
+        borderRadius: 10.px,
+        borderWidth: 10.px,
       ),
       onPermissionSet: (ctrl, p) => onPermissionSet(context, ctrl, p),
     );

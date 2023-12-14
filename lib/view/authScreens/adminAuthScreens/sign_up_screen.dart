@@ -104,6 +104,7 @@ class SignUpScreen extends StatelessWidget {
                           isSelected.value = !isSelected.value;
                         },
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             isSelected.value
                                 ? Icon(
@@ -117,11 +118,13 @@ class SignUpScreen extends StatelessWidget {
                                     size: 1.8.h,
                                   ),
                             getHorSpace(0.5.h),
-                            customWhiteMediumText(
-                              text:
-                                  'Do you agreed with our Term & condition and Privacy policy',
-                              fontSize: 10.px,
-                              fontFamily: Constant.fontsFamilyRegular,
+                            Expanded(
+                              child: customWhiteMediumText(
+                                text:
+                                    'Do you agreed with our Term & condition and Privacy policy',
+                                fontSize: 10.px,
+                                fontFamily: Constant.fontsFamilyRegular,
+                              ),
                             ),
                           ],
                         ),
