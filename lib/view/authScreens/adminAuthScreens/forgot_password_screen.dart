@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:comnow/viewModel/authControllers/admin_forgot_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -10,7 +11,6 @@ import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
 import '../../widgets/widget_utils.dart';
-import 'login_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -20,14 +20,23 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  AdminForgotPasswordController adminForgotPasswordController = Get.put(
+      AdminForgotPasswordController(),
+      tag: 'adminForgotPasswordController');
+
   TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
   TextEditingController confirmPasswordTextController = TextEditingController();
-
   TextEditingController otpTextController = TextEditingController();
+
   StreamController<ErrorAnimationType>? errorController;
-  var selectedIndex = 1.obs;
   var isBack = false.obs;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -40,12 +49,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => PopScope(
-        canPop: selectedIndex.value == 1 ? true : isBack.value,
+        canPop: adminForgotPasswordController.selectedIndex.value == 1
+            ? true
+            : isBack.value,
         onPopInvoked: (didPop) {
-          if (didPop == false && selectedIndex.value == 3) {
-            selectedIndex.value = 2;
-          } else if (didPop == false && selectedIndex.value == 2) {
-            selectedIndex.value = 1;
+          if (didPop == false &&
+              adminForgotPasswordController.selectedIndex.value == 3) {
+            Get.back();
+          } else if (didPop == false &&
+              adminForgotPasswordController.selectedIndex.value == 2) {
+            adminForgotPasswordController.selectedIndex.value = 1;
+            otpTextController.clear();
           }
         },
         child: Scaffold(
@@ -62,7 +76,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       begin: Alignment.topCenter,
                       end: Alignment.center,
                       colors: [topBackgroundColor, bottomBackgroundColor])),
-              child: selectedIndex.value == 1
+              child: adminForgotPasswordController.selectedIndex.value == 1
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -98,14 +112,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   ),
                                 );
                               } else {
-                                selectedIndex.value = 2;
+                                adminForgotPasswordController
+                                    .handleEnterEmailInForgotPassword(
+                                  context,
+                                  email: emailTextController.text.trim(),
+                                );
                               }
                             },
                           ),
                         ),
                       ],
                     )
-                  : selectedIndex.value == 2
+                  : adminForgotPasswordController.selectedIndex.value == 2
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -118,7 +136,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             PinCodeTextField(
                               autoDisposeControllers: false,
                               autoFocus: false,
-                              length: 4,
+                              length: 6,
                               keyboardType: TextInputType.phone,
                               appContext: context,
                               obscureText: false,
@@ -143,7 +161,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   activeColor: textFormFieldBackgroundColor,
                                   activeFillColor: textFormFieldBackgroundColor,
                                   fieldOuterPadding:
-                                      EdgeInsets.symmetric(horizontal: 1.5.h)),
+                                      EdgeInsets.symmetric(horizontal: 0.6.h)),
                               animationDuration:
                                   const Duration(milliseconds: 200),
                               backgroundColor: Colors.transparent,
@@ -176,7 +194,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       ),
                                     );
                                   } else {
-                                    selectedIndex.value = 3;
+                                    adminForgotPasswordController
+                                        .handleEnterOTPInForgotPassword(
+                                      context,
+                                      email: emailTextController.text.trim(),
+                                      otp: otpTextController.text.trim(),
+                                    );
                                   }
                                 },
                               ),
@@ -239,7 +262,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       ),
                                     );
                                   } else {
-                                    Get.to(() => const LoginScreen());
+                                    adminForgotPasswordController
+                                        .handleResetPasswordInForgotPassword(
+                                      context,
+                                      email: emailTextController.text.trim(),
+                                      newPassword: confirmPasswordTextController
+                                          .text
+                                          .trim(),
+                                    );
                                   }
                                 },
                               ),

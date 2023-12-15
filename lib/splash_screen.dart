@@ -1,6 +1,9 @@
+import 'package:comnow/view/authScreens/adminAuthScreens/login_screen.dart';
+import 'package:comnow/view/navBarScreen/admin_nav_bar_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'utils/color_data.dart';
 import 'view/authScreens/welcome_screen.dart';
@@ -17,8 +20,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Future.delayed(const Duration(seconds: 3), () => Get.offAll(()=>const WelcomeScreen()));
+    alreadyLogin();
     super.initState();
+  }
+
+  alreadyLogin() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    Future.delayed(
+        const Duration(seconds: 3),
+        () => sharedPreferences.getBool('isAdminLogin') == true
+            ? Get.offAll(() => const AdminBottomNavigationBarScreen())
+            : Get.offAll(() => const WelcomeScreen()));
   }
 
   @override

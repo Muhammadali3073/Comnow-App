@@ -2,6 +2,7 @@ import 'package:comnow/view/authScreens/adminAuthScreens/forgot_password_screen.
 import 'package:comnow/view/authScreens/adminAuthScreens/sign_up_screen.dart';
 import 'package:comnow/view/authScreens/teamMemberAuthScreens/login_with_qr_screen.dart';
 import 'package:comnow/view/widgets/widget_utils.dart';
+import 'package:comnow/viewModel/authControllers/admin_login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -9,13 +10,15 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
-import '../../navBarScreen/admin_nav_bar_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AdminLoginController adminLoginController =
+        Get.put(AdminLoginController(), tag: 'adminLoginController');
+
     var changeColor = true.obs;
     TextEditingController emailTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
@@ -120,8 +123,11 @@ class LoginScreen extends StatelessWidget {
                                       passwordTextController,
                                 ));
                           } else {
-                            Get.offAll(
-                                () => const AdminBottomNavigationBarScreen());
+                            adminLoginController.handleAdminLogin(
+                              context,
+                              email: emailTextController.text.trim(),
+                              password: passwordTextController.text.trim(),
+                            );
                           }
                         },
                       ),

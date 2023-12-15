@@ -1,3 +1,3 @@
 class ApiBaseUrl {
-  static String url = 'http://localhost:3000/api/user';
+  static String url = 'http://10.0.2.2:3000/api';
 }

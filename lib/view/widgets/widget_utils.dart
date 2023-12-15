@@ -1388,6 +1388,39 @@ Future<void> editUserDialogBox(
   );
 }
 
+Future<void> loadingDialogBox(
+  BuildContext context,
+) {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return PopScope(
+        canPop: true,
+        child: AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            insetPadding: EdgeInsets.zero,
+            titlePadding: EdgeInsets.zero,
+            actionsPadding: EdgeInsets.zero,
+            buttonPadding: EdgeInsets.zero,
+            iconPadding: EdgeInsets.zero,
+            surfaceTintColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            content: Center(
+              child: SizedBox(
+                height: 5.h,
+                width: 5.h,
+                child: CircularProgressIndicator(
+                  color: hintColor,
+                  backgroundColor: dialogBoxColor,
+                ),
+              ),
+            )),
+      );
+    },
+  );
+}
+
 Future<void> blockDialogBox(
   BuildContext context, {
   Function()? onCreate,

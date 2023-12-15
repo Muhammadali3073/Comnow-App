@@ -8,12 +8,17 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../validations/validations.dart';
+import '../../../viewModel/authControllers/admin_registration_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AdminRegistrationController adminRegistrationController = Get.put(
+        AdminRegistrationController(),
+        tag: 'adminRegistrationController');
+
     var isSelectedTermAndCondition = false.obs;
     TextEditingController fullNameTextController = TextEditingController();
     TextEditingController userNameTextController = TextEditingController();
@@ -191,7 +196,16 @@ class SignUpScreen extends StatelessWidget {
                                     isSelectedTermAndCondition:
                                         isSelectedTermAndCondition.value));
                           } else {
-                            Get.offAll(() => const LoginScreen());
+                            adminRegistrationController.handleAdminRegister(
+                              context,
+                              fullName: fullNameTextController.text.trim(),
+                              userName: userNameTextController.text.trim(),
+                              email: emailTextController.text.trim(),
+                              initials: initialsTextController.text
+                                  .toUpperCase()
+                                  .trim(),
+                              password: passwordTextController.text.trim(),
+                            );
                           }
                         },
                       ),
