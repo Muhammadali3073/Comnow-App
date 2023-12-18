@@ -17,8 +17,10 @@ class AdminForgotPasswordController extends GetxController {
   handleEnterEmailInForgotPassword(
     BuildContext? context, {
     email,
-  }) async {
+  }) {
     loadingAdminEnterEmailInForgotPassword.value = true;
+    loadingDialogBox(
+        context!, RxBool(loadingAdminEnterEmailInForgotPassword.value));
 
     AuthApiServices.getAdminEnterEmailInForgotPassword(
       email: email,
@@ -27,14 +29,24 @@ class AdminForgotPasswordController extends GetxController {
       if (response == null) {
         timeOutException(loading: loadingAdminEnterEmailInForgotPassword);
       } else if (response.statusCode == 200) {
+        loadingAdminEnterEmailInForgotPassword.value = false;
+        Get.back();
+
         // Go to next screen
         selectedIndex.value = 2;
 
+        customScaffoldMessenger(context, jsonData['message']);
+      } else if (response.statusCode == 500) {
         loadingAdminEnterEmailInForgotPassword.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+
+        customScaffoldMessenger(
+            context, 'Something went wrong. Please try again.');
       } else {
         loadingAdminEnterEmailInForgotPassword.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+
+        customScaffoldMessenger(context, jsonData['message']);
       }
     });
   }
@@ -44,8 +56,10 @@ class AdminForgotPasswordController extends GetxController {
     BuildContext? context, {
     email,
     otp,
-  }) async {
+  }) {
     loadingAdminEnterOTPInForgotPassword.value = true;
+    loadingDialogBox(
+        context!, RxBool(loadingAdminEnterOTPInForgotPassword.value));
 
     AuthApiServices.getAdminEnterOTPInForgotPassword(
       email: email,
@@ -55,14 +69,24 @@ class AdminForgotPasswordController extends GetxController {
       if (response == null) {
         timeOutException(loading: loadingAdminEnterOTPInForgotPassword);
       } else if (response.statusCode == 200) {
+        loadingAdminEnterOTPInForgotPassword.value = false;
+        Get.back();
+
         // Go to next screen
         selectedIndex.value = 3;
 
+        customScaffoldMessenger(context, jsonData['message']);
+      } else if (response.statusCode == 500) {
         loadingAdminEnterOTPInForgotPassword.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+
+        customScaffoldMessenger(
+            context, 'Something went wrong. Please try again.');
       } else {
         loadingAdminEnterOTPInForgotPassword.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+
+        customScaffoldMessenger(context, jsonData['message']);
       }
     });
   }
@@ -72,8 +96,10 @@ class AdminForgotPasswordController extends GetxController {
     BuildContext? context, {
     email,
     newPassword,
-  }) async {
+  }) {
     loadingAdminResetPasswordInForgotPassword.value = true;
+    loadingDialogBox(
+        context!, RxBool(loadingAdminResetPasswordInForgotPassword.value));
 
     AuthApiServices.getAdminResetPasswordInForgotPassword(
       email: email,
@@ -83,15 +109,25 @@ class AdminForgotPasswordController extends GetxController {
       if (response == null) {
         timeOutException(loading: loadingAdminResetPasswordInForgotPassword);
       } else if (response.statusCode == 200) {
+        loadingAdminResetPasswordInForgotPassword.value = false;
+        Get.back();
+
         // Go to next screen
-        Get.to(() => const LoginScreen());
+        Get.offAll(() => const LoginScreen());
         selectedIndex.value = 1;
 
+        customScaffoldMessenger(context, jsonData['message']);
+      } else if (response.statusCode == 500) {
         loadingAdminResetPasswordInForgotPassword.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+
+        customScaffoldMessenger(
+            context, 'Something went wrong. Please try again.');
       } else {
         loadingAdminResetPasswordInForgotPassword.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+
+        customScaffoldMessenger(context, jsonData['message']);
       }
     });
   }

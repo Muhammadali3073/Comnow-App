@@ -1390,13 +1390,14 @@ Future<void> editUserDialogBox(
 
 Future<void> loadingDialogBox(
   BuildContext context,
+  RxBool canPop,
 ) {
   return showDialog<void>(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
       return PopScope(
-        canPop: true,
+        canPop: canPop.value,
         child: AlertDialog(
             contentPadding: EdgeInsets.zero,
             insetPadding: EdgeInsets.zero,
@@ -1408,8 +1409,8 @@ Future<void> loadingDialogBox(
             backgroundColor: Colors.transparent,
             content: Center(
               child: SizedBox(
-                height: 5.h,
-                width: 5.h,
+                height: 4.5.h,
+                width: 4.5.h,
                 child: CircularProgressIndicator(
                   color: hintColor,
                   backgroundColor: dialogBoxColor,

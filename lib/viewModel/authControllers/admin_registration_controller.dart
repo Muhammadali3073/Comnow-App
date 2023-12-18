@@ -20,6 +20,7 @@ class AdminRegistrationController extends GetxController {
     initials,
   }) async {
     loadingAdminRegistration.value = true;
+    loadingDialogBox(context!, RxBool(loadingAdminRegistration.value));
 
     AuthApiServices.getAdminRegistration(
       email: email,
@@ -33,14 +34,22 @@ class AdminRegistrationController extends GetxController {
       if (response == null) {
         timeOutException(loading: loadingAdminRegistration);
       } else if (response.statusCode == 200) {
+        loadingAdminRegistration.value = false;
+        Get.back();
+
         // Go to next screen
         Get.offAll(() => const LoginScreen());
 
+        customScaffoldMessenger(context, jsonData['message']);
+      } else if (response.statusCode == 500) {
         loadingAdminRegistration.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+        customScaffoldMessenger(
+            context, 'Something went wrong. Please try again.');
       } else {
         loadingAdminRegistration.value = false;
-        customScaffoldMessenger(context!, jsonData['message']);
+        Get.back();
+        customScaffoldMessenger(context, jsonData['message']);
       }
     });
   }

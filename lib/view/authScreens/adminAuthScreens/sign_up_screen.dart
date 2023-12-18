@@ -1,14 +1,15 @@
-import 'package:comnow/utils/constant.dart';
-import 'package:comnow/view/authScreens/adminAuthScreens/login_screen.dart';
-import 'package:comnow/view/widgets/widget_utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../utils/color_data.dart';
+import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
 import '../../../viewModel/authControllers/admin_registration_controller.dart';
+import '../../widgets/widget_utils.dart';
+import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
