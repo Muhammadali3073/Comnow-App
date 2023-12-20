@@ -58,7 +58,7 @@ Widget customWhiteMediumText({
     text ?? '',
     textAlign: textAlign,
     style: TextStyle(
-      color: color ?? titleWhiteTextColor,
+      color: color ?? CustomColors.titleWhiteTextColor,
       fontSize: fontSize,
       fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
@@ -71,7 +71,7 @@ Widget customBlackMediumText({text, textAlign, fontSize, fontFamily}) {
     text ?? '',
     textAlign: textAlign,
     style: TextStyle(
-      color: titleBlackTextColor,
+      color: CustomColors.titleBlackTextColor,
       fontSize: fontSize,
       fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
@@ -89,12 +89,12 @@ Widget gradientButton(text, {Function()? onTap}) {
       padding: EdgeInsets.symmetric(vertical: 1.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3.2.h),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              topButtonColor,
-              bottomButtonColor,
+              CustomColors.topButtonColor,
+              CustomColors.bottomButtonColor,
             ]),
       ),
       child: customWhiteMediumText(
@@ -116,7 +116,7 @@ Widget outlineButton(text, {Function()? onTap}) {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3.2.h),
           border: Border.all(
-            color: whiteButtonColor,
+            color: CustomColors.whiteButtonColor,
           )),
       child: customWhiteMediumText(
         text: text,
@@ -135,10 +135,10 @@ Widget filledBlackButton(text, {Function()? onTap}) {
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 0.8.h),
       decoration: BoxDecoration(
-          color: titleBlackTextColor,
+          color: CustomColors.titleBlackTextColor,
           borderRadius: BorderRadius.circular(3.2.h),
           border: Border.all(
-            color: titleBlackTextColor,
+            color: CustomColors.titleBlackTextColor,
           )),
       child: customWhiteMediumText(
         text: text,
@@ -157,7 +157,7 @@ Widget loginSignUpAlreadyButton(whiteText, blueText, {Function()? onTap}) {
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 1.h),
         decoration: BoxDecoration(
-          color: whiteButtonColor,
+          color: CustomColors.whiteButtonColor,
           borderRadius: BorderRadius.circular(3.2.h),
         ),
         child: Row(
@@ -172,7 +172,7 @@ Widget loginSignUpAlreadyButton(whiteText, blueText, {Function()? onTap}) {
             getHorSpace(0.5.h),
             customWhiteMediumText(
               text: blueText,
-              color: blueTextColor,
+              color: CustomColors.blueTextColor,
               fontSize: 14.sp,
               fontFamily: Constant.fontsFamilyRegular,
             ),
@@ -214,21 +214,21 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border:
-                          Border.all(color: blueButtonColor, width: 1.5.px)),
+                          Border.all(color: CustomColors.blueButtonColor, width: 1.5.px)),
                   child: Container(
                     width: 1.h,
                     height: 1.h,
                     decoration: BoxDecoration(
-                        color: blueColor,
+                        color: CustomColors.blueColor,
                         shape: BoxShape.circle,
-                        border: Border.all(color: blueButtonColor)),
+                        border: Border.all(color: CustomColors.blueButtonColor)),
                   ))
               : Container(
                   padding: EdgeInsets.all(0.2.h),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: tabBarTextColor,
+                        color: CustomColors.tabBarTextColor,
                         width: 1.5.px,
                       )),
                   child: Container(
@@ -242,7 +242,7 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
           getHorSpace(0.5.h),
           customWhiteMediumText(
             text: text,
-            color: isSelected == index ? blueButtonColor : whiteButtonColor,
+            color: isSelected == index ? CustomColors.blueButtonColor : CustomColors.whiteButtonColor,
             fontSize: 14.sp,
             fontFamily: isSelected == index
                 ? Constant.fontsFamilyBold
@@ -263,16 +263,16 @@ Widget mainMemberCard(
     decoration: BoxDecoration(
       color:
           listOfMembers.type == 'Left team' && listOfMembers.isBlocked == false
-              ? leftMemberBGCardColor
+              ? CustomColors.leftMemberBGCardColor
               : isPingToAll
-                  ? listOfMembers.pingStatus == acceptColor
-                      ? acceptColor
-                      : listOfMembers.pingStatus == declineColor
-                          ? declineColor
-                          : listOfMembers.pingStatus == pendingColor
-                              ? pendingColor
-                              : textFormFieldBackgroundColor
-                  : textFormFieldBackgroundColor,
+                  ? listOfMembers.pingStatus == CustomColors.acceptColor
+                      ? CustomColors.acceptColor
+                      : listOfMembers.pingStatus == CustomColors.declineColor
+                          ? CustomColors.declineColor
+                          : listOfMembers.pingStatus == CustomColors.pendingColor
+                              ? CustomColors.pendingColor
+                              : CustomColors.textFormFieldBackgroundColor
+                  : CustomColors.textFormFieldBackgroundColor,
       borderRadius: BorderRadius.circular(16),
     ),
     child: Row(
@@ -286,7 +286,7 @@ Widget mainMemberCard(
                 radius: 2.5.h,
                 backgroundColor: listOfMembers.type == 'Left team' &&
                         listOfMembers.isBlocked == false
-                    ? leftMemberBGColor
+                    ? CustomColors.leftMemberBGColor
                     : listOfMembers.initialBGColor,
                 child: customWhiteMediumText(
                     text: listOfMembers.initialName, fontSize: 14.sp),
@@ -306,12 +306,12 @@ Widget mainMemberCard(
                       : customWhiteMediumText(
                           text: listOfMembers.type,
                           color: listOfMembers.type == 'Online'
-                              ? greenColor
+                              ? CustomColors.greenColor
                               : listOfMembers.type == 'Offline'
-                                  ? redColor
+                                  ? CustomColors.redColor
                                   : listOfMembers.type == 'Away'
-                                      ? yellowColor
-                                      : titleBlackTextColor,
+                                      ? CustomColors.yellowColor
+                                      : CustomColors.titleBlackTextColor,
                           fontSize: 13.sp,
                           fontFamily: Constant.fontsFamilyRegular,
                         ),
@@ -327,11 +327,11 @@ Widget mainMemberCard(
                   : CircleAvatar(
                       radius: 0.5.h,
                       backgroundColor: listOfMembers.type == 'Online'
-                          ? greenColor
+                          ? CustomColors.greenColor
                           : listOfMembers.type == 'Offline'
-                              ? redColor
+                              ? CustomColors.redColor
                               : listOfMembers.type == 'Away'
-                                  ? yellowColor
+                                  ? CustomColors.yellowColor
                                   : Colors.transparent,
                     ),
               getHorSpace(1.5.h),
@@ -340,11 +340,11 @@ Widget mainMemberCard(
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: activeTabBarColor)),
+                      border: Border.all(color: CustomColors.activeTabBarColor)),
                   child: Icon(
                     Icons.more_horiz_outlined,
                     size: 2.3.h,
-                    color: activeTabBarColor,
+                    color: CustomColors.activeTabBarColor,
                   ),
                 ),
               ),
@@ -363,7 +363,7 @@ Widget teamMemberMainMemberCard(
     padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 1.h),
     margin: EdgeInsets.only(bottom: 1.4.h),
     decoration: BoxDecoration(
-      color: textFormFieldBackgroundColor,
+      color: CustomColors.textFormFieldBackgroundColor,
       borderRadius: BorderRadius.circular(16),
     ),
     child: Row(
@@ -392,12 +392,12 @@ Widget teamMemberMainMemberCard(
                   customWhiteMediumText(
                     text: listOfMembers.type,
                     color: listOfMembers.type == 'Online'
-                        ? greenColor
+                        ? CustomColors.greenColor
                         : listOfMembers.type == 'Offline'
-                            ? redColor
+                            ? CustomColors.redColor
                             : listOfMembers.type == 'Away'
-                                ? yellowColor
-                                : titleBlackTextColor,
+                                ? CustomColors.yellowColor
+                                : CustomColors.titleBlackTextColor,
                     fontSize: 13.sp,
                     fontFamily: Constant.fontsFamilyRegular,
                   ),
@@ -411,11 +411,11 @@ Widget teamMemberMainMemberCard(
               CircleAvatar(
                 radius: 0.5.h,
                 backgroundColor: listOfMembers.type == 'Online'
-                    ? greenColor
+                    ? CustomColors.greenColor
                     : listOfMembers.type == 'Offline'
-                        ? redColor
+                        ? CustomColors.redColor
                         : listOfMembers.type == 'Away'
-                            ? yellowColor
+                            ? CustomColors.yellowColor
                             : Colors.transparent,
               ),
               getHorSpace(1.5.h),
@@ -424,11 +424,11 @@ Widget teamMemberMainMemberCard(
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: activeTabBarColor)),
+                      border: Border.all(color: CustomColors.activeTabBarColor)),
                   child: Icon(
                     Icons.more_horiz_outlined,
                     size: 2.3.h,
-                    color: activeTabBarColor,
+                    color: CustomColors.activeTabBarColor,
                   ),
                 ),
               ),
@@ -448,7 +448,7 @@ Widget groupCard(groupName, numberOfMembers, {Function()? onTap}) {
         bottom: 1.4.h,
       ),
       decoration: BoxDecoration(
-        color: textFormFieldBackgroundColor,
+        color: CustomColors.textFormFieldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -478,7 +478,7 @@ Widget notificationCard(notificationName, timeOfDelivered, typeMessage,
         bottom: 1.4.h,
       ),
       decoration: BoxDecoration(
-        color: textFormFieldBackgroundColor,
+        color: CustomColors.textFormFieldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -525,9 +525,9 @@ Widget messageTemplatesCard(message, currentIndex, selectedMessage,
         decoration: BoxDecoration(
           border: Border.all(
               color: selectedMessage == currentIndex
-                  ? blueButtonColor
-                  : textFormFieldBackgroundColor),
-          color: textFormFieldBackgroundColor,
+                  ? CustomColors.blueButtonColor
+                  : CustomColors.textFormFieldBackgroundColor),
+          color: CustomColors.textFormFieldBackgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         child: customWhiteMediumText(
@@ -550,8 +550,8 @@ Widget allMessagesCard(message, {Function()? onTap}) {
         bottom: 1.4.h,
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: textFormFieldBackgroundColor),
-        color: textFormFieldBackgroundColor,
+        border: Border.all(color: CustomColors.textFormFieldBackgroundColor),
+        color: CustomColors.textFormFieldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: customWhiteMediumText(
@@ -571,7 +571,7 @@ Widget selectTypeCard(text,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 2.h),
       decoration: BoxDecoration(
-        color: selectUserCardBackgroundColor,
+        color: CustomColors.selectUserCardBackgroundColor,
         borderRadius: BorderRadius.circular(2.4.h),
       ),
       child: Row(
@@ -661,23 +661,23 @@ Widget getCustomTextFormField(
   return TextFormField(
     keyboardType: keyboardType,
     obscureText: obscureText ?? false,
-    cursorColor: blueButtonColor,
+    cursorColor: CustomColors.blueButtonColor,
     controller: controller,
     validator: validator,
     onTap: onTap,
     onChanged: onChanged,
     readOnly: readOnly ?? false,
     style: getCustomTextStyleW4S12(
-      color: titleWhiteTextColor,
+      color: CustomColors.titleWhiteTextColor,
     ),
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: textFormFieldBackgroundColor, width: 1.0.px),
+              BorderSide(color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
           borderRadius: BorderRadius.circular(24.0.px)),
       focusedBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: textFormFieldBackgroundColor, width: 1.0.px),
+              BorderSide(color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
           borderRadius: BorderRadius.circular(24.0.px)),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0.px)),
       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 2.h),
@@ -689,10 +689,10 @@ Widget getCustomTextFormField(
       prefixIcon: prefixIcon,
       isCollapsed: true,
       filled: true,
-      fillColor: textFormFieldBackgroundColor,
+      fillColor: CustomColors.textFormFieldBackgroundColor,
       hintText: hintText,
       hintStyle: getCustomTextStyleW4S12(
-        color: textFormFieldHintColor,
+        color: CustomColors.textFormFieldHintColor,
       ),
       enabled: true,
     ),
@@ -712,7 +712,7 @@ PopupMenuItem allMemberPopupMenuItem(
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
-          color: indexLast == 4 ? Colors.transparent : tabBarTextColor,
+          color: indexLast == 4 ? Colors.transparent : CustomColors.tabBarTextColor,
         ))),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -740,7 +740,7 @@ PopupMenuItem groupPopupMenuItem(
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
-          color: indexLast == 6 ? Colors.transparent : tabBarTextColor,
+          color: indexLast == 6 ? Colors.transparent : CustomColors.tabBarTextColor,
         ))),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -764,7 +764,7 @@ Future<void> sortingDialogBox(BuildContext context, dataFile,
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: Row(
@@ -779,7 +779,7 @@ Future<void> sortingDialogBox(BuildContext context, dataFile,
                   onTap: () => Get.back(),
                   child: Icon(
                     Icons.close,
-                    color: redColor,
+                    color: CustomColors.redColor,
                     size: 2.5.h,
                   ))
             ],
@@ -799,8 +799,8 @@ Future<void> sortingDialogBox(BuildContext context, dataFile,
                               Get.back();
                             },
                           )),
-                      Divider(
-                        color: tabBarTextColor,
+                      const Divider(
+                        color: CustomColors.tabBarTextColor,
                       )
                     ],
                   ),
@@ -817,8 +817,8 @@ Future<void> sortingDialogBox(BuildContext context, dataFile,
                           },
                         ),
                       ),
-                      Divider(
-                        color: tabBarTextColor,
+                      const Divider(
+                        color: CustomColors.tabBarTextColor,
                       )
                     ],
                   ),
@@ -846,7 +846,7 @@ Future<void> leftMemberDialogBox(BuildContext context, userName,
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: Row(
@@ -861,7 +861,7 @@ Future<void> leftMemberDialogBox(BuildContext context, userName,
                   onTap: () => Get.back(),
                   child: Icon(
                     Icons.close,
-                    color: redColor,
+                    color: CustomColors.redColor,
                     size: 2.5.h,
                   ))
             ],
@@ -905,7 +905,7 @@ Future<void> logoutDialogBox(BuildContext context, {Function()? onTap}) {
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           content: SizedBox(
@@ -946,7 +946,7 @@ Future<void> unblockedDialogBox(BuildContext context, userName,
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: getSvgImage('unblock.svg'),
@@ -993,7 +993,7 @@ Future<void> createGroupDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: customWhiteMediumText(
@@ -1040,7 +1040,7 @@ Future<void> leaveAppDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: getSvgImage('leave_app_warning.svg'),
@@ -1085,7 +1085,7 @@ Future<void> deleteGroupDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: getSvgImage('delete_group.svg'),
@@ -1121,11 +1121,11 @@ Future<void> deleteGroupDialogBox(
 
 Future<void> timeOutExceptionDialogBox() {
   return Get.defaultDialog(
-    backgroundColor: dialogBoxColor,
+    backgroundColor: CustomColors.dialogBoxColor,
     titlePadding: EdgeInsets.only(top: 3.h),
     title: 'Oops, Something Went Wrong!',
     titleStyle: TextStyle(
-      color: titleWhiteTextColor,
+      color: CustomColors.titleWhiteTextColor,
       fontFamily: Constant.fontsFamilyMedium,
       fontSize: 16.sp,
     ),
@@ -1168,7 +1168,7 @@ Future<void> editUserDialogBox(
         () => AlertDialog(
             contentPadding: EdgeInsets.zero,
             surfaceTintColor: Colors.transparent,
-            backgroundColor: dialogBoxColor,
+            backgroundColor: CustomColors.dialogBoxColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.px)),
             title: CircleAvatar(
@@ -1411,9 +1411,9 @@ Future<void> loadingDialogBox(
               child: SizedBox(
                 height: 4.5.h,
                 width: 4.5.h,
-                child: CircularProgressIndicator(
-                  color: hintColor,
-                  backgroundColor: dialogBoxColor,
+                child: const CircularProgressIndicator(
+                  color: CustomColors.hintColor,
+                  backgroundColor: CustomColors.dialogBoxColor,
                 ),
               ),
             )),
@@ -1432,7 +1432,7 @@ Future<void> blockDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           title: getSvgImage('do_you_want_block.svg'),
@@ -1476,7 +1476,7 @@ Future<void> pingNotificationDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           content: SizedBox(
@@ -1494,7 +1494,7 @@ Future<void> pingNotificationDialogBox(
                           onTap: () => Get.back(),
                           child: Icon(
                             Icons.close,
-                            color: redColor,
+                            color: CustomColors.redColor,
                             size: 2.5.h,
                           )),
                     ],
@@ -1518,17 +1518,17 @@ Future<void> pingNotificationDialogBox(
                           width: double.infinity,
                           padding: EdgeInsets.symmetric(vertical: 0.8.h),
                           decoration: BoxDecoration(
-                              color: redColor,
+                              color: CustomColors.redColor,
                               borderRadius: BorderRadius.circular(3.2.h),
                               border: Border.all(
-                                color: titleBlackTextColor,
+                                color: CustomColors.titleBlackTextColor,
                               )),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.close,
-                                  color: whiteButtonColor, size: 2.h),
+                                  color: CustomColors.whiteButtonColor, size: 2.h),
                               getHorSpace(0.5.h),
                               customWhiteMediumText(
                                 text: "Not now",
@@ -1550,14 +1550,14 @@ Future<void> pingNotificationDialogBox(
                               color: Colors.green,
                               borderRadius: BorderRadius.circular(3.2.h),
                               border: Border.all(
-                                color: titleBlackTextColor,
+                                color: CustomColors.titleBlackTextColor,
                               )),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.check,
-                                  color: whiteButtonColor, size: 2.h),
+                                  color: CustomColors.whiteButtonColor, size: 2.h),
                               getHorSpace(0.5.h),
                               customWhiteMediumText(
                                 text: "Coming",
@@ -1582,7 +1582,7 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           content: SizedBox(
@@ -1599,7 +1599,7 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                           onTap: () => Get.back(),
                           child: Icon(
                             Icons.close,
-                            color: redColor,
+                            color: CustomColors.redColor,
                             size: 2.5.h,
                           )),
                     ],
@@ -1630,12 +1630,12 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.close, color: redColor, size: 2.h),
+                            Icon(Icons.close, color: CustomColors.redColor, size: 2.h),
                             getHorSpace(0.5.h),
                             customWhiteMediumText(
                               text: "Not now",
                               fontSize: 14.sp,
-                              color: redColor,
+                              color: CustomColors.redColor,
                               fontFamily: Constant.fontsFamilyRegular,
                             ),
                           ],
@@ -1655,7 +1655,7 @@ Future<void> messageNotificationDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           content: SizedBox(
@@ -1672,7 +1672,7 @@ Future<void> messageNotificationDialogBox(
                           onTap: () => Get.back(),
                           child: Icon(
                             Icons.close,
-                            color: redColor,
+                            color: CustomColors.redColor,
                             size: 2.5.h,
                           )),
                     ],
@@ -1704,7 +1704,7 @@ Future<void> voiceMessageNotificationDialogBox(
     builder: (BuildContext context) {
       return AlertDialog(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: dialogBoxColor,
+          backgroundColor: CustomColors.dialogBoxColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.px)),
           content: SizedBox(
@@ -1721,7 +1721,7 @@ Future<void> voiceMessageNotificationDialogBox(
                           onTap: () => Get.back(),
                           child: Icon(
                             Icons.close,
-                            color: redColor,
+                            color: CustomColors.redColor,
                             size: 2.5.h,
                           )),
                     ],
@@ -1751,7 +1751,7 @@ Future<void> memberCardBottomSheet(
 }) {
   return showModalBottomSheet<void>(
     context: context,
-    backgroundColor: dialogBoxColor,
+    backgroundColor: CustomColors.dialogBoxColor,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.px))),
     builder: (BuildContext context) {
@@ -1773,7 +1773,7 @@ Future<void> memberCardBottomSheet(
                         onTap: () => Get.back(),
                         child: Icon(
                           Icons.close,
-                          color: redColor,
+                          color: CustomColors.redColor,
                           size: 2.5.h,
                         )),
                   ],
@@ -1787,7 +1787,7 @@ Future<void> memberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -1812,7 +1812,7 @@ Future<void> memberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -1836,7 +1836,7 @@ Future<void> memberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -1860,7 +1860,7 @@ Future<void> memberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -1885,7 +1885,7 @@ Future<void> memberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -1943,7 +1943,7 @@ Future<void> teamMemberCardBottomSheet(
 }) {
   return showModalBottomSheet<void>(
     context: context,
-    backgroundColor: dialogBoxColor,
+    backgroundColor: CustomColors.dialogBoxColor,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.px))),
     builder: (BuildContext context) {
@@ -1965,7 +1965,7 @@ Future<void> teamMemberCardBottomSheet(
                         onTap: () => Get.back(),
                         child: Icon(
                           Icons.close,
-                          color: redColor,
+                          color: CustomColors.redColor,
                           size: 2.5.h,
                         )),
                   ],
@@ -1979,7 +1979,7 @@ Future<void> teamMemberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -2004,7 +2004,7 @@ Future<void> teamMemberCardBottomSheet(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: tabBarTextColor.withOpacity(0.5),
+                    color: CustomColors.tabBarTextColor.withOpacity(0.5),
                   ))),
                   child: Row(
                     children: [
@@ -2065,7 +2065,7 @@ customScaffoldMessenger(
           fontSize: 14.sp,
         ),
       ),
-      backgroundColor: toastColor,
+      backgroundColor: CustomColors.toastColor,
       duration: const Duration(seconds: 2),
     ),
   );

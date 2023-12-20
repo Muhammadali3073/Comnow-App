@@ -23,7 +23,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
   TextEditingController initialsTextController = TextEditingController();
 
   var initialsString = ''.obs;
-  Rx<Color> initialColor = topButtonColor.obs;
+  Rx<Color> initialColor = CustomColors.topButtonColor.obs;
   DataFile dataFile = DataFile();
 
   @override
@@ -31,7 +31,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          backgroundColor: titleBlackTextColor,
+          backgroundColor: CustomColors.titleBlackTextColor,
           centerTitle: true,
           title: customWhiteMediumText(
               text: 'Add Member',
@@ -41,7 +41,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
               onPressed: () => Get.back(),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: whiteButtonColor,
+                color: CustomColors.whiteButtonColor,
                 size: 2.h,
               )),
         ),
@@ -51,12 +51,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             height: MediaQuery.sizeOf(context).height,
             padding:
                 EdgeInsets.only(top: 4.h, bottom: 16.h, left: 4.h, right: 4.h),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
-              topBackgroundColor,
-              bottomBackgroundColor,
-              bottomBackgroundColor,
-              topBackgroundColor,
+              CustomColors.topBackgroundColor,
+              CustomColors.bottomBackgroundColor,
+              CustomColors.bottomBackgroundColor,
+              CustomColors.topBackgroundColor,
             ])),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

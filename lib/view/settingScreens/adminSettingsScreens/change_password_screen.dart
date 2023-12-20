@@ -21,7 +21,7 @@ class ChangePasswordScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Change Password',
@@ -31,7 +31,7 @@ class ChangePasswordScreen extends StatelessWidget {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
@@ -39,12 +39,12 @@ class ChangePasswordScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 5.6.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: Column(children: [
           addMemberTextField(
@@ -91,8 +91,8 @@ class ChangePasswordScreen extends StatelessWidget {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 1,
-                      backgroundColor: toastColor,
-                      textColor: titleWhiteTextColor,
+                      backgroundColor: CustomColors.toastColor,
+                      textColor: CustomColors.titleWhiteTextColor,
                       fontSize: 14.sp);
                 }
               },

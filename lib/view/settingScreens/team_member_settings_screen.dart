@@ -19,7 +19,7 @@ class TeamMemberSettingsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Settings',
@@ -28,12 +28,12 @@ class TeamMemberSettingsScreen extends StatelessWidget {
       ),
       body: Container(
         height: MediaQuery.sizeOf(context).height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: SingleChildScrollView(
           child: Padding(
@@ -45,7 +45,7 @@ class TeamMemberSettingsScreen extends StatelessWidget {
                   height: 8.h,
                   alignment: Alignment.center,
                   decoration:
-                      BoxDecoration(color: greenColor, shape: BoxShape.circle),
+                      const BoxDecoration(color: CustomColors.greenColor, shape: BoxShape.circle),
                   child: customWhiteMediumText(
                     text: 'MOA',
                     fontSize: 18.sp,
@@ -57,7 +57,7 @@ class TeamMemberSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(
@@ -92,7 +92,7 @@ class TeamMemberSettingsScreen extends StatelessWidget {
                           text: 'English  ',
                           fontSize: 14.sp,
                           fontFamily: Constant.fontsFamilyRegular,
-                          color: blueTextColor,
+                          color: CustomColors.blueTextColor,
                         ),
                       ],
                     ),
@@ -103,7 +103,7 @@ class TeamMemberSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(

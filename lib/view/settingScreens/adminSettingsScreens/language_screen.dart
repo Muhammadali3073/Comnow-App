@@ -1,6 +1,5 @@
 import 'package:comnow/utils/data.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -23,7 +22,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Language',
@@ -33,7 +32,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
@@ -41,12 +40,12 @@ class _LanguageScreenState extends State<LanguageScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 4.0.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: ListView.builder(
           shrinkWrap: true,
@@ -61,7 +60,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                         bottom: BorderSide(
                   color: index == dataFile.languageList.length - 1
                       ? Colors.transparent
-                      : tabBarTextColor,
+                      : CustomColors.tabBarTextColor,
                 ))),
                 child: Obx(
                   () => Row(
@@ -72,21 +71,21 @@ class _LanguageScreenState extends State<LanguageScreen> {
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                      color: blueButtonColor, width: 1.5.px)),
+                                      color: CustomColors.blueButtonColor, width: 1.5.px)),
                               child: Container(
                                 width: 1.0.h,
                                 height: 1.0.h,
                                 decoration: BoxDecoration(
-                                    color: blueColor,
+                                    color: CustomColors.blueColor,
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: blueButtonColor)),
+                                    border: Border.all(color: CustomColors.blueButtonColor)),
                               ))
                           : Container(
                               padding: EdgeInsets.all(0.4.h),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: tabBarTextColor,
+                                    color: CustomColors.tabBarTextColor,
                                     width: 1.5.px,
                                   )),
                               child: Container(
@@ -102,8 +101,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
                       customWhiteMediumText(
                         text: dataFile.languageList[index].name.toString(),
                         color: isSelected.value == index
-                            ? blueButtonColor
-                            : whiteButtonColor,
+                            ? CustomColors.blueButtonColor
+                            : CustomColors.whiteButtonColor,
                         fontSize: 16.sp,
                         fontFamily: Constant.fontsFamilyRegular,
                       ),

@@ -33,17 +33,17 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
 
   // Outer Tab bar
   TabBar get tabBar => TabBar(
-        indicatorColor: blueButtonColor,
-        dividerColor: tabBarColor,
+        indicatorColor: CustomColors.blueButtonColor,
+        dividerColor: CustomColors.tabBarColor,
         indicatorPadding: EdgeInsets.zero,
-        labelColor: blueTextColor,
-        unselectedLabelColor: tabBarTextColor,
+        labelColor: CustomColors.blueTextColor,
+        unselectedLabelColor: CustomColors.tabBarTextColor,
         indicatorSize: TabBarIndicatorSize.tab,
         overlayColor:
-            MaterialStatePropertyAll(blueButtonColor.withOpacity(0.1)),
-        indicator: UnderlineTabIndicator(
+            MaterialStatePropertyAll(CustomColors.blueButtonColor.withOpacity(0.1)),
+        indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(
-          color: blueTextColor,
+          color: CustomColors.blueTextColor,
           width: 1,
         )),
         labelStyle:
@@ -74,8 +74,8 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor: toastColor,
-          textColor: titleWhiteTextColor,
+          backgroundColor: CustomColors.toastColor,
+          textColor: CustomColors.titleWhiteTextColor,
           fontSize: 14.sp);
 
       Future.delayed(
@@ -100,7 +100,7 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
       child: Obx(
         () => Scaffold(
           appBar: AppBar(
-            backgroundColor: titleBlackTextColor,
+            backgroundColor: CustomColors.titleBlackTextColor,
             centerTitle: true,
             title: customWhiteMediumText(
                 text: 'My Team',
@@ -116,7 +116,7 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                       icon: Row(
                         children: [
                           getSvgImage('sort_white.svg',
-                              color: whiteButtonColor, width: 3.h, height: 3.h),
+                              color: CustomColors.whiteButtonColor, width: 3.h, height: 3.h),
                           getHorSpace(0.4.h),
                           customWhiteMediumText(
                               text: 'Sort',
@@ -126,8 +126,8 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                         ],
                       ))
                   : PopupMenuButton(
-                      iconColor: whiteButtonColor,
-                      color: popupMenuColor,
+                      iconColor: CustomColors.whiteButtonColor,
+                      color: CustomColors.popupMenuColor,
                       shadowColor: Colors.transparent,
                       surfaceTintColor: Colors.transparent,
                       constraints: BoxConstraints.tight(Size(24.5.h, 220)),
@@ -178,18 +178,18 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
             bottom: PreferredSize(
               preferredSize: tabBar.preferredSize,
               child: ColoredBox(
-                color: tabBarColor,
+                color: CustomColors.tabBarColor,
                 child: tabBar,
               ),
             ),
           ),
           body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
-              topBackgroundColor,
-              bottomBackgroundColor,
-              bottomBackgroundColor,
-              topBackgroundColor,
+                  CustomColors.topBackgroundColor,
+                  CustomColors.bottomBackgroundColor,
+                  CustomColors.bottomBackgroundColor,
+                  CustomColors.topBackgroundColor,
             ])),
             child: TabBarView(
               children: <Widget>[
@@ -205,7 +205,7 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                   hoverColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
-                  backgroundColor: textFormFieldBackgroundColor,
+                  backgroundColor: CustomColors.textFormFieldBackgroundColor,
                   mini: false,
                   shape: const CircleBorder(side: BorderSide.none),
                   child: getSvgImage('floating_button_icon.svg',
@@ -225,8 +225,8 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
-                              backgroundColor: toastColor,
-                              textColor: titleWhiteTextColor,
+                              backgroundColor: CustomColors.toastColor,
+                              textColor: CustomColors.titleWhiteTextColor,
                               fontSize: 14.sp);
                           createGroupController.clear();
                         } else {
@@ -235,8 +235,8 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
-                              backgroundColor: toastColor,
-                              textColor: titleWhiteTextColor,
+                              backgroundColor: CustomColors.toastColor,
+                              textColor: CustomColors.titleWhiteTextColor,
                               fontSize: 14.sp);
                         }
                       },

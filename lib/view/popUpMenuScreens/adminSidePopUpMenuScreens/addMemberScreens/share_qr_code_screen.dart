@@ -20,7 +20,7 @@ class ShareQRCodeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Add Member',
@@ -30,7 +30,7 @@ class ShareQRCodeScreen extends StatelessWidget {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
@@ -38,19 +38,19 @@ class ShareQRCodeScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 9.5.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               QrImageView(
-                backgroundColor: whiteButtonColor,
+                backgroundColor: CustomColors.whiteButtonColor,
                 data:
                     'My name is Muhammad Ali Nawaz Bajwa, Scan QR code to find my name.',
                 version: QrVersions.auto,

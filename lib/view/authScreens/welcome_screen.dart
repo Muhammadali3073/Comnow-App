@@ -20,11 +20,11 @@ class WelcomeScreen extends StatelessWidget {
           width: MediaQuery.sizeOf(context).width,
           padding: EdgeInsets.only(
               top: 4.h, left: 9.5.h, right: 9.5.h, bottom: 17.1.h),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.center,
-                  colors: [topBackgroundColor, bottomBackgroundColor])),
+                  colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,10 +59,10 @@ class WelcomeScreen extends StatelessWidget {
                         alreadyHaveAccount.value = 'Existing User';
                       },
                       backgroundColor:
-                          isSelected.value ? blueButtonColor : whiteButtonColor,
+                          isSelected.value ? CustomColors.blueButtonColor : CustomColors.whiteButtonColor,
                       textColor: isSelected.value
-                          ? titleWhiteTextColor
-                          : titleBlackTextColor,
+                          ? CustomColors.titleWhiteTextColor
+                          : CustomColors.titleBlackTextColor,
                     ),
                     getVerSpace(1.2.h),
                     customWhiteMediumText(
@@ -77,10 +77,10 @@ class WelcomeScreen extends StatelessWidget {
                         alreadyHaveAccount.value = 'New User';
                       },
                       backgroundColor:
-                          isSelected.value ? whiteButtonColor : blueButtonColor,
+                          isSelected.value ? CustomColors.whiteButtonColor : CustomColors.blueButtonColor,
                       textColor: isSelected.value
-                          ? titleBlackTextColor
-                          : titleWhiteTextColor,
+                          ? CustomColors.titleBlackTextColor
+                          : CustomColors.titleWhiteTextColor,
                     ),
                   ],
                 ),

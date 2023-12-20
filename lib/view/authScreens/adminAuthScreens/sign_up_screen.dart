@@ -37,14 +37,14 @@ class SignUpScreen extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width,
             padding: EdgeInsets.only(
                 top: 5.6.h, left: 3.2.h, right: 3.2.h, bottom: 4.h),
-            decoration: BoxDecoration(
-                image: const DecorationImage(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
                     image: AssetImage('assets/png/auth_background_image.png'),
                     fit: BoxFit.fitWidth),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.center,
-                    colors: [topBackgroundColor, bottomBackgroundColor])),
+                    colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,12 +134,12 @@ class SignUpScreen extends StatelessWidget {
                             isSelectedTermAndCondition.value
                                 ? Icon(
                                     Icons.check_circle_rounded,
-                                    color: blueButtonColor,
+                                    color: CustomColors.blueButtonColor,
                                     size: 1.8.h,
                                   )
                                 : Icon(
                                     Icons.circle_outlined,
-                                    color: hintColor,
+                                    color: CustomColors.hintColor,
                                     size: 1.8.h,
                                   ),
                             getHorSpace(0.5.h),

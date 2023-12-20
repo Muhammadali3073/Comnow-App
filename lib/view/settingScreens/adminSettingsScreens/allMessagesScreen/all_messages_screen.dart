@@ -24,7 +24,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'All Messages',
@@ -34,7 +34,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
         actions: [
@@ -46,7 +46,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
               icon: Row(
                 children: [
                   getSvgImage('sort_white.svg',
-                      color: whiteButtonColor, width: 3.h, height: 3.h),
+                      color: CustomColors.whiteButtonColor, width: 3.h, height: 3.h),
                   getHorSpace(0.4.h),
                   customWhiteMediumText(
                       text: 'Sort',
@@ -60,12 +60,12 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: Padding(
           padding: EdgeInsets.symmetric(

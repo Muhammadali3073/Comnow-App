@@ -13,7 +13,7 @@ class SubscriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Current Subscription',
@@ -23,7 +23,7 @@ class SubscriptionScreen extends StatelessWidget {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
@@ -31,12 +31,12 @@ class SubscriptionScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 4.0.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: Column(
           children: [
@@ -44,7 +44,7 @@ class SubscriptionScreen extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: 1.6.h, right: 1.6.h, top: 1.6.h, bottom: 2.4.h),
               decoration: BoxDecoration(
-                color: toastColor,
+                color: CustomColors.toastColor,
                 borderRadius: BorderRadius.circular(
                   8.px,
                 ),
@@ -96,7 +96,7 @@ class SubscriptionScreen extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.check,
-                      color: greenColor,
+                      color: CustomColors.greenColor,
                       size: 18.sp,
                     ),
                     customWhiteMediumText(
@@ -110,7 +110,7 @@ class SubscriptionScreen extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.check,
-                      color: greenColor,
+                      color: CustomColors.greenColor,
                       size: 18.sp,
                     ),
                     customWhiteMediumText(
@@ -124,7 +124,7 @@ class SubscriptionScreen extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.check,
-                      color: greenColor,
+                      color: CustomColors.greenColor,
                       size: 18.sp,
                     ),
                     customWhiteMediumText(

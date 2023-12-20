@@ -13,7 +13,7 @@ class GenerateQRCodeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Add Member',
@@ -23,7 +23,7 @@ class GenerateQRCodeScreen extends StatelessWidget {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
@@ -31,12 +31,12 @@ class GenerateQRCodeScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 9.5.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,          bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,          CustomColors.bottomBackgroundColor,
 
-              topBackgroundColor,
+              CustomColors.topBackgroundColor,
         ])),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

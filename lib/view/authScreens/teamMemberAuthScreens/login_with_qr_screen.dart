@@ -17,14 +17,14 @@ class LoginWithQRScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         padding:
             EdgeInsets.only(top: 4.h, left: 5.5.h, right: 5.5.h, bottom: 7.6.h),
-        decoration: BoxDecoration(
-            image: const DecorationImage(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
                 image: AssetImage('assets/png/auth_background_image.png'),
                 fit: BoxFit.fitWidth),
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.center,
-                colors: [topBackgroundColor, bottomBackgroundColor])),
+                colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

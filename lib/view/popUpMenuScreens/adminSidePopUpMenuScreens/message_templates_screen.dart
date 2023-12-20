@@ -23,7 +23,7 @@ class _MessageTemplatesScreenState extends State<MessageTemplatesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Message Templates',
@@ -33,19 +33,19 @@ class _MessageTemplatesScreenState extends State<MessageTemplatesScreen> {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,          bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,          CustomColors.bottomBackgroundColor,
 
-              topBackgroundColor,
+              CustomColors.topBackgroundColor,
         ])),
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -80,8 +80,8 @@ class _MessageTemplatesScreenState extends State<MessageTemplatesScreen> {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 1,
-                      backgroundColor: toastColor,
-                      textColor: titleWhiteTextColor,
+                      backgroundColor: CustomColors.toastColor,
+                      textColor: CustomColors.titleWhiteTextColor,
                       fontSize: 14.sp);
                 },
               ),

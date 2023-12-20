@@ -56,8 +56,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor: toastColor,
-          textColor: titleWhiteTextColor,
+          backgroundColor: CustomColors.toastColor,
+          textColor: CustomColors.titleWhiteTextColor,
           fontSize: 14.sp);
       Future.delayed(
         const Duration(seconds: 5),
@@ -79,8 +79,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
-              backgroundColor: toastColor,
-              textColor: titleWhiteTextColor,
+              backgroundColor: CustomColors.toastColor,
+              textColor: CustomColors.titleWhiteTextColor,
               fontSize: 14.sp);
         },
       );
@@ -102,8 +102,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
-                backgroundColor: toastColor,
-                textColor: titleWhiteTextColor,
+                backgroundColor: CustomColors.toastColor,
+                textColor: CustomColors.titleWhiteTextColor,
                 fontSize: 14.sp);
           }
           createGroupController.clear();
@@ -117,7 +117,7 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
     var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: widget.titleOfGroup.toString(),
@@ -127,13 +127,13 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
         actions: [
           PopupMenuButton(
-            iconColor: whiteButtonColor,
-            color: popupMenuColor,
+            iconColor: CustomColors.whiteButtonColor,
+            color: CustomColors.popupMenuColor,
             shadowColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
             constraints: BoxConstraints.tight(Size(24.5.h, 300)),
@@ -195,17 +195,17 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,          bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,          CustomColors.bottomBackgroundColor,
 
-              topBackgroundColor,
+              CustomColors.topBackgroundColor,
         ])),
         child: Column(
           children: [
             Container(
-              color: tabBarColor,
+              color: CustomColors.tabBarColor,
               padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 1.5.h),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -227,7 +227,7 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
               height: 3.8.h,
               margin: EdgeInsets.symmetric(vertical: 2.4.h, horizontal: 2.4.h),
               decoration: BoxDecoration(
-                color: textFormFieldBackgroundColor,
+                color: CustomColors.textFormFieldBackgroundColor,
                 borderRadius: BorderRadius.circular(
                   25.0,
                 ),
@@ -245,7 +245,7 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                     borderRadius: BorderRadius.circular(
                       25.0,
                     ),
-                    color: activeTabBarColor,
+                    color: CustomColors.activeTabBarColor,
                   ),
                   labelStyle: TextStyle(
                     fontSize: 14.sp,
@@ -255,8 +255,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                     fontSize: 14.sp,
                     fontFamily: Constant.fontsFamilyRegular,
                   ),
-                  labelColor: titleBlackTextColor,
-                  unselectedLabelColor: titleWhiteTextColor,
+                  labelColor: CustomColors.titleBlackTextColor,
+                  unselectedLabelColor: CustomColors.titleWhiteTextColor,
                   tabs: [
                     Tab(
                       text:
@@ -309,8 +309,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
-                                            backgroundColor: toastColor,
-                                            textColor: titleWhiteTextColor,
+                                            backgroundColor: CustomColors.toastColor,
+                                            textColor: CustomColors.titleWhiteTextColor,
                                             fontSize: 14.sp);
                                       },
                                       onScanTap: () {
@@ -348,8 +348,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.BOTTOM,
                                                 timeInSecForIosWeb: 1,
-                                                backgroundColor: toastColor,
-                                                textColor: titleWhiteTextColor,
+                                                backgroundColor: CustomColors.toastColor,
+                                                textColor: CustomColors.titleWhiteTextColor,
                                                 fontSize: 14.sp);
                                           },
                                         );
@@ -367,8 +367,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.BOTTOM,
                                                 timeInSecForIosWeb: 1,
-                                                backgroundColor: toastColor,
-                                                textColor: titleWhiteTextColor,
+                                                backgroundColor: CustomColors.toastColor,
+                                                textColor: CustomColors.titleWhiteTextColor,
                                                 fontSize: 14.sp);
                                           },
                                         );
@@ -390,8 +390,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.BOTTOM,
                                                 timeInSecForIosWeb: 1,
-                                                backgroundColor: toastColor,
-                                                textColor: titleWhiteTextColor,
+                                                backgroundColor: CustomColors.toastColor,
+                                                textColor: CustomColors.titleWhiteTextColor,
                                                 fontSize: 14.sp);
                                           },
                                         );
@@ -437,8 +437,8 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
-                                          backgroundColor: toastColor,
-                                          textColor: titleWhiteTextColor,
+                                          backgroundColor: CustomColors.toastColor,
+                                          textColor: CustomColors.titleWhiteTextColor,
                                           fontSize: 14.sp);
                                     },
                                   );

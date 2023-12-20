@@ -54,8 +54,8 @@ class _TeamMemberBottomNavigationBarScreenState
           body: widgetOptions.elementAt(selectedIndex.value),
           bottomNavigationBar: Theme(
             data: ThemeData(
-              splashColor: titleBlackTextColor,
-              highlightColor: titleBlackTextColor,
+              splashColor: CustomColors.titleBlackTextColor,
+              highlightColor: CustomColors.titleBlackTextColor,
             ),
             child: BottomNavigationBar(
               items: <BottomNavigationBarItem>[
@@ -89,10 +89,10 @@ class _TeamMemberBottomNavigationBarScreenState
                   ),
                 ),
               ],
-              backgroundColor: titleBlackTextColor,
+              backgroundColor: CustomColors.titleBlackTextColor,
               currentIndex: selectedIndex.value,
-              selectedItemColor: blueButtonColor,
-              unselectedItemColor: textFormFieldBackgroundColor,
+              selectedItemColor: CustomColors.blueButtonColor,
+              unselectedItemColor: CustomColors.textFormFieldBackgroundColor,
               selectedFontSize: 14.sp,
               unselectedFontSize: 14.sp,
               onTap: _onItemTapped,

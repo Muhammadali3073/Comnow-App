@@ -21,7 +21,7 @@ class AdminSettingsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Settings',
@@ -30,12 +30,12 @@ class AdminSettingsScreen extends StatelessWidget {
       ),
       body: Container(
         height: MediaQuery.sizeOf(context).height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: SingleChildScrollView(
           child: Padding(
@@ -47,11 +47,11 @@ class AdminSettingsScreen extends StatelessWidget {
                 height: 8.h,
                 alignment: Alignment.center,
                 decoration:
-                    BoxDecoration(color: hintColor, shape: BoxShape.circle),
+                    const BoxDecoration(color: CustomColors.hintColor, shape: BoxShape.circle),
                 child: Icon(
                   Icons.person,
                   size: 6.h,
-                  color: textFormFieldBackgroundColor.withOpacity(0.6),
+                  color: CustomColors.textFormFieldBackgroundColor.withOpacity(0.6),
                 ),
               ),
               getVerSpace(1.h),
@@ -60,7 +60,7 @@ class AdminSettingsScreen extends StatelessWidget {
                   text: 'Itsmohsinar@gmail.com',
                   fontSize: 14.sp,
                   fontFamily: Constant.fontsFamilyRegular,
-                  color: voiceNoteColor),
+                  color: CustomColors.voiceNoteColor),
               getVerSpace(1.h),
               GestureDetector(
                 onTap: () => Get.to(() => const EditYourNameScreen()),
@@ -69,7 +69,7 @@ class AdminSettingsScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(vertical: 0.6.h),
                   decoration: BoxDecoration(
-                      color: blueButtonColor,
+                      color: CustomColors.blueButtonColor,
                       borderRadius: BorderRadius.circular(8.px)),
                   child: customWhiteMediumText(
                       text: 'Edit',
@@ -82,7 +82,7 @@ class AdminSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(
@@ -116,7 +116,7 @@ class AdminSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(
@@ -150,7 +150,7 @@ class AdminSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(
@@ -200,7 +200,7 @@ class AdminSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(
@@ -235,7 +235,7 @@ class AdminSettingsScreen extends StatelessWidget {
                           text: 'English  ',
                           fontSize: 14.sp,
                           fontFamily: Constant.fontsFamilyRegular,
-                          color: blueTextColor,
+                          color: CustomColors.blueTextColor,
                         ),
                       ],
                     ),
@@ -246,7 +246,7 @@ class AdminSettingsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 0.8.h, horizontal: 1.h),
                 decoration: BoxDecoration(
-                  color: settingTitleBGColor,
+                  color: CustomColors.settingTitleBGColor,
                   borderRadius: BorderRadius.circular(4.px),
                 ),
                 child: customWhiteMediumText(

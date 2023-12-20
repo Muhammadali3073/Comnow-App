@@ -13,7 +13,7 @@ class ContactSupportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Contact Support',
@@ -23,18 +23,18 @@ class ContactSupportScreen extends StatelessWidget {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 3.2.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -44,7 +44,7 @@ class ContactSupportScreen extends StatelessWidget {
               padding: EdgeInsets.all(1.6.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(0.8.h),
-                color: toastColor,
+                color: CustomColors.toastColor,
               ),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class ContactSupportScreen extends StatelessWidget {
                         Icon(
                           Icons.phone_in_talk_rounded,
                           size: 18.px,
-                          color: whiteButtonColor,
+                          color: CustomColors.whiteButtonColor,
                         ),
                         getHorSpace(1.h),
                         customWhiteMediumText(
@@ -72,7 +72,7 @@ class ContactSupportScreen extends StatelessWidget {
                         Icon(
                           Icons.email_rounded,
                           size: 18.px,
-                          color: whiteButtonColor,
+                          color: CustomColors.whiteButtonColor,
                         ),
                         getHorSpace(1.h),
                         customWhiteMediumText(
@@ -89,7 +89,7 @@ class ContactSupportScreen extends StatelessWidget {
                         Icon(
                           Icons.link_rounded,
                           size: 18.px,
-                          color: whiteButtonColor,
+                          color: CustomColors.whiteButtonColor,
                         ),
                         getHorSpace(1.h),
                         customWhiteMediumText(

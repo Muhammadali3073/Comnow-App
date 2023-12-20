@@ -24,7 +24,7 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Add New Message',
@@ -34,19 +34,19 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
             onPressed: () => Get.back(),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: whiteButtonColor,
+              color: CustomColors.whiteButtonColor,
               size: 2.h,
             )),
       ),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          topBackgroundColor,
-          bottomBackgroundColor,
-          bottomBackgroundColor,
-          topBackgroundColor,
+          CustomColors.topBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.bottomBackgroundColor,
+          CustomColors.topBackgroundColor,
         ])),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 3.h, vertical: 8.h),
@@ -61,18 +61,18 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
             TextFormField(
               controller: messageTextEditController,
               keyboardType: TextInputType.text,
-              cursorColor: blueButtonColor,
+              cursorColor: CustomColors.blueButtonColor,
               style: getCustomTextStyleW4S12(
-                color: titleWhiteTextColor,
+                color: CustomColors.titleWhiteTextColor,
               ),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: textFormFieldBackgroundColor, width: 1.0.px),
+                        color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
                     borderRadius: BorderRadius.circular(16.0.px)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: textFormFieldBackgroundColor, width: 1.0.px),
+                        color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
                     borderRadius: BorderRadius.circular(16.0.px)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0.px)),
@@ -82,10 +82,10 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
                     BoxConstraints.tightForFinite(width: 5.h, height: 2.5.h),
                 isCollapsed: true,
                 filled: true,
-                fillColor: textFormFieldBackgroundColor,
+                fillColor: CustomColors.textFormFieldBackgroundColor,
                 hintText: 'Enter new message ...',
                 hintStyle: getCustomTextStyleW4S12(
-                  color: textFormFieldHintColor,
+                  color: CustomColors.textFormFieldHintColor,
                 ),
                 enabled: true,
               ),
@@ -108,8 +108,8 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: toastColor,
-                        textColor: titleWhiteTextColor,
+                        backgroundColor: CustomColors.toastColor,
+                        textColor: CustomColors.titleWhiteTextColor,
                         fontSize: 14.sp);
                     messageTextEditController.clear();
                   } else {

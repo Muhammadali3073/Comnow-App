@@ -68,14 +68,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
               padding: EdgeInsets.only(top: 11.h, left: 3.2.h, right: 3.2.h),
-              decoration: BoxDecoration(
-                  image: const DecorationImage(
+              decoration:  const BoxDecoration(
+                  image: DecorationImage(
                       image: AssetImage('assets/png/auth_background_image.png'),
                       fit: BoxFit.fitWidth),
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.center,
-                      colors: [topBackgroundColor, bottomBackgroundColor])),
+                      colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
               child: adminForgotPasswordController.selectedIndex.value == 1
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,21 +145,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               textStyle: TextStyle(
                                 fontSize: 18.sp,
                                 fontFamily: Constant.fontsFamilyMedium,
-                                color: titleWhiteTextColor,
+                                color: CustomColors.titleWhiteTextColor,
                               ),
                               pinTheme: PinTheme(
                                   borderWidth: 1.px,
                                   shape: PinCodeFieldShape.circle,
-                                  selectedColor: textFormFieldBackgroundColor,
+                                  selectedColor: CustomColors.textFormFieldBackgroundColor,
                                   selectedFillColor:
-                                      textFormFieldBackgroundColor,
-                                  inactiveColor: textFormFieldBackgroundColor,
+                                      CustomColors.textFormFieldBackgroundColor,
+                                  inactiveColor: CustomColors.textFormFieldBackgroundColor,
                                   inactiveFillColor:
-                                      textFormFieldBackgroundColor,
+                                      CustomColors.textFormFieldBackgroundColor,
                                   fieldHeight: 6.h,
                                   fieldWidth: 5.h,
-                                  activeColor: textFormFieldBackgroundColor,
-                                  activeFillColor: textFormFieldBackgroundColor,
+                                  activeColor: CustomColors.textFormFieldBackgroundColor,
+                                  activeFillColor: CustomColors.textFormFieldBackgroundColor,
                                   fieldOuterPadding:
                                       EdgeInsets.symmetric(horizontal: 0.6.h)),
                               animationDuration:

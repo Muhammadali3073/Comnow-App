@@ -21,7 +21,7 @@ class _TeamMemberNotificationScreenState extends State<TeamMemberNotificationScr
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: titleBlackTextColor,
+        backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Notification',
@@ -32,12 +32,12 @@ class _TeamMemberNotificationScreenState extends State<TeamMemberNotificationScr
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-              topBackgroundColor,
-              bottomBackgroundColor,          bottomBackgroundColor,
+              CustomColors.topBackgroundColor,
+              CustomColors.bottomBackgroundColor,          CustomColors.bottomBackgroundColor,
 
-              topBackgroundColor,
+              CustomColors.topBackgroundColor,
             ])),
         child: ListView.builder(
           itemCount: dataFile.notificationModelList.length,
@@ -59,7 +59,7 @@ class _TeamMemberNotificationScreenState extends State<TeamMemberNotificationScr
                   Expanded(
                     child: Container(
                       height: 0.1.h,
-                      color: whiteButtonColor,
+                      color: CustomColors.whiteButtonColor,
                     ),
                   ),
                 ],

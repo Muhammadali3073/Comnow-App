@@ -59,62 +59,62 @@ class DataFile {
 
   List<InitialsColorModel> initialsColorModel = [
     InitialsColorModel(
-      redColor,
+      CustomColors.redColor,
     ),
     InitialsColorModel(
-      orangeColor,
+      CustomColors.orangeColor,
     ),
     InitialsColorModel(
-      yellowColor,
+      CustomColors.yellowColor,
     ),
     InitialsColorModel(
-      greenColor,
+      CustomColors.greenColor,
     ),
     InitialsColorModel(
-      skyBlueColor,
+      CustomColors.skyBlueColor,
     ),
     InitialsColorModel(
-      blueColor,
+      CustomColors.blueColor,
     ),
     InitialsColorModel(
-      darkBlueColor,
+      CustomColors.darkBlueColor,
     ),
     InitialsColorModel(
-      purpleColor,
+      CustomColors.purpleColor,
     ),
     InitialsColorModel(
-      pinkColor,
+      CustomColors.pinkColor,
     ),
   ];
 
   List<MemberModel> memberList = [
-    MemberModel(
-        "Mohsin", "Khan", "MOH", greenColor, "Online", '1', false, acceptColor),
-    MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false,
-        declineColor),
-    MemberModel(
-        "Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true, pendingColor),
-    MemberModel("Luqman", "Qasim", "ANB", yellowColor, "Left team", '4', false,
-        pendingColor),
-    MemberModel(
-        "Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true, declineColor),
-    MemberModel(
-        "Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true, acceptColor),
+    MemberModel("Mohsin", "Khan", "MOH", CustomColors.greenColor, "Online", '1',
+        false, CustomColors.acceptColor),
+    MemberModel("Ali", "Nawaz", "ANB", CustomColors.yellowColor, "Offline", '2',
+        false, CustomColors.declineColor),
+    MemberModel("Raza", "Farooq", "RFQ", CustomColors.orangeColor, "Away", '3', true,
+        CustomColors.pendingColor),
+    MemberModel("Luqman", "Qasim", "ANB", CustomColors.yellowColor, "Left team", '4',
+        false, CustomColors.pendingColor),
+    MemberModel("Zeeshan", "Rana", "RFQ", CustomColors.orangeColor, "Away", '5', true,
+        CustomColors.declineColor),
+    MemberModel("Ramzan", "Ali", "RNA", CustomColors.blueColor, "Left team", '6',
+        true, CustomColors.acceptColor),
   ];
 
   List<TeamMemberModel> teamMemberList = [
-    TeamMemberModel(
-        "Mohsin", "Khan", "MOH", greenColor, "Online", '1', acceptColor),
-    TeamMemberModel(
-        "Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', declineColor),
-    TeamMemberModel(
-        "Raza", "Farooq", "RFQ", orangeColor, "Away", '3', pendingColor),
-    TeamMemberModel(
-        "Luqman", "Qasim", "ANB", yellowColor, "Online", '4', pendingColor),
-    TeamMemberModel(
-        "Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', declineColor),
-    TeamMemberModel(
-        "Ramzan", "Ali", "RNA", blueColor, "Online", '6', acceptColor),
+    TeamMemberModel("Mohsin", "Khan", "MOH", CustomColors.greenColor, "Online", '1',
+        CustomColors.acceptColor),
+    TeamMemberModel("Ali", "Nawaz", "ANB", CustomColors.yellowColor, "Offline", '2',
+        CustomColors.declineColor),
+    TeamMemberModel("Raza", "Farooq", "RFQ", CustomColors.orangeColor, "Away", '3',
+        CustomColors.pendingColor),
+    TeamMemberModel("Luqman", "Qasim", "ANB", CustomColors.yellowColor, "Online", '4',
+        CustomColors.pendingColor),
+    TeamMemberModel("Zeeshan", "Rana", "RFQ", CustomColors.orangeColor, "Away", '5',
+        CustomColors.declineColor),
+    TeamMemberModel("Ramzan", "Ali", "RNA", CustomColors.blueColor, "Online", '6',
+        CustomColors.acceptColor),
   ];
 
   List<DayByNotificationModel> notificationModelList = [
@@ -145,30 +145,30 @@ class DataFile {
         "Group One",
         "2",
         [
-          MemberModel("Mohsin", "Khan", "MOH", greenColor, "Online", '1', false,
-              pendingColor),
-          MemberModel("Ali", "Nawaz", "ANB", yellowColor, "Offline", '2', false,
-              acceptColor),
+          MemberModel("Mohsin", "Khan", "MOH", CustomColors.greenColor, "Online", '1',
+              false, CustomColors.pendingColor),
+          MemberModel("Ali", "Nawaz", "ANB", CustomColors.yellowColor, "Offline", '2',
+              false, CustomColors.acceptColor),
         ],
         "1"),
     GroupModel(
         "Group Two",
         "3",
         [
-          MemberModel("Raza", "Farooq", "RFQ", orangeColor, "Away", '3', true,
-              acceptColor),
-          MemberModel("Luqman", "Qasim", "ANB", yellowColor, "Left team", '4',
-              false, declineColor),
-          MemberModel("Zeeshan", "Rana", "RFQ", orangeColor, "Away", '5', true,
-              declineColor),
+          MemberModel("Raza", "Farooq", "RFQ", CustomColors.orangeColor, "Away", '3',
+              true, CustomColors.acceptColor),
+          MemberModel("Luqman", "Qasim", "ANB", CustomColors.yellowColor, "Left team",
+              '4', false, CustomColors.declineColor),
+          MemberModel("Zeeshan", "Rana", "RFQ", CustomColors.orangeColor, "Away", '5',
+              true, CustomColors.declineColor),
         ],
         "2"),
     GroupModel(
         "Group Three",
         "1",
         [
-          MemberModel("Ramzan", "Ali", "RNA", blueColor, "Left team", '6', true,
-              pendingColor),
+          MemberModel("Ramzan", "Ali", "RNA", CustomColors.blueColor, "Left team",
+              '6', true, CustomColors.pendingColor),
         ],
         "3"),
   ];

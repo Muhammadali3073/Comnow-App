@@ -50,7 +50,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
     return Column(
       children: [
         Container(
-          color: tabBarColor,
+          color: CustomColors.tabBarColor,
           padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 0.9.h),
           child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +72,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
           height: 3.8.h,
           margin: EdgeInsets.symmetric(vertical: 2.4.h, horizontal: 2.4.h),
           decoration: BoxDecoration(
-            color: textFormFieldBackgroundColor,
+            color: CustomColors.textFormFieldBackgroundColor,
             borderRadius: BorderRadius.circular(
               25.0,
             ),
@@ -90,7 +90,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                 borderRadius: BorderRadius.circular(
                   25.0,
                 ),
-                color: activeTabBarColor,
+                color: CustomColors.activeTabBarColor,
               ),
               labelStyle: TextStyle(
                 fontSize: 14.sp,
@@ -100,8 +100,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                 fontSize: 14.sp,
                 fontFamily: Constant.fontsFamilyRegular,
               ),
-              labelColor: titleBlackTextColor,
-              unselectedLabelColor: titleWhiteTextColor,
+              labelColor: CustomColors.titleBlackTextColor,
+              unselectedLabelColor: CustomColors.titleWhiteTextColor,
               tabs: [
                 Tab(
                   text:
@@ -156,8 +156,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
                                         timeInSecForIosWeb: 1,
-                                        backgroundColor: toastColor,
-                                        textColor: titleWhiteTextColor,
+                                        backgroundColor: CustomColors.toastColor,
+                                        textColor: CustomColors.titleWhiteTextColor,
                                         fontSize: 14.sp);
                                   },
                                   onScanTap: () {
@@ -194,8 +194,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
-                                            backgroundColor: toastColor,
-                                            textColor: titleWhiteTextColor,
+                                            backgroundColor: CustomColors.toastColor,
+                                            textColor: CustomColors.titleWhiteTextColor,
                                             fontSize: 14.sp);
                                       },
                                     );
@@ -212,8 +212,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
-                                            backgroundColor: toastColor,
-                                            textColor: titleWhiteTextColor,
+                                            backgroundColor: CustomColors.toastColor,
+                                            textColor: CustomColors.titleWhiteTextColor,
                                             fontSize: 14.sp);
                                       },
                                     );
@@ -258,8 +258,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.BOTTOM,
                                               timeInSecForIosWeb: 1,
-                                              backgroundColor: toastColor,
-                                              textColor: titleWhiteTextColor,
+                                              backgroundColor: CustomColors.toastColor,
+                                              textColor: CustomColors.titleWhiteTextColor,
                                               fontSize: 14.sp);
                                         } else {
                                           Get.back();
@@ -269,8 +269,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.BOTTOM,
                                               timeInSecForIosWeb: 1,
-                                              backgroundColor: toastColor,
-                                              textColor: titleWhiteTextColor,
+                                              backgroundColor: CustomColors.toastColor,
+                                              textColor: CustomColors.titleWhiteTextColor,
                                               fontSize: 14.sp);
                                           firstNameTextController.clear();
                                           lastNameTextController.clear();
@@ -322,8 +322,8 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
-                                      backgroundColor: toastColor,
-                                      textColor: titleWhiteTextColor,
+                                      backgroundColor: CustomColors.toastColor,
+                                      textColor: CustomColors.titleWhiteTextColor,
                                       fontSize: 14.sp);
                                 },
                               );

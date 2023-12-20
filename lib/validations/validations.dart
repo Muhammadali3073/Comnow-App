@@ -167,7 +167,7 @@ class Validations {
       return "Last name not be empty.";
     } else if (initialsTextController.text.isEmpty) {
       return "Initials not be empty.";
-    } else if (selectedColor == topButtonColor) {
+    } else if (selectedColor == CustomColors.topButtonColor) {
       return "Please select initials color.";
     } else {
       return '';

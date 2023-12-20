@@ -31,14 +31,14 @@ class LoginScreen extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width,
             padding: EdgeInsets.only(
                 top: 11.h, left: 3.2.h, right: 3.2.h, bottom: 6.7.h),
-            decoration: BoxDecoration(
-                image: const DecorationImage(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
                     image: AssetImage('assets/png/auth_background_image.png'),
                     fit: BoxFit.fitWidth),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.center,
-                    colors: [topBackgroundColor, bottomBackgroundColor])),
+                    colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,8 +94,8 @@ class LoginScreen extends StatelessWidget {
                           child: customWhiteMediumText(
                               text: 'Forget password',
                               color: changeColor.value
-                                  ? titleWhiteTextColor
-                                  : blueTextColor,
+                                  ? CustomColors.titleWhiteTextColor
+                                  : CustomColors.blueTextColor,
                               fontSize: 12.px,
                               fontFamily: Constant.fontsFamilyRegular),
                         ),
