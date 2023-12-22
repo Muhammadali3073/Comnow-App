@@ -29,12 +29,7 @@ class TeamMemberSettingsScreen extends StatelessWidget {
       body: Container(
         height: MediaQuery.sizeOf(context).height,
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(

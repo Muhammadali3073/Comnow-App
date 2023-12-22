@@ -8,8 +8,14 @@ import 'api_base_url.dart';
 
 class AuthApiServices {
   // Admin registration
-  static getAdminRegistration(
-      {fullName, email, password, userName, initials}) async {
+  static getAdminRegistration({
+    fullName,
+    email,
+    password,
+    userName,
+    initials,
+    language,
+  }) async {
     final url = Uri.parse('${ApiBaseUrl.url}/user/register');
     log('current api url: $url');
 
@@ -23,6 +29,7 @@ class AuthApiServices {
       "userName": userName.toString(),
       "initials": initials.toString(),
       "fullName": fullName.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
     };
 
     String jsonBody = json.encode(body);
@@ -94,6 +101,7 @@ class AuthApiServices {
   // Admin Enter Email In Forgot Password
   static getAdminEnterEmailInForgotPassword({
     email,
+    language,
   }) async {
     final url = Uri.parse('${ApiBaseUrl.url}/user/password-recovery');
     log('current api url: $url');
@@ -104,6 +112,7 @@ class AuthApiServices {
 
     Map<String, dynamic> body = {
       "email": email.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
     };
 
     String jsonBody = json.encode(body);
@@ -133,6 +142,7 @@ class AuthApiServices {
   static getAdminEnterOTPInForgotPassword({
     email,
     opt,
+    language,
   }) async {
     final url = Uri.parse('${ApiBaseUrl.url}/user/verify-code');
     log('current api url: $url');
@@ -144,6 +154,7 @@ class AuthApiServices {
     Map<String, dynamic> body = {
       "email": email.toString(),
       "code": opt.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
     };
 
     String jsonBody = json.encode(body);
@@ -169,12 +180,11 @@ class AuthApiServices {
     }
   }
 
-
-
   // Admin Reset Password In Forgot Password
   static getAdminResetPasswordInForgotPassword({
     email,
     newPassword,
+    language,
   }) async {
     final url = Uri.parse('${ApiBaseUrl.url}/user/reset-password');
     log('current api url: $url');
@@ -186,6 +196,7 @@ class AuthApiServices {
     Map<String, dynamic> body = {
       "email": email.toString(),
       "newPassword": newPassword.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
     };
 
     String jsonBody = json.encode(body);

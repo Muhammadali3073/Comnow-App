@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:comnow/viewModel/authControllers/admin_forgot_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../controller/authControllers/admin_forgot_password_controller.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
@@ -72,10 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   image: DecorationImage(
                       image: AssetImage('assets/png/auth_background_image.png'),
                       fit: BoxFit.fitWidth),
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.center,
-                      colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+                  gradient: Constant.authGradient),
               child: adminForgotPasswordController.selectedIndex.value == 1
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

@@ -33,12 +33,7 @@ class _AdminNotificationScreenState extends State<AdminNotificationScreen> {
         width: MediaQuery.sizeOf(context).width,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h),
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-              CustomColors.topBackgroundColor,
-              CustomColors.bottomBackgroundColor,          CustomColors.bottomBackgroundColor,
-
-              CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: ListView.builder(
           itemCount: dataFile.notificationModelList.length,
           shrinkWrap: true,

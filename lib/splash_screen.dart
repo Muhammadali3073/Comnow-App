@@ -1,11 +1,10 @@
-import 'package:comnow/view/authScreens/adminAuthScreens/login_screen.dart';
+import 'package:comnow/utils/constant.dart';
 import 'package:comnow/view/navBarScreen/admin_nav_bar_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'utils/color_data.dart';
 import 'view/authScreens/welcome_screen.dart';
 import 'view/widgets/widget_utils.dart';
 
@@ -41,10 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       width: MediaQuery.sizeOf(context).width,
       alignment: Alignment.center,
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.center,
-              colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+          gradient: Constant.authGradient),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -196,12 +196,7 @@ class _SeparateGroupScreenState extends State<SeparateGroupScreen>
       ),
       body: Container(
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,          CustomColors.bottomBackgroundColor,
-
-              CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: Column(
           children: [
             Container(

@@ -1,34 +1,57 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../controller/authControllers/admin_registration_controller.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
-import '../../../viewModel/authControllers/admin_registration_controller.dart';
 import '../../widgets/widget_utils.dart';
 import 'login_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  AdminRegistrationController adminRegistrationController = Get.put(
+      AdminRegistrationController(),
+      tag: 'adminRegistrationController');
+
+  var isSelectedTermAndCondition = false.obs;
+  TextEditingController fullNameTextController = TextEditingController();
+  TextEditingController userNameTextController = TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController initialsTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+  TextEditingController confirmPasswordTextController = TextEditingController();
+  String? selectedLanguageCode;
+
+  sharedPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // Get App Language in SharedPreferences
+    selectedLanguageCode =
+        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
+
+    log('App Language: $selectedLanguageCode');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    sharedPreferences();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    AdminRegistrationController adminRegistrationController = Get.put(
-        AdminRegistrationController(),
-        tag: 'adminRegistrationController');
-
-    var isSelectedTermAndCondition = false.obs;
-    TextEditingController fullNameTextController = TextEditingController();
-    TextEditingController userNameTextController = TextEditingController();
-    TextEditingController emailTextController = TextEditingController();
-    TextEditingController initialsTextController = TextEditingController();
-    TextEditingController passwordTextController = TextEditingController();
-    TextEditingController confirmPasswordTextController =
-        TextEditingController();
-
     return Obx(
       () => Scaffold(
         body: SingleChildScrollView(
@@ -41,10 +64,7 @@ class SignUpScreen extends StatelessWidget {
                 image: DecorationImage(
                     image: AssetImage('assets/png/auth_background_image.png'),
                     fit: BoxFit.fitWidth),
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.center,
-                    colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+                gradient: Constant.authGradient),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,6 +226,7 @@ class SignUpScreen extends StatelessWidget {
                                   .toUpperCase()
                                   .trim(),
                               password: passwordTextController.text.trim(),
+                              language: selectedLanguageCode,
                             );
                           }
                         },

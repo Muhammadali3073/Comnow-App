@@ -757,8 +757,7 @@ PopupMenuItem groupPopupMenuItem(
       ));
 }
 
-Future<void> sortingDialogBox(BuildContext context, dataFile,
-    {RxInt? isSelectedSort}) {
+Future<void> sortingDialogBox(BuildContext context, dataFile, {RxInt? isSelectedSort}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -939,8 +938,7 @@ Future<void> logoutDialogBox(BuildContext context, {Function()? onTap}) {
   );
 }
 
-Future<void> unblockedDialogBox(BuildContext context, userName,
-    {Function()? onUnblock}) {
+Future<void> unblockedDialogBox(BuildContext context, userName, {Function()? onUnblock}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -981,13 +979,7 @@ Future<void> unblockedDialogBox(BuildContext context, userName,
   );
 }
 
-Future<void> createGroupDialogBox(
-  BuildContext context, {
-  Function()? onCreate,
-  createGroupController,
-  String? dialogBoxTitle,
-  String? onCreateTitle,
-}) {
+Future<void> createGroupDialogBox(BuildContext context, {Function()? onCreate, createGroupController, String? dialogBoxTitle, String? onCreateTitle,}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -1031,10 +1023,7 @@ Future<void> createGroupDialogBox(
   );
 }
 
-Future<void> leaveAppDialogBox(
-  BuildContext context, {
-  Function()? onCreate,
-}) {
+Future<void> leaveAppDialogBox(BuildContext context, {Function()? onCreate,}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {

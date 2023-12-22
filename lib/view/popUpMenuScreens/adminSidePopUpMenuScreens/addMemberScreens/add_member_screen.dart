@@ -52,12 +52,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             padding:
                 EdgeInsets.only(top: 4.h, bottom: 16.h, left: 4.h, right: 4.h),
             decoration: const BoxDecoration(
-                gradient: LinearGradient(colors: [
-              CustomColors.topBackgroundColor,
-              CustomColors.bottomBackgroundColor,
-              CustomColors.bottomBackgroundColor,
-              CustomColors.topBackgroundColor,
-            ])),
+                gradient: Constant.appGradient),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

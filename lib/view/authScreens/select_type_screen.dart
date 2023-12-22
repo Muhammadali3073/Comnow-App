@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../utils/color_data.dart';
+import '../../utils/constant.dart';
 import '../widgets/widget_utils.dart';
 import 'adminAuthScreens/login_screen.dart';
 import 'teamMemberAuthScreens/login_with_qr_screen.dart';
@@ -26,10 +27,7 @@ class SelectTypeScreen extends StatelessWidget {
           padding: EdgeInsets.only(
               top: 4.h, left: 5.5.h, right: 5.5.h, bottom: 7.6.h),
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                  colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+              gradient: Constant.authGradient),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

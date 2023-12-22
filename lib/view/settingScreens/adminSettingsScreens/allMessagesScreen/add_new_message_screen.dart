@@ -42,12 +42,7 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 3.h, vertical: 8.h),
           child:

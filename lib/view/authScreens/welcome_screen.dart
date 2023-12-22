@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../utils/color_data.dart';
+import '../../utils/constant.dart';
 import '../widgets/widget_utils.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -21,10 +22,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: EdgeInsets.only(
               top: 4.h, left: 9.5.h, right: 9.5.h, bottom: 17.1.h),
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                  colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+              gradient: Constant.authGradient),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -34,12 +34,7 @@ class _TeamMemberMyTeamScreenState extends State<TeamMemberMyTeamScreen> {
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: Theme(
           data: Theme.of(context).copyWith(
             canvasColor: Colors.transparent,

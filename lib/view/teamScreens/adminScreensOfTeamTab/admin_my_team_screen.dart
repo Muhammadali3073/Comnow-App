@@ -185,12 +185,7 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
           ),
           body: Container(
             decoration: const BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  CustomColors.topBackgroundColor,
-                  CustomColors.bottomBackgroundColor,
-                  CustomColors.bottomBackgroundColor,
-                  CustomColors.topBackgroundColor,
-            ])),
+                gradient: Constant.appGradient),
             child: TabBarView(
               children: <Widget>[
                 // first outer tab bar view widget

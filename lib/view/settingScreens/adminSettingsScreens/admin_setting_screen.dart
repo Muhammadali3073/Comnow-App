@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:comnow/utils/data.dart';
 import 'package:comnow/view/authScreens/welcome_screen.dart';
 import 'package:comnow/view/settingScreens/adminSettingsScreens/subscription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
@@ -18,6 +22,7 @@ class AdminSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DataFile.getCurrentLanguage();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -30,13 +35,7 @@ class AdminSettingsScreen extends StatelessWidget {
       ),
       body: Container(
         height: MediaQuery.sizeOf(context).height,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+        decoration: const BoxDecoration(gradient: Constant.appGradient),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -46,12 +45,13 @@ class AdminSettingsScreen extends StatelessWidget {
                 width: 8.h,
                 height: 8.h,
                 alignment: Alignment.center,
-                decoration:
-                    const BoxDecoration(color: CustomColors.hintColor, shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                    color: CustomColors.hintColor, shape: BoxShape.circle),
                 child: Icon(
                   Icons.person,
                   size: 6.h,
-                  color: CustomColors.textFormFieldBackgroundColor.withOpacity(0.6),
+                  color: CustomColors.textFormFieldBackgroundColor
+                      .withOpacity(0.6),
                 ),
               ),
               getVerSpace(1.h),
@@ -209,7 +209,9 @@ class AdminSettingsScreen extends StatelessWidget {
                     fontFamily: Constant.fontsFamilyRegular),
               ),
               InkWell(
-                onTap: () => Get.to(() => const LanguageScreen()),
+                onTap: () => Get.to(
+                  () => const LanguageScreen(),
+                ),
                 child: SizedBox(
                   width: double.infinity,
                   child: Padding(
@@ -231,11 +233,13 @@ class AdminSettingsScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        customWhiteMediumText(
-                          text: 'English  ',
-                          fontSize: 14.sp,
-                          fontFamily: Constant.fontsFamilyRegular,
-                          color: CustomColors.blueTextColor,
+                        Obx(
+                          () => customWhiteMediumText(
+                            text: DataFile.selectedLanguage.value.toString().tr,
+                            fontSize: 14.sp,
+                            fontFamily: Constant.fontsFamilyRegular,
+                            color: CustomColors.blueTextColor,
+                          ),
                         ),
                       ],
                     ),
@@ -300,7 +304,19 @@ class AdminSettingsScreen extends StatelessWidget {
               InkWell(
                 onTap: () => logoutDialogBox(
                   context,
-                  onTap: () => Get.offAll(() => const WelcomeScreen()),
+                  onTap: () async {
+                    SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+
+                    // Remove Token and IsLogin in SharedPreferences
+                    sharedPreferences.remove('token');
+                    sharedPreferences.remove('isAdminLogin');
+
+                    log('User Login Status: ${sharedPreferences.getBool('isAdminLogin')}');
+                    log('User Login Token: ${sharedPreferences.getString('token')}');
+
+                    Get.offAll(() => const WelcomeScreen());
+                  },
                 ),
                 child: SizedBox(
                   width: double.infinity,

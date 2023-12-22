@@ -1,28 +1,53 @@
+import 'dart:developer';
+
 import 'package:comnow/view/authScreens/adminAuthScreens/forgot_password_screen.dart';
 import 'package:comnow/view/authScreens/adminAuthScreens/sign_up_screen.dart';
 import 'package:comnow/view/authScreens/teamMemberAuthScreens/login_with_qr_screen.dart';
 import 'package:comnow/view/widgets/widget_utils.dart';
-import 'package:comnow/viewModel/authControllers/admin_login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../controller/authControllers/admin_login_controller.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  AdminLoginController adminLoginController =
+      Get.put(AdminLoginController(), tag: 'adminLoginController');
+
+  var changeColor = true.obs;
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+  String? selectedLanguageCode;
+
+  sharedPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // Get App Language in SharedPreferences
+    selectedLanguageCode =
+        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
+
+    log('App Language: $selectedLanguageCode');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    sharedPreferences();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    AdminLoginController adminLoginController =
-        Get.put(AdminLoginController(), tag: 'adminLoginController');
-
-    var changeColor = true.obs;
-    TextEditingController emailTextController = TextEditingController();
-    TextEditingController passwordTextController = TextEditingController();
-
     return Obx(
       () => Scaffold(
         body: SingleChildScrollView(
@@ -35,10 +60,7 @@ class LoginScreen extends StatelessWidget {
                 image: DecorationImage(
                     image: AssetImage('assets/png/auth_background_image.png'),
                     fit: BoxFit.fitWidth),
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.center,
-                    colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+                gradient: Constant.authGradient),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,6 +149,7 @@ class LoginScreen extends StatelessWidget {
                               context,
                               email: emailTextController.text.trim(),
                               password: passwordTextController.text.trim(),
+                              language: selectedLanguageCode,
                             );
                           }
                         },

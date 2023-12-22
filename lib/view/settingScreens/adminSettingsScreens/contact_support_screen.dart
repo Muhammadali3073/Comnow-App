@@ -30,12 +30,7 @@ class ContactSupportScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 3.2.h),
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../utils/color_data.dart';
+import '../../../utils/constant.dart';
 import '../../widgets/widget_utils.dart';
 import 'scan_qr_code_screen.dart';
 
@@ -21,10 +21,7 @@ class LoginWithQRScreen extends StatelessWidget {
             image: DecorationImage(
                 image: AssetImage('assets/png/auth_background_image.png'),
                 fit: BoxFit.fitWidth),
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-                colors: [CustomColors.topBackgroundColor, CustomColors.bottomBackgroundColor])),
+            gradient: Constant.authGradient),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

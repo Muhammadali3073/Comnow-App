@@ -32,12 +32,7 @@ class SubscriptionScreen extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 4.0.h),
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: Column(
           children: [
             Container(

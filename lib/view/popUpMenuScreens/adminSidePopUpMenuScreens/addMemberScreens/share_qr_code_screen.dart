@@ -39,12 +39,7 @@ class ShareQRCodeScreen extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 9.5.h),
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          CustomColors.topBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.bottomBackgroundColor,
-          CustomColors.topBackgroundColor,
-        ])),
+            gradient: Constant.appGradient),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
