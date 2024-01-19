@@ -17,6 +17,7 @@ class AdminForgotPasswordController extends GetxController {
   handleEnterEmailInForgotPassword(
     BuildContext? context, {
     email,
+    language,
   }) {
     loadingAdminEnterEmailInForgotPassword.value = true;
     loadingDialogBox(
@@ -24,6 +25,7 @@ class AdminForgotPasswordController extends GetxController {
 
     AuthApiServices.getAdminEnterEmailInForgotPassword(
       email: email,
+      language: language,
     ).then((response) async {
       var jsonData = jsonDecode(response.body);
       if (response == null) {
@@ -36,13 +38,13 @@ class AdminForgotPasswordController extends GetxController {
         selectedIndex.value = 2;
 
         customScaffoldMessenger(
-            context, 'Check your email for password recovery code');
+            context, 'Check your email for password recovery code'.tr);
       } else if (response.statusCode == 500) {
         loadingAdminEnterEmailInForgotPassword.value = false;
         Get.back();
 
         customScaffoldMessenger(
-            context, 'Something went wrong. Please try again.');
+            context, 'Something went wrong. Please try again.'.tr);
       } else {
         loadingAdminEnterEmailInForgotPassword.value = false;
         Get.back();
@@ -57,6 +59,7 @@ class AdminForgotPasswordController extends GetxController {
     BuildContext? context, {
     email,
     otp,
+    language,
   }) {
     loadingAdminEnterOTPInForgotPassword.value = true;
     loadingDialogBox(
@@ -65,6 +68,7 @@ class AdminForgotPasswordController extends GetxController {
     AuthApiServices.getAdminEnterOTPInForgotPassword(
       email: email,
       opt: otp,
+      language: language,
     ).then((response) async {
       var jsonData = jsonDecode(response.body);
       if (response == null) {
@@ -80,7 +84,7 @@ class AdminForgotPasswordController extends GetxController {
         Get.back();
 
         customScaffoldMessenger(
-            context, 'Something went wrong. Please try again.');
+            context, 'Something went wrong. Please try again.'.tr);
       } else {
         loadingAdminEnterOTPInForgotPassword.value = false;
         Get.back();
@@ -95,6 +99,7 @@ class AdminForgotPasswordController extends GetxController {
     BuildContext? context, {
     email,
     newPassword,
+    language,
   }) {
     loadingAdminResetPasswordInForgotPassword.value = true;
     loadingDialogBox(
@@ -103,6 +108,7 @@ class AdminForgotPasswordController extends GetxController {
     AuthApiServices.getAdminResetPasswordInForgotPassword(
       email: email,
       newPassword: newPassword,
+      language: language,
     ).then((response) async {
       var jsonData = jsonDecode(response.body);
       if (response == null) {
@@ -115,13 +121,13 @@ class AdminForgotPasswordController extends GetxController {
         Get.offAll(() => const LoginScreen());
         selectedIndex.value = 1;
 
-        customScaffoldMessenger(context, 'Change password successfully');
+        customScaffoldMessenger(context, 'Password changed successfully'.tr);
       } else if (response.statusCode == 500) {
         loadingAdminResetPasswordInForgotPassword.value = false;
         Get.back();
 
         customScaffoldMessenger(
-            context, 'Something went wrong. Please try again.');
+            context, 'Something went wrong. Please try again.'.tr);
       } else {
         loadingAdminResetPasswordInForgotPassword.value = false;
         Get.back();

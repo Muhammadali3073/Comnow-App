@@ -1,8 +1,11 @@
 
+import 'dart:developer';
+
 import 'package:comnow/view/authScreens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
@@ -152,7 +155,19 @@ class TeamMemberSettingsScreen extends StatelessWidget {
               InkWell(
                 onTap: () => logoutDialogBox(
                   context,
-                  onTap: () => Get.offAll(() => const WelcomeScreen()),
+                  onTap: () async {
+                    SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+
+                    // Remove Token and IsLogin in SharedPreferences
+                    sharedPreferences.remove('memberToken');
+                    sharedPreferences.remove('isMemberLogin');
+
+                    log('User Login Status: ${sharedPreferences.getBool('isMemberLogin')}');
+                    log('User Login Token: ${sharedPreferences.getString('memberToken')}');
+
+                    Get.offAll(() => const WelcomeScreen());
+                  },
                 ),
                 child: SizedBox(
                   width: double.infinity,

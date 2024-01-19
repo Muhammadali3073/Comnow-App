@@ -222,34 +222,657 @@ class AuthApiServices {
     }
   }
 
-  ///  serviceCategories
-// static getServiceCategories({token}) async {
-//   final url = Uri.parse('${ApiBaseUrl.url}/category');
-//   log('current api url: $url');
-//
-//   final headers = {
-//     'Authorization': 'Bearer $token',
-//     'X-Authorization':
-//         'V3zotHlTKE1r6jyPV6Cmnjhk20bnK2lFcIa2RTL86O5JxToc3VX6VjoWRLDUM5fh'
-//   };
-//   log('current header data: $headers');
-//
-//   try {
-//     http.Response response = await http
-//         .get(
-//       url,
-//       headers: headers,
-//     )
-//         .timeout(const Duration(seconds: 60), onTimeout: () {
-//       throw TimeoutException(
-//           'The connection has timed out, Please try again!');
-//     });
-//     return response;
-//   } on TimeoutException catch (error) {
-//     log('A timeout occurred.: $error');
-//   } on SocketException catch (error) {
-//     log('SocketException SocketException: $error');
-//     return null;
-//   }
-// }
+  // Member Login
+  static getMemberLogin({
+    enrollmentCode,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/login');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, dynamic> body = {
+      "userType": "team-member",
+      "enrollmentCode": enrollmentCode.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .post(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+}
+
+class MembersApiServices {
+  // Add member in team
+  static getAddMemberInTeam({
+    token,
+    firstName,
+    lastName,
+    initials,
+    color,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group-member');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "firstName": firstName.toString(),
+      "lastName": lastName.toString(),
+      "initials": initials.toString(),
+      "type": 'team',
+      "color": color.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .post(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+}
+
+class GroupApiServices {
+  // create group
+  static createGroup({
+    token,
+    groupName,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "name": groupName.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .post(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  //  get Groups
+  static getGroups({
+    token,
+    language,
+  }) async {
+    final url =
+        Uri.parse('${ApiBaseUrl.url}/user/group/get-all-groups?lang=$language');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      http.Response response = await http
+          .get(
+        url,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // edit group name
+  static editGroupName({
+    token,
+    groupName,
+    groupId,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group/edit');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "name": groupName.toString(),
+      "id": groupId.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .patch(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // Add members in group
+  static addMembersInGroup({
+    token,
+    firstName,
+    lastName,
+    initials,
+    color,
+    groupId,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group-member');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "firstName": firstName.toString(),
+      "lastName": lastName.toString(),
+      "initials": initials.toString(),
+      "type": 'group',
+      "color": color.toString(),
+      "group": groupId.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .post(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  //  get members in Group
+  static getMembersInGroup({
+    token,
+    groupId,
+  }) async {
+    final url = Uri.parse(
+        '${ApiBaseUrl.url}/user/group-member?group=$groupId&?status=all');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      http.Response response = await http
+          .get(
+        url,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // Delete  member
+  static deleteMember({
+    token,
+    teamMemberId,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group-member/delete');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "teamMember": teamMemberId,
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .delete(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // Delete group
+  static deleteGroup({
+    token,
+    groupId,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group/delete/$groupId');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      http.Response response = await http
+          .delete(
+        url,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // edit member status
+  static editMemberStatus({
+    token,
+    teamMemberId,
+    blockedStatus,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group-member/status');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "teamMember": teamMemberId.toString(),
+      "status": blockedStatus.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .patch(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  //  get members in Team
+  static getMembersInTeam({
+    token,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group-member?status=all');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      http.Response response = await http
+          .get(
+        url,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // edit member profile
+  static editMemberProfile({
+    token,
+    teamMemberId,
+    fullName,
+    initials,
+    initialsColor,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/group-member/edit');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "teamMember": teamMemberId.toString(),
+      "fullName": fullName.toString(),
+      "initials": initials.toString(),
+      "color": initialsColor.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .patch(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+}
+
+class ProfileApiServices {
+  //  get admin profile
+  static getAdminProfile({
+    token,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/my-profile/get');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      http.Response response = await http
+          .get(
+        url,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // Admin Change Password
+  static adminChangePassword({
+    token,
+    currentPassword,
+    newPassword,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/change-password');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "currentPassword": currentPassword.toString(),
+      "newPassword": newPassword.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .put(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  //  get admin profile
+  static getAdminAddNewMessage({
+    token,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/predefinedmessage');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      http.Response response = await http
+          .get(
+        url,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
+
+  // Admin Add New Message
+  static adminAddNewMessage({
+    token,
+    textOfMessage,
+    language,
+  }) async {
+    final url = Uri.parse('${ApiBaseUrl.url}/user/predefinedmessage');
+    log('current api url: $url');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    Map<String, dynamic> body = {
+      "text": textOfMessage.toString(),
+      "lang": language.toString(), // can be en, de, es, fr, it
+    };
+
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    log('current api JsonBody: $jsonBody');
+
+    try {
+      http.Response response = await http
+          .post(url, headers: headers, body: jsonBody, encoding: encoding)
+          .timeout(const Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException(
+            'The connection has timed out, Please try again!');
+      });
+      log('current api Data: ${response.body}');
+      return response;
+    } on TimeoutException catch (error) {
+      log('A timeout occurred.: $error');
+      return null;
+    } on SocketException catch (error) {
+      log('$error');
+      return null;
+    }
+  }
 }

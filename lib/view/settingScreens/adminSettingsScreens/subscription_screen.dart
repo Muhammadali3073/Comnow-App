@@ -31,8 +31,7 @@ class SubscriptionScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 4.0.h),
-        decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constant.appGradient),
         child: Column(
           children: [
             Container(
@@ -83,8 +82,8 @@ class SubscriptionScreen extends StatelessWidget {
                 customWhiteMediumText(
                     text:
                         'Get our trial test version of our communication app today and experience the benefits of streamlined and efficient communication. With our app, you can easily ping, send messages and voice notes, and manage your team with our efficient control system. Try it out for trial and see for yourself how our app can transform the way vou work. The Test Version subscription includes a 90 day trial period, charges will automatically commence once the trial period concludes',
-                    fontSize: 13.5.sp,
-                    textAlign: TextAlign.center,
+                    fontSize: 14.sp,
+                    textAlign: TextAlign.justify,
                     fontFamily: Constant.fontsFamilyRegular),
                 getVerSpace(2.h),
                 Row(
@@ -134,20 +133,23 @@ class SubscriptionScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     customWhiteMediumText(
-                        text: 'Terms & Condition',
-                        fontSize: 14.sp,
-                        fontFamily: Constant.fontsFamilyRegular),
+                      text: 'Terms & Condition',
+                      fontSize: 14.sp,
+                      fontFamily: Constant.fontsFamilyRegular,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white,
+                    ),
                     customWhiteMediumText(
-                        text: 'Privacy Policy',
-                        fontSize: 14.sp,
-                        fontFamily: Constant.fontsFamilyRegular),
+                      text: 'Privacy Policy',
+                      fontSize: 14.sp,
+                      fontFamily: Constant.fontsFamilyRegular,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white,
+                    ),
                   ],
                 ),
               ]),
             ),
-            Expanded(
-              child: Container(),
-            )
           ],
         ),
       ),

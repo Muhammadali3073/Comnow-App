@@ -1,7 +1,8 @@
+import 'package:get/get.dart';
+
 import '../utils/color_data.dart';
 
 class Validations {
-
   static String handleSingUpScreenError({
     fullNameTextController,
     userNameTextController,
@@ -12,33 +13,36 @@ class Validations {
     isSelectedTermAndCondition,
   }) {
     if (fullNameTextController.text.isEmpty) {
-      return "Full name not be empty.";
+      return "Full name not be empty.".tr;
     } else if (userNameTextController.text.isEmpty) {
-      return "Username not be empty.";
+      return "Username not be empty.".tr;
     } else if (emailTextController.text.isEmpty) {
-      return "Email not be empty.";
+      return "Email not be empty.".tr;
     } else if (initialsTextController.text.isEmpty) {
-      return "Initials not be empty.";
+      return "Initials not be empty.".tr;
     } else if (passwordTextController.text.isEmpty) {
-      return "Password not be empty.";
+      return "Password not be empty.".tr;
     } else if (confirmPasswordTextController.text.isEmpty) {
-      return "Confirm Password not be empty.";
+      return "Confirm Password not be empty.".tr;
     } else if (!isValidEmail.hasMatch(emailTextController.text)) {
-      return "Please check your email.";
+      return "Please check your email.".tr;
     } else if (passwordTextController.text.length < 8) {
-      return "Password must be at least 8 characters in length.";
+      return "Password must be at least 8 characters in length.".tr;
     } else if (confirmPasswordTextController.text.length < 8) {
-      return "Confirm password must be at least 8 characters in length.";
+      return "Confirm password must be at least 8 characters in length.".tr;
     } else if (!isValidPassword.hasMatch(passwordTextController.text)) {
-      return "Password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (!isValidPassword.hasMatch(confirmPasswordTextController.text)) {
-      return "Confirm password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Confirm password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (confirmPasswordTextController.text !=
             passwordTextController.text ||
         passwordTextController.text != confirmPasswordTextController.text) {
-      return "Passwords do not match.";
+      return "Passwords do not match.".tr;
     } else if (isSelectedTermAndCondition == false) {
-      return "Please select the option of 'Do you agreed with our Term & Condition and Privacy policy'.";
+      return 'Please select the option of "Do you agreed with our Term & Condition and Privacy policy."'
+          .tr;
     } else {
       return '';
     }
@@ -49,15 +53,16 @@ class Validations {
     passwordTextController,
   }) {
     if (emailTextController.text.isEmpty) {
-      return "Email not be empty.";
+      return "Email not be empty.".tr;
     } else if (passwordTextController.text.isEmpty) {
-      return "Password not be empty.";
+      return "Password not be empty.".tr;
     } else if (!isValidEmail.hasMatch(emailTextController.text)) {
-      return "Please check your email.";
+      return "Please check your email.".tr;
     } else if (passwordTextController.text.length < 8) {
-      return "Password must be at least 8 characters in length.";
+      return "Password must be at least 8 characters in length.".tr;
     } else if (!isValidPassword.hasMatch(passwordTextController.text)) {
-      return "Password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else {
       return '';
     }
@@ -67,9 +72,9 @@ class Validations {
     emailTextController,
   }) {
     if (emailTextController.text.isEmpty) {
-      return "Email not be empty.";
+      return "Email not be empty.".tr;
     } else if (!isValidEmail.hasMatch(emailTextController.text)) {
-      return "Please check your email.";
+      return "Please check your email.".tr;
     } else {
       return '';
     }
@@ -79,7 +84,7 @@ class Validations {
     otpTextController,
   }) {
     if (otpTextController.text.isEmpty) {
-      return "OTP not be empty.";
+      return "OTP not be empty.".tr;
     } else {
       return '';
     }
@@ -90,21 +95,23 @@ class Validations {
     confirmPasswordTextController,
   }) {
     if (passwordTextController.text.isEmpty) {
-      return "Password not be empty.";
+      return "Password not be empty.".tr;
     } else if (confirmPasswordTextController.text.isEmpty) {
-      return "Confirm Password not be empty.";
+      return "Confirm Password not be empty.".tr;
     } else if (passwordTextController.text.length < 8) {
-      return "Password must be at least 8 characters in length.";
+      return "Password must be at least 8 characters in length.".tr;
     } else if (confirmPasswordTextController.text.length < 8) {
-      return "Confirm password must be at least 8 characters in length.";
+      return "Confirm password must be at least 8 characters in length.".tr;
     } else if (!isValidPassword.hasMatch(passwordTextController.text)) {
-      return "Password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (!isValidPassword.hasMatch(confirmPasswordTextController.text)) {
-      return "Confirm password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Confirm password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (confirmPasswordTextController.text !=
             passwordTextController.text ||
         passwordTextController.text != confirmPasswordTextController.text) {
-      return "Passwords do not match.";
+      return "Passwords do not match.".tr;
     } else {
       return '';
     }
@@ -115,9 +122,9 @@ class Validations {
     initialsTextController,
   }) {
     if (fullNameTextController.text.isEmpty) {
-      return "Full name not be empty.";
+      return "Full name not be empty.".tr;
     } else if (initialsTextController.text.isEmpty) {
-      return "Initials not be empty.";
+      return "Initials not be empty.".tr;
     } else {
       return '';
     }
@@ -129,27 +136,30 @@ class Validations {
     confirmPasswordTextController,
   }) {
     if (currentPasswordTextController.text.isEmpty) {
-      return "Current Password not be empty.";
+      return "Current Password not be empty.".tr;
     } else if (newPasswordTextController.text.isEmpty) {
-      return "New Password not be empty.";
+      return "New Password not be empty.".tr;
     } else if (confirmPasswordTextController.text.isEmpty) {
-      return "Confirm Password not be empty.";
+      return "Confirm Password not be empty.".tr;
     } else if (currentPasswordTextController.text.length < 8) {
-      return "Current Password must be at least 8 characters in length.";
+      return "Current Password must be at least 8 characters in length.".tr;
     } else if (newPasswordTextController.text.length < 8) {
-      return "New Password must be at least 8 characters in length.";
+      return "New Password must be at least 8 characters in length.".tr;
     } else if (confirmPasswordTextController.text.length < 8) {
-      return "Confirm password must be at least 8 characters in length.";
+      return "Confirm password must be at least 8 characters in length.".tr;
     } else if (!isValidPassword.hasMatch(currentPasswordTextController.text)) {
-      return "Current Password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Current Password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (!isValidPassword.hasMatch(newPasswordTextController.text)) {
-      return "New Password should contain at least one upper case, lower case, one digit, Special character.";
+      return "New Password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (!isValidPassword.hasMatch(confirmPasswordTextController.text)) {
-      return "Confirm password should contain at least one upper case, lower case, one digit, Special character.";
+      return "Confirm password should contain at least one upper case, lower case, one digit, Special character."
+          .tr;
     } else if (confirmPasswordTextController.text !=
             newPasswordTextController.text ||
         newPasswordTextController.text != confirmPasswordTextController.text) {
-      return "Passwords do not match.";
+      return "Passwords do not match.".tr;
     } else {
       return '';
     }
@@ -162,13 +172,15 @@ class Validations {
     selectedColor,
   }) {
     if (firstNameTextController.text.isEmpty) {
-      return "First name not be empty.";
+      return "First name not be empty.".tr;
     } else if (lastNameTextController.text.isEmpty) {
-      return "Last name not be empty.";
+      return "Last name not be empty.".tr;
     } else if (initialsTextController.text.isEmpty) {
-      return "Initials not be empty.";
+      return "Initials not be empty.".tr;
+    }  else if (initialsTextController.text.length < 3) {
+      return "Please enter 3 character initials.".tr;
     } else if (selectedColor == CustomColors.topButtonColor) {
-      return "Please select initials color.";
+      return "Please select initials color.".tr;
     } else {
       return '';
     }

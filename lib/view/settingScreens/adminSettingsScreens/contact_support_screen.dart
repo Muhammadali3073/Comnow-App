@@ -28,12 +28,12 @@ class ContactSupportScreen extends StatelessWidget {
             )),
       ),
       body: Container(
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 3.2.h),
         decoration: const BoxDecoration(
             gradient: Constant.appGradient),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.all(1.6.h),

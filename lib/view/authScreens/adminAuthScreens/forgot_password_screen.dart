@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controller/authControllers/admin_forgot_password_controller.dart';
 import '../../../utils/color_data.dart';
@@ -31,10 +32,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   StreamController<ErrorAnimationType>? errorController;
   var isBack = false.obs;
+  String? selectedLanguageCode;
+
+  sharedPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // Get App Language in SharedPreferences
+    selectedLanguageCode =
+        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
+
+    log('App Language: $selectedLanguageCode');
+  }
 
   @override
   void initState() {
     // TODO: implement initState
+    sharedPreferences();
     super.initState();
   }
 
@@ -68,7 +80,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
               padding: EdgeInsets.only(top: 11.h, left: 3.2.h, right: 3.2.h),
-              decoration:  const BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/png/auth_background_image.png'),
                       fit: BoxFit.fitWidth),
@@ -113,6 +125,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                     .handleEnterEmailInForgotPassword(
                                   context,
                                   email: emailTextController.text.trim(),
+                                  language: selectedLanguageCode,
                                 );
                               }
                             },
@@ -147,16 +160,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               pinTheme: PinTheme(
                                   borderWidth: 1.px,
                                   shape: PinCodeFieldShape.circle,
-                                  selectedColor: CustomColors.textFormFieldBackgroundColor,
+                                  selectedColor:
+                                      CustomColors.textFormFieldBackgroundColor,
                                   selectedFillColor:
                                       CustomColors.textFormFieldBackgroundColor,
-                                  inactiveColor: CustomColors.textFormFieldBackgroundColor,
+                                  inactiveColor:
+                                      CustomColors.textFormFieldBackgroundColor,
                                   inactiveFillColor:
                                       CustomColors.textFormFieldBackgroundColor,
                                   fieldHeight: 6.h,
                                   fieldWidth: 5.h,
-                                  activeColor: CustomColors.textFormFieldBackgroundColor,
-                                  activeFillColor: CustomColors.textFormFieldBackgroundColor,
+                                  activeColor:
+                                      CustomColors.textFormFieldBackgroundColor,
+                                  activeFillColor:
+                                      CustomColors.textFormFieldBackgroundColor,
                                   fieldOuterPadding:
                                       EdgeInsets.symmetric(horizontal: 0.6.h)),
                               animationDuration:
@@ -196,6 +213,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       context,
                                       email: emailTextController.text.trim(),
                                       otp: otpTextController.text.trim(),
+                                      language: selectedLanguageCode,
                                     );
                                   }
                                 },
@@ -266,6 +284,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       newPassword: confirmPasswordTextController
                                           .text
                                           .trim(),
+                                      language: selectedLanguageCode,
                                     );
                                   }
                                 },

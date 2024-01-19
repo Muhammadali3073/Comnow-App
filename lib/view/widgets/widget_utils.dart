@@ -53,15 +53,19 @@ Widget customWhiteMediumText({
   TextAlign? textAlign,
   fontSize,
   fontFamily,
+  TextDecoration? decoration,
+  Color? decorationColor,
 }) {
   return Text(
-    text ?? '',
+    text.toString(),
     textAlign: textAlign,
     style: TextStyle(
       color: color ?? CustomColors.titleWhiteTextColor,
       fontSize: fontSize,
       fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
+      decoration: decoration,
+      decorationColor: decorationColor,
     ),
   );
 }
@@ -213,15 +217,16 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
                   padding: EdgeInsets.all(0.2.h),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border:
-                          Border.all(color: CustomColors.blueButtonColor, width: 1.5.px)),
+                      border: Border.all(
+                          color: CustomColors.blueButtonColor, width: 1.5.px)),
                   child: Container(
                     width: 1.h,
                     height: 1.h,
                     decoration: BoxDecoration(
                         color: CustomColors.blueColor,
                         shape: BoxShape.circle,
-                        border: Border.all(color: CustomColors.blueButtonColor)),
+                        border:
+                            Border.all(color: CustomColors.blueButtonColor)),
                   ))
               : Container(
                   padding: EdgeInsets.all(0.2.h),
@@ -242,7 +247,9 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
           getHorSpace(0.5.h),
           customWhiteMediumText(
             text: text,
-            color: isSelected == index ? CustomColors.blueButtonColor : CustomColors.whiteButtonColor,
+            color: isSelected == index
+                ? CustomColors.blueButtonColor
+                : CustomColors.whiteButtonColor,
             fontSize: 14.sp,
             fontFamily: isSelected == index
                 ? Constant.fontsFamilyBold
@@ -250,109 +257,6 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
           ),
         ],
       ));
-}
-
-Widget mainMemberCard(
-  listOfMembers, {
-  Function()? onTap,
-  isPingToAll = false,
-}) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 1.h),
-    margin: EdgeInsets.only(bottom: 1.4.h),
-    decoration: BoxDecoration(
-      color:
-          listOfMembers.type == 'Left team' && listOfMembers.isBlocked == false
-              ? CustomColors.leftMemberBGCardColor
-              : isPingToAll
-                  ? listOfMembers.pingStatus == CustomColors.acceptColor
-                      ? CustomColors.acceptColor
-                      : listOfMembers.pingStatus == CustomColors.declineColor
-                          ? CustomColors.declineColor
-                          : listOfMembers.pingStatus == CustomColors.pendingColor
-                              ? CustomColors.pendingColor
-                              : CustomColors.textFormFieldBackgroundColor
-                  : CustomColors.textFormFieldBackgroundColor,
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 2.5.h,
-                backgroundColor: listOfMembers.type == 'Left team' &&
-                        listOfMembers.isBlocked == false
-                    ? CustomColors.leftMemberBGColor
-                    : listOfMembers.initialBGColor,
-                child: customWhiteMediumText(
-                    text: listOfMembers.initialName, fontSize: 14.sp),
-              ),
-              getHorSpace(1.h),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  customWhiteMediumText(
-                    text: listOfMembers.firstName,
-                    fontSize: 15.sp,
-                    fontFamily: Constant.fontsFamilyRegular,
-                  ),
-                  getVerSpace(0.4.h),
-                  listOfMembers.isBlocked == true
-                      ? Container()
-                      : customWhiteMediumText(
-                          text: listOfMembers.type,
-                          color: listOfMembers.type == 'Online'
-                              ? CustomColors.greenColor
-                              : listOfMembers.type == 'Offline'
-                                  ? CustomColors.redColor
-                                  : listOfMembers.type == 'Away'
-                                      ? CustomColors.yellowColor
-                                      : CustomColors.titleBlackTextColor,
-                          fontSize: 13.sp,
-                          fontFamily: Constant.fontsFamilyRegular,
-                        ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              listOfMembers.isBlocked == true
-                  ? Container()
-                  : CircleAvatar(
-                      radius: 0.5.h,
-                      backgroundColor: listOfMembers.type == 'Online'
-                          ? CustomColors.greenColor
-                          : listOfMembers.type == 'Offline'
-                              ? CustomColors.redColor
-                              : listOfMembers.type == 'Away'
-                                  ? CustomColors.yellowColor
-                                  : Colors.transparent,
-                    ),
-              getHorSpace(1.5.h),
-              GestureDetector(
-                onTap: onTap,
-                child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: CustomColors.activeTabBarColor)),
-                  child: Icon(
-                    Icons.more_horiz_outlined,
-                    size: 2.3.h,
-                    color: CustomColors.activeTabBarColor,
-                  ),
-                ),
-              ),
-              getHorSpace(0.5.h),
-            ],
-          )
-        ]),
-  );
 }
 
 Widget teamMemberMainMemberCard(
@@ -419,12 +323,14 @@ Widget teamMemberMainMemberCard(
                             : Colors.transparent,
               ),
               getHorSpace(1.5.h),
+              getHorSpace(1.5.h),
               GestureDetector(
                 onTap: onTap,
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: CustomColors.activeTabBarColor)),
+                      border:
+                          Border.all(color: CustomColors.activeTabBarColor)),
                   child: Icon(
                     Icons.more_horiz_outlined,
                     size: 2.3.h,
@@ -439,7 +345,7 @@ Widget teamMemberMainMemberCard(
   );
 }
 
-Widget groupCard(groupName, numberOfMembers, {Function()? onTap}) {
+Widget groupCard(String? groupName, int? numberOfMembers, {Function()? onTap}) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -511,7 +417,7 @@ Widget notificationCard(notificationName, timeOfDelivered, typeMessage,
   );
 }
 
-Widget messageTemplatesCard(message, currentIndex, selectedMessage,
+Widget messageTemplatesCard(message, currentIndex, RxInt selectedMessage,
     {Function()? onTap}) {
   return InkWell(
     onTap: onTap,
@@ -672,12 +578,12 @@ Widget getCustomTextFormField(
     ),
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
+          borderSide: BorderSide(
+              color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
           borderRadius: BorderRadius.circular(24.0.px)),
       focusedBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
+          borderSide: BorderSide(
+              color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
           borderRadius: BorderRadius.circular(24.0.px)),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0.px)),
       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 2.h),
@@ -712,7 +618,9 @@ PopupMenuItem allMemberPopupMenuItem(
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
-          color: indexLast == 4 ? Colors.transparent : CustomColors.tabBarTextColor,
+          color: indexLast == 4
+              ? Colors.transparent
+              : CustomColors.tabBarTextColor,
         ))),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -740,7 +648,9 @@ PopupMenuItem groupPopupMenuItem(
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
-          color: indexLast == 6 ? Colors.transparent : CustomColors.tabBarTextColor,
+          color: indexLast == 6
+              ? Colors.transparent
+              : CustomColors.tabBarTextColor,
         ))),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -757,7 +667,7 @@ PopupMenuItem groupPopupMenuItem(
       ));
 }
 
-Future<void> sortingDialogBox(BuildContext context, dataFile, {RxInt? isSelectedSort}) {
+Future<void> sortingDialogBox(BuildContext context, {RxInt? isSelectedSort}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -790,7 +700,7 @@ Future<void> sortingDialogBox(BuildContext context, dataFile, {RxInt? isSelected
                   Column(
                     children: [
                       Obx(() => sortButton(
-                            dataFile.sortModel[0].name.toString(),
+                            "Ascending",
                             isSelectedSort!.value,
                             0,
                             onTap: () {
@@ -807,7 +717,7 @@ Future<void> sortingDialogBox(BuildContext context, dataFile, {RxInt? isSelected
                     children: [
                       Obx(
                         () => sortButton(
-                          dataFile.sortModel[1].name.toString(),
+                          "Descending",
                           isSelectedSort!.value,
                           1,
                           onTap: () {
@@ -823,7 +733,7 @@ Future<void> sortingDialogBox(BuildContext context, dataFile, {RxInt? isSelected
                   ),
                   Obx(
                     () => sortButton(
-                      dataFile.sortModel[2].name.toString(),
+                      "Custom",
                       isSelectedSort!.value,
                       2,
                       onTap: () {
@@ -938,7 +848,8 @@ Future<void> logoutDialogBox(BuildContext context, {Function()? onTap}) {
   );
 }
 
-Future<void> unblockedDialogBox(BuildContext context, userName, {Function()? onUnblock}) {
+Future<void> unblockedDialogBox(BuildContext context, userName,
+    {Function()? onUnblock}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -979,7 +890,13 @@ Future<void> unblockedDialogBox(BuildContext context, userName, {Function()? onU
   );
 }
 
-Future<void> createGroupDialogBox(BuildContext context, {Function()? onCreate, createGroupController, String? dialogBoxTitle, String? onCreateTitle,}) {
+Future<void> createGroupDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+  createGroupController,
+  String? dialogBoxTitle,
+  String? onCreateTitle,
+}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -1023,7 +940,10 @@ Future<void> createGroupDialogBox(BuildContext context, {Function()? onCreate, c
   );
 }
 
-Future<void> leaveAppDialogBox(BuildContext context, {Function()? onCreate,}) {
+Future<void> leaveAppDialogBox(
+  BuildContext context, {
+  Function()? onCreate,
+}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -1140,243 +1060,6 @@ Future<void> timeOutExceptionDialogBox() {
   );
 }
 
-Future<void> editUserDialogBox(
-  BuildContext context,
-  dataFile, {
-  Function()? onCreate,
-  Rx<Color>? initialColor,
-  RxString? initialsString,
-  TextEditingController? firstNameTextController,
-  TextEditingController? lastNameTextController,
-  TextEditingController? initialsTextController,
-}) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return Obx(
-        () => AlertDialog(
-            contentPadding: EdgeInsets.zero,
-            surfaceTintColor: Colors.transparent,
-            backgroundColor: CustomColors.dialogBoxColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.px)),
-            title: CircleAvatar(
-              radius: 5.h,
-              backgroundColor: initialColor!.value,
-              child: customWhiteMediumText(
-                  text: initialsString!.value.toString().toUpperCase(),
-                  fontSize: 18.sp),
-            ),
-            content: SingleChildScrollView(
-              child: SizedBox(
-                  child: Padding(
-                padding:
-                    EdgeInsets.only(left: 1.6.h, right: 1.6.h, bottom: 2.6.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        addMemberTextField(
-                          controller: firstNameTextController,
-                          titleText: 'First name',
-                          hintText: 'Enter first name',
-                        ),
-                        getVerSpace(1.6.h),
-                        addMemberTextField(
-                          controller: lastNameTextController,
-                          titleText: 'Last name',
-                          hintText: 'Enter last name',
-                        ),
-                        getVerSpace(1.6.h),
-                        addMemberTextField(
-                            controller: initialsTextController,
-                            titleText: 'Initials',
-                            hintText: 'Enter Initials',
-                            onChanged: (value) {
-                              initialsString.value = value;
-                            },
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(3),
-                            ]),
-                        getVerSpace(2.4.h),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            customWhiteMediumText(
-                              text: 'Select color',
-                              fontFamily: Constant.fontsFamilyRegular,
-                              fontSize: 14.sp,
-                            ),
-                            getVerSpace(0.7.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[0].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[0].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[1].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[1].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[2].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[2].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[3].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[3].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[4].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[4].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[5].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[5].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[6].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[6].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[7].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[7].color,
-                                  ),
-                                ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                    1.1.h,
-                                  ),
-                                  splashColor: initialColor.value,
-                                  onTap: () {
-                                    initialColor.value =
-                                        dataFile.initialsColorModel[8].color!;
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 1.1.h,
-                                    backgroundColor:
-                                        dataFile.initialsColorModel[8].color,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    getVerSpace(3.h),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: outlineButton(
-                          'Cancel',
-                          onTap: () => Get.back(),
-                        )),
-                        getHorSpace(2.h),
-                        Expanded(
-                            child: filledBlackButton('Save', onTap: onCreate)),
-                      ],
-                    )
-                  ],
-                ),
-              )),
-            )),
-      );
-    },
-  );
-}
-
 Future<void> loadingDialogBox(
   BuildContext context,
   RxBool canPop,
@@ -1478,7 +1161,7 @@ Future<void> pingNotificationDialogBox(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(),
+                      const SizedBox.shrink(),
                       InkWell(
                           onTap: () => Get.back(),
                           child: Icon(
@@ -1517,7 +1200,8 @@ Future<void> pingNotificationDialogBox(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.close,
-                                  color: CustomColors.whiteButtonColor, size: 2.h),
+                                  color: CustomColors.whiteButtonColor,
+                                  size: 2.h),
                               getHorSpace(0.5.h),
                               customWhiteMediumText(
                                 text: "Not now",
@@ -1546,7 +1230,8 @@ Future<void> pingNotificationDialogBox(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.check,
-                                  color: CustomColors.whiteButtonColor, size: 2.h),
+                                  color: CustomColors.whiteButtonColor,
+                                  size: 2.h),
                               getHorSpace(0.5.h),
                               customWhiteMediumText(
                                 text: "Coming",
@@ -1583,7 +1268,7 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(),
+                      const SizedBox.shrink(),
                       InkWell(
                           onTap: () => Get.back(),
                           child: Icon(
@@ -1619,7 +1304,8 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.close, color: CustomColors.redColor, size: 2.h),
+                            Icon(Icons.close,
+                                color: CustomColors.redColor, size: 2.h),
                             getHorSpace(0.5.h),
                             customWhiteMediumText(
                               text: "Not now",
@@ -1656,7 +1342,7 @@ Future<void> messageNotificationDialogBox(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(),
+                      const SizedBox.shrink(),
                       InkWell(
                           onTap: () => Get.back(),
                           child: Icon(
@@ -1705,7 +1391,7 @@ Future<void> voiceMessageNotificationDialogBox(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(),
+                      const SizedBox.shrink(),
                       InkWell(
                           onTap: () => Get.back(),
                           child: Icon(
@@ -1757,7 +1443,7 @@ Future<void> memberCardBottomSheet(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(),
+                    const SizedBox.shrink(),
                     InkWell(
                         onTap: () => Get.back(),
                         child: Icon(
@@ -1949,7 +1635,7 @@ Future<void> teamMemberCardBottomSheet(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(),
+                    const SizedBox.shrink(),
                     InkWell(
                         onTap: () => Get.back(),
                         child: Icon(

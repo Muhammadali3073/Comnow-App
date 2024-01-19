@@ -6,11 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'color_data.dart';
 
 class DataFile {
-  static RxString selectedLanguage = "English".obs;
+  static RxString selectedLanguage = "".obs;
 
   static getCurrentLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    selectedLanguage.value = sharedPreferences.getString('selectedLanguage')??'English';
+    selectedLanguage.value =
+        sharedPreferences.getString('selectedLanguage') ?? 'English';
   }
 
   List<UserTypeModel> userTypeList = [
@@ -22,17 +23,6 @@ class DataFile {
     ),
   ];
 
-  List<SortModel> sortModel = [
-    SortModel(
-      "Ascending",
-    ),
-    SortModel(
-      "Descending",
-    ),
-    SortModel(
-      "Custom",
-    ),
-  ];
 
   List<MessageTemplatesModel> messageTemplatesModel = [
     MessageTemplatesModel(
@@ -46,38 +36,31 @@ class DataFile {
     MessageTemplatesModel(
       "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
       '3',
+    ), MessageTemplatesModel(
+      "Give me water",
+      '4',
+    ),
+    MessageTemplatesModel(
+      "Send next person",
+      '5',
+    ),
+    MessageTemplatesModel(
+      "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
+      '6',
+    ), MessageTemplatesModel(
+      "Give me water",
+      '7',
+    ),
+    MessageTemplatesModel(
+      "Send next person",
+      '8',
+    ),
+    MessageTemplatesModel(
+      "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
+      '9',
     ),
   ];
 
-  List<InitialsColorModel> initialsColorModel = [
-    InitialsColorModel(
-      CustomColors.redColor,
-    ),
-    InitialsColorModel(
-      CustomColors.orangeColor,
-    ),
-    InitialsColorModel(
-      CustomColors.yellowColor,
-    ),
-    InitialsColorModel(
-      CustomColors.greenColor,
-    ),
-    InitialsColorModel(
-      CustomColors.skyBlueColor,
-    ),
-    InitialsColorModel(
-      CustomColors.blueColor,
-    ),
-    InitialsColorModel(
-      CustomColors.darkBlueColor,
-    ),
-    InitialsColorModel(
-      CustomColors.purpleColor,
-    ),
-    InitialsColorModel(
-      CustomColors.pinkColor,
-    ),
-  ];
 
   List<MemberModel> memberList = [
     MemberModel("Mohsin", "Khan", "MOH", CustomColors.greenColor, "Online", '1',
@@ -168,19 +151,6 @@ class DataFile {
 
 ///// Models
 
-///// Sort
-class InitialsColorModel {
-  Color? color;
-
-  InitialsColorModel(this.color);
-}
-
-///// Sort
-class SortModel {
-  String? name;
-
-  SortModel(this.name);
-}
 
 /// Gender
 class UserTypeModel {

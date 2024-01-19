@@ -7,7 +7,10 @@ import '../../../widgets/widget_utils.dart';
 import 'share_qr_code_screen.dart';
 
 class GenerateQRCodeScreen extends StatelessWidget {
-  const GenerateQRCodeScreen({super.key});
+  const GenerateQRCodeScreen({super.key, required this.enrollmentCode,required this.fullName});
+
+  final String enrollmentCode;
+  final String fullName;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,7 @@ class GenerateQRCodeScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 9.5.h),
-        decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constant.appGradient),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +53,10 @@ class GenerateQRCodeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.0.h),
                 child: gradientButton(
                   'Generate QR Code',
-                  onTap: () => Get.to(() =>  ShareQRCodeScreen(memberName: 'Mohsin',)),
+                  onTap: () => Get.to(() => ShareQRCodeScreen(
+                    enrollmentCode: enrollmentCode,
+                    fullName: fullName,
+                      )),
                 ),
               ),
             ]),

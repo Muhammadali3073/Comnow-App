@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
-
+import '../../../../controller/profileControllers/profile_controller.dart';
 import '../../../../utils/color_data.dart';
 import '../../../../utils/constant.dart';
-import '../../../../utils/data.dart';
 import '../../../widgets/widget_utils.dart';
 import 'add_new_message_screen.dart';
 
@@ -17,7 +17,7 @@ class AllMessagesScreen extends StatefulWidget {
 }
 
 class _AllMessagesScreenState extends State<AllMessagesScreen> {
-  DataFile dataFile = DataFile();
+  ProfileController profileController = Get.find(tag: 'profileController');
   var isSelectedSortItem = 2.obs;
 
   @override
@@ -40,13 +40,15 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                sortingDialogBox(context, dataFile,
+                sortingDialogBox(context,
                     isSelectedSort: RxInt(isSelectedSortItem.value));
               },
               icon: Row(
                 children: [
                   getSvgImage('sort_white.svg',
-                      color: CustomColors.whiteButtonColor, width: 3.h, height: 3.h),
+                      color: CustomColors.whiteButtonColor,
+                      width: 3.h,
+                      height: 3.h),
                   getHorSpace(0.4.h),
                   customWhiteMediumText(
                       text: 'Sort',
@@ -60,8 +62,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constant.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 3.0.h,
@@ -69,33 +70,93 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Expanded(
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  canvasColor: Colors.transparent,
-                ),
-                child: ReorderableListView(
-                  padding: EdgeInsets.only(top: 3.2.h),
-                  onReorder: (oldIndex, newIndex) {
-                    setState(() {
-                      final newIdx =
-                          newIndex > oldIndex ? newIndex - 1 : newIndex;
-                      final item =
-                          dataFile.messageTemplatesModel.removeAt(oldIndex);
-                      dataFile.messageTemplatesModel.insert(newIdx, item);
-                    });
-                  },
-                  shrinkWrap: true,
-                  children: [
-                    for (final item in dataFile.messageTemplatesModel)
-                      Container(
-                          key: Key(item.uniqueId.toString()),
-                          margin: EdgeInsets.symmetric(horizontal: 2.4.h),
-                          // Show Cards in List
-                          child: allMessagesCard(
-                            item.message.toString(),
-                          ))
-                  ],
-                ),
+              child: Obx(
+                () => profileController.loadingGetAdminAddNewMessage.value ||
+                        profileController.loadingAdminAddNewMessage.value ||
+                        profileController.getTemplateOfMessageModel.value ==
+                            null
+                    ? SizedBox(
+                        height: MediaQuery.sizeOf(context).height,
+                        width: MediaQuery.sizeOf(context).width,
+                        child: Shimmer.fromColors(
+                            baseColor: CustomColors.bottomBackgroundColor,
+                            highlightColor: Colors.black12,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.only(
+                                        top: 3.2.h, left: 2.h, right: 2.h),
+                                    shrinkWrap: true,
+                                    itemCount: profileController
+                                                .getTemplateOfMessageModel
+                                                .value ==
+                                            null
+                                        ? 5
+                                        : profileController
+                                                .getTemplateOfMessageModel
+                                                .value!
+                                                .data!
+                                                .predefinedMessages!
+                                                .length +
+                                            1,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        height: 6.h,
+                                        margin: EdgeInsets.only(bottom: 1.4.h),
+                                        decoration: BoxDecoration(
+                                          color: CustomColors
+                                              .textFormFieldBackgroundColor,
+                                          borderRadius: BorderRadius.circular(
+                                            16.0,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )
+                    : Theme(
+                        data: Theme.of(context).copyWith(
+                          canvasColor: Colors.transparent,
+                        ),
+                        child: ReorderableListView(
+                          padding: EdgeInsets.only(top: 3.2.h),
+                          onReorder: (oldIndex, newIndex) {
+                            setState(() {
+                              final newIdx =
+                                  newIndex > oldIndex ? newIndex - 1 : newIndex;
+                              final item = profileController
+                                  .getTemplateOfMessageModel
+                                  .value!
+                                  .data!
+                                  .predefinedMessages!
+                                  .removeAt(oldIndex);
+                              profileController.getTemplateOfMessageModel.value!
+                                  .data!.predefinedMessages!
+                                  .insert(newIdx, item);
+                            });
+                          },
+                          shrinkWrap: true,
+                          children: [
+                            for (final item in profileController
+                                .getTemplateOfMessageModel
+                                .value!
+                                .data!
+                                .predefinedMessages!)
+                              Container(
+                                  key: Key(item.id.toString()),
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 2.4.h),
+                                  // Show Cards in List
+                                  child: allMessagesCard(
+                                    item.text.toString(),
+                                  ))
+                          ],
+                        ),
+                      ),
               ),
             ),
             getVerSpace(1.h),

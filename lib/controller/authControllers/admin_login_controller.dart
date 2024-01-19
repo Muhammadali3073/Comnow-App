@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../model/login_model.dart';
+import '../../model/authModels/admin_login_model.dart';
 import '../../services/api_services.dart';
 import '../../services/time_out_method.dart';
 import '../../view/navBarScreen/admin_nav_bar_screen.dart';
@@ -12,7 +12,7 @@ import '../../view/widgets/widget_utils.dart';
 
 class AdminLoginController extends GetxController {
   var loadingAdminLogin = false.obs;
-  late LoginModel loginModel;
+  late LoginAdminModel loginModel;
 
   sharedPreferences() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -54,12 +54,12 @@ class AdminLoginController extends GetxController {
         // Go to next screen
         Get.offAll(() => const AdminBottomNavigationBarScreen());
 
-        customScaffoldMessenger(context, 'User login Success');
+        customScaffoldMessenger(context, 'User login Success'.tr);
       } else if (response.statusCode == 500) {
         loadingAdminLogin.value = false;
         Get.back();
         customScaffoldMessenger(
-            context, 'Something went wrong. Please try again.');
+            context, 'Something went wrong. Please try again.'.tr);
       } else {
         loadingAdminLogin.value = false;
         Get.back();

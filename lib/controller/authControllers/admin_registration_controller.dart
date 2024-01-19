@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../services/api_services.dart';
 import '../../services/time_out_method.dart';
@@ -44,12 +42,12 @@ class AdminRegistrationController extends GetxController {
         // Go to next screen
         Get.offAll(() => const LoginScreen());
 
-        customScaffoldMessenger(context, 'User register is successfully');
+        customScaffoldMessenger(context, 'User register is successfully'.tr);
       } else if (response.statusCode == 500) {
         loadingAdminRegistration.value = false;
         Get.back();
         customScaffoldMessenger(
-            context, 'Something went wrong. Please try again.');
+            context, 'Something went wrong. Please try again.'.tr);
       } else {
         loadingAdminRegistration.value = false;
         Get.back();

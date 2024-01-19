@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     getCustomTextFormField(
                       controller: emailTextController,
                       hintText: 'Email',
-                      keyboardType: TextInputType.visiblePassword,
+                      keyboardType: TextInputType.emailAddress,
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 1.6.h, right: 0.8.h),
                         child: getSvgImage('email_icon.svg'),

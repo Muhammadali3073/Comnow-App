@@ -1,12 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../controller/profileControllers/profile_controller.dart';
 import '../../../../utils/color_data.dart';
 import '../../../../utils/constant.dart';
-import '../../../../utils/data.dart';
 import '../../../widgets/widget_utils.dart';
 
 class AddNewMessagesScreen extends StatefulWidget {
@@ -17,8 +19,30 @@ class AddNewMessagesScreen extends StatefulWidget {
 }
 
 class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
+  ProfileController profileController = Get.find(tag: 'profileController');
+
   TextEditingController messageTextEditController = TextEditingController();
-  DataFile dataFile = DataFile();
+
+  var currentToken = ''.obs;
+  String? selectedLanguageCode;
+
+  getTokenAndLanguage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    currentToken.value = sharedPreferences.getString('token') ?? '';
+    log(currentToken.toString());
+
+    // Get App Language in SharedPreferences
+    selectedLanguageCode =
+        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
+    log('App Language: $selectedLanguageCode');
+  }
+
+  @override
+  void initState() {
+    getTokenAndLanguage();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,79 +65,80 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constant.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 3.h, vertical: 8.h),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            customWhiteMediumText(
-              text: 'Create new message template',
-              fontSize: 15.sp,
-              fontFamily: Constant.fontsFamilyRegular,
-            ),
-            getVerSpace(3.2.h),
-            TextFormField(
-              controller: messageTextEditController,
-              keyboardType: TextInputType.text,
-              cursorColor: CustomColors.blueButtonColor,
-              style: getCustomTextStyleW4S12(
-                color: CustomColors.titleWhiteTextColor,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              customWhiteMediumText(
+                text: 'Create new message template',
+                fontSize: 15.sp,
+                fontFamily: Constant.fontsFamilyRegular,
               ),
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
-                    borderRadius: BorderRadius.circular(16.0.px)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: CustomColors.textFormFieldBackgroundColor, width: 1.0.px),
-                    borderRadius: BorderRadius.circular(16.0.px)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0.px)),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 2.h),
-                prefixIconConstraints:
-                    BoxConstraints.tightForFinite(width: 5.h, height: 2.5.h),
-                isCollapsed: true,
-                filled: true,
-                fillColor: CustomColors.textFormFieldBackgroundColor,
-                hintText: 'Enter new message ...',
-                hintStyle: getCustomTextStyleW4S12(
-                  color: CustomColors.textFormFieldHintColor,
+              getVerSpace(3.2.h),
+              TextFormField(
+                controller: messageTextEditController,
+                keyboardType: TextInputType.text,
+                cursorColor: CustomColors.blueButtonColor,
+                style: getCustomTextStyleW4S12(
+                  color: CustomColors.titleWhiteTextColor,
                 ),
-                enabled: true,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: CustomColors.textFormFieldBackgroundColor,
+                          width: 1.0.px),
+                      borderRadius: BorderRadius.circular(16.0.px)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: CustomColors.textFormFieldBackgroundColor,
+                          width: 1.0.px),
+                      borderRadius: BorderRadius.circular(16.0.px)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0.px)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 2.h),
+                  prefixIconConstraints:
+                      BoxConstraints.tightForFinite(width: 5.h, height: 2.5.h),
+                  isCollapsed: true,
+                  filled: true,
+                  fillColor: CustomColors.textFormFieldBackgroundColor,
+                  hintText: 'Enter new message ...',
+                  hintStyle: getCustomTextStyleW4S12(
+                    color: CustomColors.textFormFieldHintColor,
+                  ),
+                  enabled: true,
+                ),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(150),
+                ],
+                maxLength: 150,
+                maxLines: 4,
               ),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(150),
-              ],
-              maxLength: 150,
-              maxLines: 4,
-            ),
-            getVerSpace(3.2.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.h),
-              child: gradientButton(
-                'Add Template',
-                onTap: () {
-                  if (messageTextEditController.text.isNotEmpty) {
-                    Get.back();
-                    Fluttertoast.showToast(
-                        msg: "Add template successfully",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: CustomColors.toastColor,
-                        textColor: CustomColors.titleWhiteTextColor,
-                        fontSize: 14.sp);
-                    messageTextEditController.clear();
-                  } else {
-                    customScaffoldMessenger(context, 'Message do not empty.');
-                  }
-                },
+              getVerSpace(3.2.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.h),
+                child: gradientButton(
+                  'Add Template',
+                  onTap: () {
+                    if (messageTextEditController.text.isNotEmpty) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+
+                      profileController.handleAdminAddNewMessage(
+                        context,
+                        language: selectedLanguageCode,
+                        token: currentToken.value,
+                        textOfMessage: messageTextEditController.text,
+                      );
+                    } else {
+                      customScaffoldMessenger(context, 'Message do not empty.');
+                    }
+                  },
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

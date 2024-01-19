@@ -1,25 +1,54 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../controller/profileControllers/profile_controller.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
 import '../../widgets/widget_utils.dart';
 
-class ChangePasswordScreen extends StatelessWidget {
+class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController currentPasswordTextController =
-        TextEditingController();
-    TextEditingController newPasswordTextController = TextEditingController();
-    TextEditingController confirmPasswordTextController =
-        TextEditingController();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+}
 
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  ProfileController profileController = Get.find(tag: 'profileController');
+  TextEditingController currentPasswordTextController = TextEditingController();
+  TextEditingController newPasswordTextController = TextEditingController();
+  TextEditingController confirmPasswordTextController = TextEditingController();
+
+  var currentToken = ''.obs;
+  String? selectedLanguageCode;
+
+  getTokenAndLanguage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    currentToken.value = sharedPreferences.getString('token') ?? '';
+    log(currentToken.toString());
+
+    // Get App Language in SharedPreferences
+    selectedLanguageCode =
+        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
+    log('App Language: $selectedLanguageCode');
+  }
+
+  @override
+  void initState() {
+    getTokenAndLanguage();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: CustomColors.titleBlackTextColor,
         centerTitle: true,
@@ -39,8 +68,7 @@ class ChangePasswordScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 5.6.h),
-        decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constant.appGradient),
         child: Column(children: [
           addMemberTextField(
             controller: currentPasswordTextController,
@@ -80,15 +108,13 @@ class ChangePasswordScreen extends StatelessWidget {
                             confirmPasswordTextController,
                       ));
                 } else {
-                  Get.back();
-                  Fluttertoast.showToast(
-                      msg: "Update password successfully",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: CustomColors.toastColor,
-                      textColor: CustomColors.titleWhiteTextColor,
-                      fontSize: 14.sp);
+                  profileController.handleAdminChangePassword(
+                    context,
+                    token: currentToken.value,
+                    language: selectedLanguageCode,
+                    currentPassword: currentPasswordTextController.text,
+                    newPassword: newPasswordTextController.text,
+                  );
                 }
               },
             ),

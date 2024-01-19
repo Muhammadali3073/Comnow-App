@@ -1,30 +1,62 @@
+import 'dart:developer';
+
 import 'package:comnow/utils/data.dart';
+import 'package:comnow/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../controller/groupController/get_groups_controller.dart';
 import '../../../../utils/color_data.dart';
 import '../../../../utils/constant.dart';
 import '../../../../validations/validations.dart';
 import '../../../widgets/widget_utils.dart';
-import 'generate_qr_code_screen.dart';
 
 class AddMemberScreen extends StatefulWidget {
-  const AddMemberScreen({super.key});
+  const AddMemberScreen({super.key, required this.routeName, this.groupId});
+
+  final String routeName;
+  final String? groupId;
 
   @override
   State<AddMemberScreen> createState() => _AddMemberScreenState();
 }
 
 class _AddMemberScreenState extends State<AddMemberScreen> {
+
+  GetGroupsController getGroupsController =
+      Get.find(tag: 'getGroupsController');
+
   TextEditingController firstNameTextController = TextEditingController();
   TextEditingController lastNameTextController = TextEditingController();
   TextEditingController initialsTextController = TextEditingController();
 
   var initialsString = ''.obs;
-  Rx<Color> initialColor = CustomColors.topButtonColor.obs;
+  var currentToken = ''.obs;
+  var initialColorCode = ''.obs;
+  String? selectedLanguageCode;
+  dynamic initialColor = CustomColors.topButtonColor.obs;
   DataFile dataFile = DataFile();
+
+  getTokenAndLanguage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    currentToken.value = sharedPreferences.getString('token') ?? '';
+    log(currentToken.toString());
+
+    // Get App Language in SharedPreferences
+    selectedLanguageCode =
+        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
+    log('App Language: $selectedLanguageCode');
+  }
+
+  @override
+  void initState() {
+    getTokenAndLanguage();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +83,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             height: MediaQuery.sizeOf(context).height,
             padding:
                 EdgeInsets.only(top: 4.h, bottom: 16.h, left: 4.h, right: 4.h),
-            decoration: const BoxDecoration(
-                gradient: Constant.appGradient),
+            decoration: const BoxDecoration(gradient: Constant.appGradient),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -98,7 +129,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                             fontFamily: Constant.fontsFamilyRegular,
                             fontSize: 14.sp,
                           ),
-                          getVerSpace(0.7.h),
+                          getVerSpace(1.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,13 +139,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[0].color!;
+                                  initialColor.value = '#EA2A2A'.toColor();
+                                  initialColorCode.value = '#EA2A2A';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[0].color,
+                                  backgroundColor: '#EA2A2A'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -122,13 +152,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[1].color!;
+                                  initialColor.value = '#E4951F'.toColor();
+                                  initialColorCode.value = '#E4951F';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[1].color,
+                                  backgroundColor: '#E4951F'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -136,13 +165,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[2].color!;
+                                  initialColor.value = '#E4DC1F'.toColor();
+                                  initialColorCode.value = '#E4DC1F';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[2].color,
+                                  backgroundColor: '#E4DC1F'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -150,13 +178,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[3].color!;
+                                  initialColor.value = '#46E41F'.toColor();
+                                  initialColorCode.value = '#46E41F';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[3].color,
+                                  backgroundColor: '#46E41F'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -164,13 +191,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[4].color!;
+                                  initialColor.value = '#1FE4C1'.toColor();
+                                  initialColorCode.value = '#1FE4C1';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[4].color,
+                                  backgroundColor: '#1FE4C1'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -178,13 +204,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[5].color!;
+                                  initialColor.value = '#218FF5'.toColor();
+                                  initialColorCode.value = '#218FF5';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[5].color,
+                                  backgroundColor: '#218FF5'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -192,13 +217,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[6].color!;
+                                  initialColor.value = '#2F1FE4'.toColor();
+                                  initialColorCode.value = '#2F1FE4';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[6].color,
+                                  backgroundColor: '#2F1FE4'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -206,13 +230,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[7].color!;
+                                  initialColor.value = '#C81FE4'.toColor();
+                                  initialColorCode.value = '#C81FE4';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[7].color,
+                                  backgroundColor: '#C81FE4'.toColor(),
                                 ),
                               ),
                               InkWell(
@@ -220,13 +243,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                   1.5.h,
                                 ),
                                 onTap: () {
-                                  initialColor.value =
-                                      dataFile.initialsColorModel[8].color!;
+                                  initialColor.value = '#E41FA1'.toColor();
+                                  initialColorCode.value = '#E41FA1';
                                 },
                                 child: CircleAvatar(
                                   radius: 1.5.h,
-                                  backgroundColor:
-                                      dataFile.initialsColorModel[8].color,
+                                  backgroundColor: '#E41FA1'.toColor(),
                                 ),
                               ),
                             ],
@@ -256,7 +278,31 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                 selectedColor: initialColor.value,
                               ));
                         } else {
-                          Get.to(() => const GenerateQRCodeScreen());
+                          if(widget.routeName == 'team'){
+                            getGroupsController.handleAddMemberInTeam(
+                              context,
+                              token: currentToken.value,
+                              firstName:
+                              firstNameTextController.text.trim(),
+                              lastName: lastNameTextController.text.trim(),
+                              initials: initialsTextController.text.trim(),
+                              color: initialColorCode.value,
+                              language: selectedLanguageCode,
+                            );
+                          }else if(widget.routeName == 'group'){
+                            getGroupsController.handleAddMemberInGroup(
+                              context,
+                              token: currentToken.value,
+                              groupId: widget.groupId,
+                              firstName:
+                              firstNameTextController.text.trim(),
+                              lastName: lastNameTextController.text.trim(),
+                              initials: initialsTextController.text.trim(),
+                              color: initialColorCode.value,
+                              language: selectedLanguageCode,
+                            );
+                          }
+
                         }
                       },
                     ),
