@@ -26,7 +26,7 @@ class _VoiceMessageScreenState extends State<VoiceMessageScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Voice Message',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -40,7 +40,7 @@ class _VoiceMessageScreenState extends State<VoiceMessageScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+            gradient: Constants.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 3.0.h),
           child: Column(
@@ -52,7 +52,7 @@ class _VoiceMessageScreenState extends State<VoiceMessageScreen> {
                   children: [
                     customWhiteMediumText(
                       text: 'Press and hold to start',
-                      fontFamily: Constant.fontsFamilyRegular,
+                      fontFamily: Constants.fontsFamilyRegular,
                       fontSize: 14.sp,
                     ),
                     getVerSpace(1.h),

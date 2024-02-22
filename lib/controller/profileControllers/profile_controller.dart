@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/authModels/admin_profile_model.dart';
 import '../../model/templateMessageModel/template_message_model.dart';
@@ -18,20 +19,32 @@ class ProfileController extends GetxController {
   var loadingAdminChangePassword = false.obs;
   var loadingAdminAddNewMessage = false.obs;
   var loadingGetAdminAddNewMessage = false.obs;
+  var loadingGetAdminEditProfile = false.obs;
+
   Rxn<AdminProfileModel> getAdminProfile = Rxn<AdminProfileModel>();
   Rxn<TemplateOfMessageModel> getTemplateOfMessageModel =
       Rxn<TemplateOfMessageModel>();
 
+
+  setSubscription(isSubscription) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool('isSubscription', isSubscription);
+  }
+
   // Get Admin Profile
   handleGetAdminProfile(
-    BuildContext? context, {
+    BuildContext? context,
+    language, {
     token,
   }) async {
     loadingGetAdminProfile.value = true;
 
     ProfileApiServices.getAdminProfile(
+      language,
       token: token,
     ).then((response) async {
+      var jsonData = jsonDecode(response.body);
+
       if (response == null) {
         timeOutException(loading: loadingGetAdminProfile);
       } else if (response.statusCode == 200) {
@@ -45,10 +58,13 @@ class ProfileController extends GetxController {
 
         customScaffoldMessenger(
             context!, 'Something went wrong. Please try again.'.tr);
-      } else {
+      } else if (response.statusCode == 401) {
         loadingGetAdminProfile.value = false;
-        customScaffoldMessenger(
-            context!, 'Something went wrong. Please try again.'.tr);
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context!);
+        }
       }
     });
   }
@@ -79,7 +95,7 @@ class ProfileController extends GetxController {
         Get.back();
 
         // Call group Data
-        handleGetAdminProfile(context, token: token);
+        handleGetAdminProfile(context, language, token: token);
 
         // Go to next screen
         Get.back();
@@ -97,6 +113,13 @@ class ProfileController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingAdminChangePassword.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingAdminChangePassword.value = false;
         Get.back();
@@ -115,6 +138,8 @@ class ProfileController extends GetxController {
     ProfileApiServices.getAdminAddNewMessage(
       token: token,
     ).then((response) async {
+      var jsonData = jsonDecode(response.body);
+
       if (response == null) {
         timeOutException(loading: loadingGetAdminAddNewMessage);
       } else if (response.statusCode == 200) {
@@ -129,10 +154,13 @@ class ProfileController extends GetxController {
 
         customScaffoldMessenger(
             context!, 'Something went wrong. Please try again.'.tr);
-      } else {
+      } else if (response.statusCode == 401) {
         loadingGetAdminAddNewMessage.value = false;
-        customScaffoldMessenger(
-            context!, 'Something went wrong. Please try again.'.tr);
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context!);
+        }
       }
     });
   }
@@ -179,8 +207,72 @@ class ProfileController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
-      } else {
+      }else if (response.statusCode == 401) {
         loadingAdminAddNewMessage.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
+      }
+    });
+  }
+
+  // Admin Edit Profile
+  handleAdminEditProfile(
+    BuildContext? context, {
+    token,
+    fullName,
+    initials,
+    color,
+    language,
+  }) async {
+    loadingGetAdminEditProfile.value = true;
+    loadingDialogBox(context!, RxBool(loadingGetAdminEditProfile.value));
+
+    ProfileApiServices.adminEditProfile(
+      token: token,
+      fullName: fullName,
+      initials: initials,
+      color: color,
+      language: language,
+    ).then((response) async {
+      var jsonData = jsonDecode(response.body);
+
+      if (response == null) {
+        timeOutException(loading: loadingGetAdminEditProfile);
+      } else if (response.statusCode == 200) {
+        loadingGetAdminEditProfile.value = false;
+        Get.back();
+
+        // Call group Data
+        handleGetAdminProfile(context, language, token: token);
+
+        // Go to next screen
+        Get.back();
+
+        Fluttertoast.showToast(
+            msg: "Update profile successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: CustomColors.toastColor,
+            textColor: CustomColors.titleWhiteTextColor,
+            fontSize: 14.sp);
+      } else if (response.statusCode == 500) {
+        loadingGetAdminEditProfile.value = false;
+        Get.back();
+        customScaffoldMessenger(
+            context, 'Something went wrong. Please try again.'.tr);
+      }else if (response.statusCode == 401) {
+        loadingGetAdminEditProfile.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
+      } else {
+        loadingGetAdminEditProfile.value = false;
         Get.back();
         customScaffoldMessenger(context, jsonData['message']);
       }

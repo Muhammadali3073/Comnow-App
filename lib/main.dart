@@ -1,4 +1,8 @@
+import 'package:comnow/controller/profileControllers/member_profile_controller.dart';
 import 'package:comnow/controller/profileControllers/profile_controller.dart';
+import 'package:comnow/utils/constant.dart';
+import 'package:comnow/view/navBarScreen/admin_nav_bar_screen.dart';
+import 'package:comnow/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -7,12 +11,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'appLocalization/languages_translation.dart';
 import 'controller/groupController/get_groups_controller.dart';
 import 'utils/color_data.dart';
-import 'view/splash_screen.dart';
 import 'view/widgets/widget_utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+  Constants.getRequiredDataForApis();
+
 
   ErrorWidget.builder = (FlutterErrorDetails details) => Material(
         color: Colors.red,
@@ -27,6 +33,7 @@ void main() async {
 
   Get.put(GetGroupsController(), tag: 'getGroupsController');
   Get.put(ProfileController(), tag: 'profileController');
+  Get.put(MemberProfileController(), tag: 'memberProfileController');
   runApp(MyApp(
     selectedLanguage:
         sharedPreferences.getString('selectedLanguageCode') ?? 'en',
@@ -61,6 +68,7 @@ class MyApp extends StatelessWidget {
                       : selectedLanguage == 'fr'
                           ? const Locale('fr_FR')
                           : const Locale('it_IT'),
+          // home: const AdminBottomNavigationBarScreen(),
           home: const SplashScreen(),
         );
       },

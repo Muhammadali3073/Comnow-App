@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../controller/profileControllers/profile_controller.dart';
 import '../../../../utils/color_data.dart';
@@ -23,24 +20,8 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
 
   TextEditingController messageTextEditController = TextEditingController();
 
-  var currentToken = ''.obs;
-  String? selectedLanguageCode;
-
-  getTokenAndLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    currentToken.value = sharedPreferences.getString('token') ?? '';
-    log(currentToken.toString());
-
-    // Get App Language in SharedPreferences
-    selectedLanguageCode =
-        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
-    log('App Language: $selectedLanguageCode');
-  }
-
   @override
   void initState() {
-    getTokenAndLanguage();
     super.initState();
   }
 
@@ -52,7 +33,7 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Add New Message',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -65,7 +46,7 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 3.h, vertical: 8.h),
           child: Column(
@@ -74,7 +55,7 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
               customWhiteMediumText(
                 text: 'Create new message template',
                 fontSize: 15.sp,
-                fontFamily: Constant.fontsFamilyRegular,
+                fontFamily: Constants.fontsFamilyRegular,
               ),
               getVerSpace(3.2.h),
               TextFormField(
@@ -127,8 +108,8 @@ class _AddNewMessagesScreenState extends State<AddNewMessagesScreen> {
 
                       profileController.handleAdminAddNewMessage(
                         context,
-                        language: selectedLanguageCode,
-                        token: currentToken.value,
+                        language: Constants.codeOfLanguage.value,
+                        token: Constants.tokenOfDoctor.value,
                         textOfMessage: messageTextEditController.text,
                       );
                     } else {

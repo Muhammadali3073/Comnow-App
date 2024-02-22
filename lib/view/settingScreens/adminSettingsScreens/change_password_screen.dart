@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controller/profileControllers/profile_controller.dart';
 import '../../../utils/color_data.dart';
@@ -24,24 +21,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   TextEditingController newPasswordTextController = TextEditingController();
   TextEditingController confirmPasswordTextController = TextEditingController();
 
-  var currentToken = ''.obs;
-  String? selectedLanguageCode;
-
-  getTokenAndLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    currentToken.value = sharedPreferences.getString('token') ?? '';
-    log(currentToken.toString());
-
-    // Get App Language in SharedPreferences
-    selectedLanguageCode =
-        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
-    log('App Language: $selectedLanguageCode');
-  }
-
   @override
   void initState() {
-    getTokenAndLanguage();
     super.initState();
   }
 
@@ -54,7 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Change Password',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -68,21 +49,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 5.6.h),
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Column(children: [
           addMemberTextField(
+            keyboardType: TextInputType.visiblePassword,
             controller: currentPasswordTextController,
             titleText: 'Current Password',
             hintText: 'Enter current password',
           ),
           getVerSpace(1.6.h),
           addMemberTextField(
+            keyboardType: TextInputType.visiblePassword,
             controller: newPasswordTextController,
             titleText: 'New Password',
             hintText: 'Enter new password',
           ),
           getVerSpace(1.6.h),
           addMemberTextField(
+            keyboardType: TextInputType.visiblePassword,
             controller: confirmPasswordTextController,
             titleText: 'Confirm Password',
             hintText: 'Enter confirm password',
@@ -110,8 +94,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 } else {
                   profileController.handleAdminChangePassword(
                     context,
-                    token: currentToken.value,
-                    language: selectedLanguageCode,
+                    token: Constants.tokenOfDoctor.value,
+                    language: Constants.codeOfLanguage.value,
                     currentPassword: currentPasswordTextController.text,
                     newPassword: newPasswordTextController.text,
                   );

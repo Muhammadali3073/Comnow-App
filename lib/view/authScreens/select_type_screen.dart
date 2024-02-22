@@ -27,7 +27,7 @@ class SelectTypeScreen extends StatelessWidget {
           padding: EdgeInsets.only(
               top: 4.h, left: 5.5.h, right: 5.5.h, bottom: 7.6.h),
           decoration: const BoxDecoration(
-              gradient: Constant.authGradient),
+              gradient: Constants.authGradient),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

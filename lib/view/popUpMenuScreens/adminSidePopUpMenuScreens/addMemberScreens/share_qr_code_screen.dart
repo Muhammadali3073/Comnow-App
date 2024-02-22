@@ -56,7 +56,7 @@ class _ShareQRCodeScreenState extends State<ShareQRCodeScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Add Member',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -70,7 +70,7 @@ class _ShareQRCodeScreenState extends State<ShareQRCodeScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 9.5.h),
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +88,7 @@ class _ShareQRCodeScreenState extends State<ShareQRCodeScreen> {
               customWhiteMediumText(
                 text: 'QR code is ready now\nyou can share it with them.',
                 fontSize: 14.sp,
-                fontFamily: Constant.fontsFamilyRegular,
+                fontFamily: Constants.fontsFamilyRegular,
                 textAlign: TextAlign.center,
               ),
               getVerSpace(15.h),

@@ -25,7 +25,7 @@ class _AdminNotificationScreenState extends State<AdminNotificationScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Notification',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
       ),
       body: Container(
@@ -33,7 +33,7 @@ class _AdminNotificationScreenState extends State<AdminNotificationScreen> {
         width: MediaQuery.sizeOf(context).width,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h),
         decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+            gradient: Constants.appGradient),
         child: ListView.builder(
           itemCount: dataFile.notificationModelList.length,
           shrinkWrap: true,

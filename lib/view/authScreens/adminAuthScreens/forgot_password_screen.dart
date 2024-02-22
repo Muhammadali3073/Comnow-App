@@ -84,7 +84,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   image: DecorationImage(
                       image: AssetImage('assets/png/auth_background_image.png'),
                       fit: BoxFit.fitWidth),
-                  gradient: Constant.authGradient),
+                  gradient: Constants.authGradient),
               child: adminForgotPasswordController.selectedIndex.value == 1
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,7 +154,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               cursorHeight: 2.5.h,
                               textStyle: TextStyle(
                                 fontSize: 18.sp,
-                                fontFamily: Constant.fontsFamilyMedium,
+                                fontFamily: Constants.fontsFamilyMedium,
                                 color: CustomColors.titleWhiteTextColor,
                               ),
                               pinTheme: PinTheme(

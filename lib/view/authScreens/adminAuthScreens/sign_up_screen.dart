@@ -54,19 +54,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        backgroundColor: CustomColors.bottomBackgroundColor,
         body: SingleChildScrollView(
           child: Container(
             height: MediaQuery.sizeOf(context).height,
             width: MediaQuery.sizeOf(context).width,
             padding: EdgeInsets.only(
-                top: 5.6.h, left: 3.2.h, right: 3.2.h, bottom: 4.h),
+                top: 3.h, left: 3.2.h, right: 3.2.h, bottom: 2.h),
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/png/auth_background_image.png'),
                     fit: BoxFit.fitWidth),
-                gradient: Constant.authGradient),
+                gradient: Constants.authGradient),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
@@ -168,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 text:
                                     'Do you agreed with our Term & Condition and Privacy policy',
                                 fontSize: 10.px,
-                                fontFamily: Constant.fontsFamilyRegular,
+                                fontFamily: Constants.fontsFamilyRegular,
                               ),
                             ),
                           ],

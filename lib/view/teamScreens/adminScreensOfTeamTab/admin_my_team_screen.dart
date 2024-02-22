@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:comnow/controller/groupController/get_groups_controller.dart';
 import 'package:comnow/controller/profileControllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
@@ -57,9 +54,9 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
           width: 1,
         )),
         labelStyle:
-            TextStyle(fontSize: 14.sp, fontFamily: Constant.fontsFamilyMedium),
+            TextStyle(fontSize: 14.sp, fontFamily: Constants.fontsFamilyMedium),
         unselectedLabelStyle:
-            TextStyle(fontSize: 14.sp, fontFamily: Constant.fontsFamilyMedium),
+            TextStyle(fontSize: 14.sp, fontFamily: Constants.fontsFamilyMedium),
         tabs: const <Widget>[
           Tab(
             text: 'All Team Members',
@@ -102,58 +99,42 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
     }
   }
 
-  var currentToken = ''.obs;
-  String? selectedLanguageCode;
+  void getGroupData() {
+      if (getGroupsController.allMembersData.value == null) {
+        getGroupsController.handleGetMembersInTeam(
+          context,
+          Constants.defaultTeamIdOfDoctor.value,
+          Constants.codeOfLanguage.value,
+          token: Constants.tokenOfDoctor.value,
+        );
+      }
+      if (getGroupsController.getGroupsData.value == null) {
+        getGroupsController.handleGetGroups(
+          context,
+          token: Constants.tokenOfDoctor.value,
+          language: Constants.codeOfLanguage.value,
+        );
+      }
 
-  getTokenAndLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      if (profileController.getAdminProfile.value == null) {
+        profileController.handleGetAdminProfile(
+          context,
+          Constants.codeOfLanguage.value,
+          token: Constants.tokenOfDoctor.value,
+        );
+      }
 
-    currentToken.value = sharedPreferences.getString('token') ?? '';
-    log(currentToken.toString());
-
-    // Get App Language in SharedPreferences
-    selectedLanguageCode =
-        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
-    log('App Language: $selectedLanguageCode');
-
-    getGroupData(sharedPreferences.getString('token') ?? '',
-        sharedPreferences.getString('selectedLanguageCode') ?? 'en');
-  }
-
-  getGroupData(token, language) {
-    if (getGroupsController.allMembersData.value == null) {
-      getGroupsController.handleGetMembersInTeam(
-        context,
-        token: token,
-      );
-    }
-
-    if (getGroupsController.getGroupsData.value == null) {
-      getGroupsController.handleGetGroups(
-        context,
-        token: token,
-        language: language,
-      );
-    }
-
-    if (profileController.getAdminProfile.value == null) {
-      profileController.handleGetAdminProfile(
-        context,
-        token: token,
-      );
-    }
-
-    if (profileController.getTemplateOfMessageModel.value == null) {
-      profileController.handleGetAdminAddNewMessage(
-        context,
-        token: token,
-      );
-    }
+      if (profileController.getTemplateOfMessageModel.value == null) {
+        profileController.handleGetAdminAddNewMessage(
+          context,
+          token: Constants.tokenOfDoctor.value,
+        );
+      }
   }
 
   @override
   void initState() {
-    getTokenAndLanguage();
+    getGroupData();
     super.initState();
   }
 
@@ -164,12 +145,13 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
       length: 2,
       child: Obx(
         () => Scaffold(
+          backgroundColor: CustomColors.bottomBackgroundColor,
           appBar: AppBar(
             backgroundColor: CustomColors.titleBlackTextColor,
             centerTitle: true,
             title: customWhiteMediumText(
                 text: 'My Team',
-                fontFamily: Constant.fontsFamilyBold,
+                fontFamily: Constants.fontsFamilyBold,
                 fontSize: 16.sp),
             actions: [
               isGroup.value
@@ -188,7 +170,7 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                           customWhiteMediumText(
                               text: 'Sort',
                               fontSize: 14.sp,
-                              fontFamily: Constant.fontsFamilyRegular),
+                              fontFamily: Constants.fontsFamilyRegular),
                           getHorSpace(1.h),
                         ],
                       ))
@@ -251,7 +233,7 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
             ),
           ),
           body: Container(
-            decoration: const BoxDecoration(gradient: Constant.appGradient),
+            decoration: const BoxDecoration(gradient: Constants.appGradient),
             child: const TabBarView(
               children: <Widget>[
                 // first outer tab bar view widget
@@ -282,9 +264,9 @@ class _AdminMyTeamScreenState extends State<AdminMyTeamScreen> {
                           Get.back();
                           getGroupsController.handleCreateGroup(
                             context,
-                            token: currentToken.value,
+                            token: Constants.tokenOfDoctor.value,
                             groupName: groupNameController.text.trim(),
-                            language: selectedLanguageCode,
+                            language: Constants.codeOfLanguage.value,
                           );
                           groupNameController.clear();
                         } else {

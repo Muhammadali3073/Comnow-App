@@ -20,7 +20,7 @@ class GenerateQRCodeScreen extends StatelessWidget {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Add Member',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -34,7 +34,7 @@ class GenerateQRCodeScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 9.5.h),
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +45,7 @@ class GenerateQRCodeScreen extends StatelessWidget {
                 text:
                     'Please click on the button to generate\na QR code for your team member.',
                 fontSize: 14.sp,
-                fontFamily: Constant.fontsFamilyRegular,
+                fontFamily: Constants.fontsFamilyRegular,
                 textAlign: TextAlign.center,
               ),
               getVerSpace(4.h),

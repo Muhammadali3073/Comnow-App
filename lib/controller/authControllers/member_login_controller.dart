@@ -8,17 +8,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/authModels/member_login_model.dart';
 import '../../services/api_services.dart';
 import '../../services/time_out_method.dart';
+import '../../utils/constant.dart';
 import '../../view/widgets/widget_utils.dart';
 
 class MemberLoginController extends GetxController {
   var loadingMemberLogin = false.obs;
-  late MemberLoginModel loginModel;
+  Rxn<MemberLoginModel> loginModel = Rxn<MemberLoginModel>();
 
-  sharedPreferences() async {
+  sharedPreferences(token, success) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     // Save Token and IsLogin in SharedPreferences
-    sharedPreferences.setString('memberToken', loginModel.data!.token!);
-    sharedPreferences.setBool('isMemberLogin', loginModel.success!);
+    sharedPreferences.setString('memberToken', token);
+    sharedPreferences.setBool('isMemberLogin', success);
 
     log('User Login Status: ${sharedPreferences.getBool('isMemberLogin')}');
     log('User Login Token: ${sharedPreferences.getString('memberToken')}');
@@ -36,23 +37,31 @@ class MemberLoginController extends GetxController {
     AuthApiServices.getMemberLogin(
       enrollmentCode: enrollmentCode,
       language: language,
-    ).then((response) {
+    ).then((response) async {
       var jsonData = jsonDecode(response.body);
       if (response == null) {
         timeOutException(loading: loadingMemberLogin);
       } else if (response.statusCode == 200) {
-        loadingMemberLogin.value = false;
-        Get.back();
-
         // Add Data to Model
-        loginModel = memberLoginModelFromJson(response.body);
+        loginModel.value = memberLoginModelFromJson(response.body);
 
-        sharedPreferences();
+        Future.delayed(
+          const Duration(milliseconds: 300),
+          () {
+            loadingMemberLogin.value = false;
+            Get.back();
 
-        // Go to next screen
-        Get.offAll(() => const TeamMemberBottomNavigationBarScreen());
+            sharedPreferences(
+                loginModel.value!.data!.token, loginModel.value!.success);
 
-        customScaffoldMessenger(context, 'User login Success'.tr);
+            Constants.getRequiredDataForApis();
+
+            // Go to next screen
+            Get.offAll(() => const TeamMemberBottomNavigationBarScreen());
+
+            customScaffoldMessenger(context, 'User login Success'.tr);
+          },
+        );
       } else if (response.statusCode == 500) {
         loadingMemberLogin.value = false;
         Get.back();

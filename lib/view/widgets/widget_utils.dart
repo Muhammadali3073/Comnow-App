@@ -1,3 +1,4 @@
+import 'package:comnow/view/subscription/subscription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +26,7 @@ Widget getAssetPng(String image,
     double? scale,
     BoxFit boxFit = BoxFit.contain}) {
   return Image.asset(
-    Constant.assetPngPath + image,
+    Constants.assetPngPath + image,
     color: color,
     width: width,
     height: height,
@@ -40,7 +41,7 @@ Widget getSvgImage(String image,
     Color? color,
     BoxFit boxFit = BoxFit.contain}) {
   return SvgPicture.asset(
-    Constant.svgImagePath + image,
+    Constants.svgImagePath + image,
     width: width,
     height: height,
     fit: boxFit,
@@ -62,7 +63,7 @@ Widget customWhiteMediumText({
     style: TextStyle(
       color: color ?? CustomColors.titleWhiteTextColor,
       fontSize: fontSize,
-      fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
+      fontFamily: fontFamily ?? Constants.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
       decoration: decoration,
       decorationColor: decorationColor,
@@ -77,7 +78,7 @@ Widget customBlackMediumText({text, textAlign, fontSize, fontFamily}) {
     style: TextStyle(
       color: CustomColors.titleBlackTextColor,
       fontSize: fontSize,
-      fontFamily: fontFamily ?? Constant.fontsFamilyMedium,
+      fontFamily: fontFamily ?? Constants.fontsFamilyMedium,
       fontWeight: FontWeight.w500,
     ),
   );
@@ -171,14 +172,14 @@ Widget loginSignUpAlreadyButton(whiteText, blueText, {Function()? onTap}) {
             customBlackMediumText(
               text: whiteText,
               fontSize: 14.sp,
-              fontFamily: Constant.fontsFamilyRegular,
+              fontFamily: Constants.fontsFamilyRegular,
             ),
             getHorSpace(0.5.h),
             customWhiteMediumText(
               text: blueText,
               color: CustomColors.blueTextColor,
               fontSize: 14.sp,
-              fontFamily: Constant.fontsFamilyRegular,
+              fontFamily: Constants.fontsFamilyRegular,
             ),
           ],
         )),
@@ -252,8 +253,8 @@ Widget sortButton(text, isSelected, index, {Function()? onTap}) {
                 : CustomColors.whiteButtonColor,
             fontSize: 14.sp,
             fontFamily: isSelected == index
-                ? Constant.fontsFamilyBold
-                : Constant.fontsFamilyRegular,
+                ? Constants.fontsFamilyBold
+                : Constants.fontsFamilyRegular,
           ),
         ],
       ));
@@ -290,7 +291,7 @@ Widget teamMemberMainMemberCard(
                   customWhiteMediumText(
                     text: listOfMembers.firstName,
                     fontSize: 15.sp,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                   ),
                   getVerSpace(0.4.h),
                   customWhiteMediumText(
@@ -303,7 +304,7 @@ Widget teamMemberMainMemberCard(
                                 ? CustomColors.yellowColor
                                 : CustomColors.titleBlackTextColor,
                     fontSize: 13.sp,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                   ),
                 ],
               ),
@@ -368,7 +369,7 @@ Widget groupCard(String? groupName, int? numberOfMembers, {Function()? onTap}) {
             customWhiteMediumText(
                 text: numberOfMembers,
                 fontSize: 14.sp,
-                fontFamily: Constant.fontsFamilyRegular)
+                fontFamily: Constants.fontsFamilyRegular)
           ]),
     ),
   );
@@ -397,11 +398,11 @@ Widget notificationCard(notificationName, timeOfDelivered, typeMessage,
                 customWhiteMediumText(
                     text: notificationName,
                     fontSize: 14.sp,
-                    fontFamily: Constant.fontsFamilyRegular),
+                    fontFamily: Constants.fontsFamilyRegular),
                 customWhiteMediumText(
                     text: timeOfDelivered,
                     fontSize: 12.sp,
-                    fontFamily: Constant.fontsFamilyRegular)
+                    fontFamily: Constants.fontsFamilyRegular)
               ]),
           customWhiteMediumText(
             text: typeMessage == 'ping'
@@ -516,6 +517,7 @@ Widget selectTypeCard(text,
 Widget addMemberTextField(
     {titleText,
     hintText,
+    TextInputType? keyboardType,
     TextEditingController? controller,
     List<TextInputFormatter>? inputFormatters,
     Function(String)? onChanged}) {
@@ -526,7 +528,7 @@ Widget addMemberTextField(
         padding: EdgeInsets.only(left: 2.h),
         child: customWhiteMediumText(
           text: titleText,
-          fontFamily: Constant.fontsFamilyRegular,
+          fontFamily: Constants.fontsFamilyRegular,
           fontSize: 14.sp,
         ),
       ),
@@ -536,7 +538,7 @@ Widget addMemberTextField(
         inputFormatters: inputFormatters,
         controller: controller,
         hintText: hintText,
-        keyboardType: TextInputType.name,
+        keyboardType: keyboardType ?? TextInputType.name,
       ),
     ],
   );
@@ -546,7 +548,7 @@ getCustomTextStyleW4S12({color}) {
   return TextStyle(
     color: color,
     fontWeight: FontWeight.w400,
-    fontFamily: Constant.fontsFamilyRegular,
+    fontFamily: Constants.fontsFamilyRegular,
     fontSize: 14.sp,
   );
 }
@@ -557,7 +559,7 @@ Widget getCustomTextFormField(
     hintText,
     suffixIcon,
     obscureText,
-    keyboardType,
+    TextInputType? keyboardType,
     prefixIcon,
     Function()? onTap,
     readOnly,
@@ -630,7 +632,7 @@ PopupMenuItem allMemberPopupMenuItem(
             customWhiteMediumText(
               text: title,
               fontSize: 14.sp,
-              fontFamily: Constant.fontsFamilyRegular,
+              fontFamily: Constants.fontsFamilyRegular,
             ),
           ],
         ),
@@ -660,7 +662,7 @@ PopupMenuItem groupPopupMenuItem(
             customWhiteMediumText(
               text: title,
               fontSize: 14.sp,
-              fontFamily: Constant.fontsFamilyRegular,
+              fontFamily: Constants.fontsFamilyRegular,
             ),
           ],
         ),
@@ -682,7 +684,7 @@ Future<void> sortingDialogBox(BuildContext context, {RxInt? isSelectedSort}) {
             children: [
               customWhiteMediumText(
                   text: 'Sorting By',
-                  fontFamily: Constant.fontsFamilyRegular,
+                  fontFamily: Constants.fontsFamilyRegular,
                   fontSize: 16.sp),
               InkWell(
                   onTap: () => Get.back(),
@@ -764,7 +766,7 @@ Future<void> leftMemberDialogBox(BuildContext context, userName,
             children: [
               customWhiteMediumText(
                   text: '',
-                  fontFamily: Constant.fontsFamilyRegular,
+                  fontFamily: Constants.fontsFamilyRegular,
                   fontSize: 16.sp),
               InkWell(
                   onTap: () => Get.back(),
@@ -784,9 +786,9 @@ Future<void> leftMemberDialogBox(BuildContext context, userName,
                   getSvgImage('logout.svg'),
                   customWhiteMediumText(
                     text:
-                        '$userName leave the team if you want to add again\npress the below button scan QR code.',
+                        '$userName leave the team if you want to add again press the below button scan QR code.',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 14.sp,
                   ),
                   Row(
@@ -828,7 +830,7 @@ Future<void> logoutDialogBox(BuildContext context, {Function()? onTap}) {
                     text:
                         'Do you want to logout?\nIf you logout, your team won\'t be able to contact you anymore.',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 14.sp,
                   ),
                   Row(
@@ -867,7 +869,7 @@ Future<void> unblockedDialogBox(BuildContext context, userName,
                   customWhiteMediumText(
                     text: 'Do you want to unblock ?\n$userName',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 14.sp,
                   ),
                   getVerSpace(3.h),
@@ -907,7 +909,7 @@ Future<void> createGroupDialogBox(
               borderRadius: BorderRadius.circular(16.px)),
           title: customWhiteMediumText(
               text: dialogBoxTitle,
-              fontFamily: Constant.fontsFamilyRegular,
+              fontFamily: Constants.fontsFamilyRegular,
               fontSize: 16.sp,
               textAlign: TextAlign.center),
           content: SizedBox(
@@ -962,7 +964,7 @@ Future<void> leaveAppDialogBox(
                     text:
                         'Do you really want to close the app?\nIf you close the app, you will be shown as "offline"',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 14.sp,
                   ),
                   getVerSpace(3.h),
@@ -993,37 +995,38 @@ Future<void> deleteGroupDialogBox(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-          surfaceTintColor: Colors.transparent,
-          backgroundColor: CustomColors.dialogBoxColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.px)),
-          title: getSvgImage('delete_group.svg'),
-          content: SizedBox(
-              height: 12.h,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: CustomColors.dialogBoxColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.px)),
+        title: getSvgImage('delete_group.svg'),
+        content: SizedBox(
+          height: 12.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              customWhiteMediumText(
+                text: 'Do you really want to delete ?\n$groupName',
+                textAlign: TextAlign.center,
+                fontFamily: Constants.fontsFamilyRegular,
+                fontSize: 14.sp,
+              ),
+              getVerSpace(3.h),
+              Row(
                 children: [
-                  customWhiteMediumText(
-                    text: 'Do you really want to delete ?\n$groupName',
-                    textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
-                    fontSize: 14.sp,
-                  ),
-                  getVerSpace(3.h),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: outlineButton(
-                        'Cancel',
-                        onTap: () => Get.back(),
-                      )),
-                      getHorSpace(2.h),
-                      Expanded(
-                          child: filledBlackButton('Delete', onTap: onCreate)),
-                    ],
-                  )
+                  Expanded(
+                      child: outlineButton(
+                    'Cancel',
+                    onTap: () => Get.back(),
+                  )),
+                  getHorSpace(2.h),
+                  Expanded(child: filledBlackButton('Delete', onTap: onCreate)),
                 ],
-              )));
+              ),
+            ],
+          ),
+        ),
+      );
     },
   );
 }
@@ -1035,7 +1038,7 @@ Future<void> timeOutExceptionDialogBox() {
     title: 'Oops, Something Went Wrong!',
     titleStyle: TextStyle(
       color: CustomColors.titleWhiteTextColor,
-      fontFamily: Constant.fontsFamilyMedium,
+      fontFamily: Constants.fontsFamilyMedium,
       fontSize: 16.sp,
     ),
     content: Column(
@@ -1044,7 +1047,7 @@ Future<void> timeOutExceptionDialogBox() {
           text:
               'Don\'t worry - it\'s not your fault. Try to fix your Internet Connection.',
           textAlign: TextAlign.center,
-          fontFamily: Constant.fontsFamilyRegular,
+          fontFamily: Constants.fontsFamilyRegular,
           fontSize: 14.sp,
         ),
         getVerSpace(3.h),
@@ -1054,9 +1057,99 @@ Future<void> timeOutExceptionDialogBox() {
             'Okay',
             onTap: () => Get.back(),
           ),
-        )
+        ),
       ],
     ),
+  );
+}
+
+Future<void> subscriptionDialogBox(
+  BuildContext context,
+) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return PopScope(
+        canPop: false,
+        child: AlertDialog(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: CustomColors.dialogBoxColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.px)),
+          title: customWhiteMediumText(
+            text: 'Alert',
+            textAlign: TextAlign.center,
+            fontFamily: Constants.fontsFamilyBold,
+            fontSize: 16.sp,
+          ),
+          content: SizedBox(
+            height: 10.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                customWhiteMediumText(
+                  text: 'Please subscribe',
+                  textAlign: TextAlign.center,
+                  fontFamily: Constants.fontsFamilyRegular,
+                  fontSize: 14.sp,
+                ),
+                getVerSpace(3.h),
+                Expanded(
+                  child: outlineButton(
+                    'Ok',
+                    onTap: () =>
+                        Get.to(() => const SubscriptionPackageScreen()),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Future<void> emailVerificationDialogBox(
+  BuildContext context,
+) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: CustomColors.dialogBoxColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.px)),
+        title: customWhiteMediumText(
+          text: 'New Account Created',
+          textAlign: TextAlign.center,
+          fontFamily: Constants.fontsFamilyBold,
+          fontSize: 16.sp,
+        ),
+        content: SizedBox(
+          height: 10.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              customWhiteMediumText(
+                text: 'Please check you email to verify account',
+                textAlign: TextAlign.center,
+                fontFamily: Constants.fontsFamilyRegular,
+                fontSize: 14.sp,
+              ),
+              getVerSpace(3.h),
+              Expanded(
+                child: outlineButton(
+                  'Ok',
+                  onTap: () => Get.back(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }
 
@@ -1116,7 +1209,7 @@ Future<void> blockDialogBox(
                   customWhiteMediumText(
                     text: 'Do you want to block ?\n$userName',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 14.sp,
                   ),
                   getVerSpace(3.h),
@@ -1174,7 +1267,7 @@ Future<void> pingNotificationDialogBox(
                   customWhiteMediumText(
                     text: '\n$userName needs you',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 16.sp,
                   ),
                   getVerSpace(2.h),
@@ -1281,7 +1374,7 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                   customWhiteMediumText(
                     text: '\n$userName needs you',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 16.sp,
                   ),
                   getVerSpace(2.h),
@@ -1296,7 +1389,7 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                               text: "Coming",
                               fontSize: 14.sp,
                               color: Colors.green,
-                              fontFamily: Constant.fontsFamilyRegular,
+                              fontFamily: Constants.fontsFamilyRegular,
                             ),
                           ],
                         )
@@ -1311,7 +1404,7 @@ Future<void> isViewPingNotificationDialogBox(BuildContext context,
                               text: "Not now",
                               fontSize: 14.sp,
                               color: CustomColors.redColor,
-                              fontFamily: Constant.fontsFamilyRegular,
+                              fontFamily: Constants.fontsFamilyRegular,
                             ),
                           ],
                         ),
@@ -1355,14 +1448,14 @@ Future<void> messageNotificationDialogBox(
                   customWhiteMediumText(
                     text: '\n$userName message',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 16.sp,
                   ),
                   getVerSpace(2.h),
                   customWhiteMediumText(
                     text: "Come to my office.",
                     fontSize: 14.sp,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                   ),
                 ],
               )));
@@ -1404,7 +1497,7 @@ Future<void> voiceMessageNotificationDialogBox(
                   customWhiteMediumText(
                     text: '\n$userName voice message',
                     textAlign: TextAlign.center,
-                    fontFamily: Constant.fontsFamilyRegular,
+                    fontFamily: Constants.fontsFamilyRegular,
                     fontSize: 16.sp,
                   ),
                   getVerSpace(2.h),
@@ -1472,7 +1565,7 @@ Future<void> memberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Ping',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1496,7 +1589,7 @@ Future<void> memberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Send a message',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1520,7 +1613,7 @@ Future<void> memberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Send voice message',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1545,7 +1638,7 @@ Future<void> memberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Block',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1570,7 +1663,7 @@ Future<void> memberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Delete',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1595,7 +1688,7 @@ Future<void> memberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Edit',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1664,7 +1757,7 @@ Future<void> teamMemberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Ping',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1688,7 +1781,7 @@ Future<void> teamMemberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Send a message',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1712,7 +1805,7 @@ Future<void> teamMemberCardBottomSheet(
                       customWhiteMediumText(
                         text: 'Send voice message',
                         fontSize: 15.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       const Spacer(),
                     ],
@@ -1736,7 +1829,7 @@ customScaffoldMessenger(
       content: Text(
         text,
         style: TextStyle(
-          fontFamily: Constant.fontsFamilyRegular,
+          fontFamily: Constants.fontsFamilyRegular,
           fontSize: 14.sp,
         ),
       ),

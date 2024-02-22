@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/groupModels/add_member_model.dart';
 import '../../model/groupModels/get_groups_model.dart';
 import '../../model/groupModels/get_member_in_group.dart';
+import '../../model/groupModels/re_add_member_model.dart';
 import '../../services/api_services.dart';
 import '../../services/time_out_method.dart';
 import '../../utils/color_data.dart';
 import '../../view/popUpMenuScreens/adminSidePopUpMenuScreens/addMemberScreens/generate_qr_code_screen.dart';
+import '../../view/popUpMenuScreens/adminSidePopUpMenuScreens/addMemberScreens/share_qr_code_screen.dart';
 import '../../view/widgets/widget_utils.dart';
 
 class GetGroupsController extends GetxController {
@@ -25,11 +28,20 @@ class GetGroupsController extends GetxController {
   var loadingGetMembersInTeam = false.obs;
   var loadingDeleteGroup = false.obs;
   var loadingEditMemberProfile = false.obs;
+  var loadingReAddMember = false.obs;
 
   Rxn<MembersModel> allMembersData = Rxn<MembersModel>();
   Rxn<GetGroups> getGroupsData = Rxn<GetGroups>();
   Rxn<MembersModel> getMemberInGroupsData = Rxn<MembersModel>();
+  Rxn<ReAddMemberDataModel> reAddMemberDataModel = Rxn<ReAddMemberDataModel>();
+
+
   var isGroup = false.obs;
+
+  setSubscription(isSubscription) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool('isSubscription', isSubscription);
+  }
 
   // Create group
   handleCreateGroup(
@@ -73,6 +85,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingCreateGroup.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingCreateGroup.value = false;
         Get.back();
@@ -108,10 +127,19 @@ class GetGroupsController extends GetxController {
 
         customScaffoldMessenger(
             context!, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingGetGroups.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context!);
+        }
       } else {
         loadingGetGroups.value = false;
         if (jsonData['message'] == "Team not exist") {
           getGroupsData.value = null;
+        } else if (jsonData['message'] == "Please subscribe") {
+          customScaffoldMessenger(context!, jsonData['message']);
         }
       }
     });
@@ -147,7 +175,8 @@ class GetGroupsController extends GetxController {
 
         // Go to next screen
         Get.back();
-        handleGetMembersInGroups(context, token: token, groupId: groupId);
+        handleGetMembersInGroups(context, language,
+            token: token, groupId: groupId);
 
         Fluttertoast.showToast(
             msg: "$groupName rename successfully",
@@ -162,6 +191,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingEditGroup.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingEditGroup.value = false;
         Get.back();
@@ -172,7 +208,8 @@ class GetGroupsController extends GetxController {
 
   // Add Member In Group
   handleAddMemberInGroup(
-    BuildContext? context, {
+    BuildContext? context,
+    defaultTeam, {
     token,
     firstName,
     lastName,
@@ -210,9 +247,11 @@ class GetGroupsController extends GetxController {
               fullName: addMemberModel.data!.user!.fullName!.toString(),
             ));
 
-        handleGetMembersInGroups(context, token: token, groupId: groupId);
+        handleGetMembersInGroups(context, language,
+            token: token, groupId: groupId);
         handleGetGroups(context, token: token, language: language);
-        handleGetMembersInTeam(context, token: token, loadingStatus: false);
+        handleGetMembersInTeam(context, defaultTeam, language,
+            token: token, loadingStatus: false);
 
         customScaffoldMessenger(context, 'User add successfully'.tr);
       } else if (response.statusCode == 500) {
@@ -220,6 +259,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingAddMemberInGroup.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingAddMemberInGroup.value = false;
         Get.back();
@@ -230,15 +276,19 @@ class GetGroupsController extends GetxController {
 
   // Get Members In Groups
   handleGetMembersInGroups(
-    BuildContext? context, {
+    BuildContext? context,
+    language, {
     token,
     groupId,
   }) async {
     loadingGetMembersInGroup.value = true;
     GroupApiServices.getMembersInGroup(
+      language,
       token: token,
       groupId: groupId.toString(),
     ).then((response) async {
+      var jsonData = jsonDecode(response.body);
+
       if (response == null) {
         timeOutException(loading: loadingGetMembersInGroup);
       } else if (response.statusCode == 200) {
@@ -247,18 +297,26 @@ class GetGroupsController extends GetxController {
         getMemberInGroupsData.value = membersModelFromJson(response.body);
 
         log(getMemberInGroupsData.value!.message.toString());
-      } else {
+      } else if (response.statusCode == 500) {
         loadingGetMembersInGroup.value = false;
 
         customScaffoldMessenger(
             context!, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingGetMembersInGroup.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context!);
+        }
       }
     });
   }
 
   // Delete member
   handleDeleteMember(
-    BuildContext? context, {
+    BuildContext? context,
+    defaultTeam, {
     userName,
     token,
     teamMemberId,
@@ -282,14 +340,14 @@ class GetGroupsController extends GetxController {
 
         // Call group Data
         if (groupId != 'null') {
-          handleGetMembersInGroups(context, token: token, groupId: groupId);
+          handleGetMembersInGroups(context, language,
+              token: token, groupId: groupId);
           handleGetGroups(context, token: token, language: language);
-          handleGetMembersInTeam(context, token: token);
+          handleGetMembersInTeam(context, defaultTeam, language, token: token);
         } else {
-          handleGetMembersInTeam(context, token: token);
+          handleGetMembersInTeam(context, defaultTeam, language, token: token);
           handleGetGroups(context, token: token, language: language);
         }
-
         Fluttertoast.showToast(
             msg: "$userName is deleted",
             toastLength: Toast.LENGTH_SHORT,
@@ -303,6 +361,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingDeleteMemberInGroup.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingDeleteMemberInGroup.value = false;
         Get.back();
@@ -352,6 +417,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingDeleteGroup.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingDeleteGroup.value = false;
         Get.back();
@@ -362,7 +434,8 @@ class GetGroupsController extends GetxController {
 
   // Edit Member status
   handleEditMemberStatus(
-    BuildContext? context, {
+    BuildContext? context,
+    defaultTeam, {
     token,
     teamMemberId,
     groupId,
@@ -389,11 +462,12 @@ class GetGroupsController extends GetxController {
 
         // Call group Data
         if (groupId != 'null') {
-          handleGetMembersInGroups(context, token: token, groupId: groupId);
+          handleGetMembersInGroups(context, language,
+              token: token, groupId: groupId);
           handleGetGroups(context, token: token, language: language);
-          handleGetMembersInTeam(context, token: token);
+          handleGetMembersInTeam(context, defaultTeam, language, token: token);
         } else {
-          handleGetMembersInTeam(context, token: token);
+          handleGetMembersInTeam(context, defaultTeam, language, token: token);
           handleGetGroups(context, token: token, language: language);
         }
 
@@ -410,6 +484,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingEditMemberStatus.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingEditMemberStatus.value = false;
         Get.back();
@@ -420,7 +501,8 @@ class GetGroupsController extends GetxController {
 
   // Add Member In Team
   handleAddMemberInTeam(
-    BuildContext? context, {
+    BuildContext? context,
+    defaultTeam, {
     token,
     firstName,
     lastName,
@@ -455,7 +537,8 @@ class GetGroupsController extends GetxController {
               fullName: addMemberModel.data!.user!.fullName!.toString(),
             ));
 
-        handleGetMembersInTeam(context, token: token, loadingStatus: false);
+        handleGetMembersInTeam(context, defaultTeam, language,
+            token: token, loadingStatus: false);
 
         customScaffoldMessenger(context, 'User add successfully'.tr);
       } else if (response.statusCode == 500) {
@@ -463,6 +546,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingAddMemberInTeam.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingAddMemberInTeam.value = false;
         Get.back();
@@ -473,15 +563,21 @@ class GetGroupsController extends GetxController {
 
   // Get Members In Team
   handleGetMembersInTeam(
-    BuildContext? context, {
+    BuildContext? context,
+    defaultTeam,
+    language, {
     token,
     loadingStatus,
   }) async {
     loadingGetMembersInTeam.value = loadingStatus ?? true;
 
     GroupApiServices.getMembersInTeam(
+      defaultTeam,
+      language,
       token: token,
     ).then((response) async {
+      var jsonData = jsonDecode(response.body);
+
       if (response == null) {
         timeOutException(loading: loadingGetMembersInTeam);
       } else if (response.statusCode == 200) {
@@ -489,17 +585,25 @@ class GetGroupsController extends GetxController {
         allMembersData.value = membersModelFromJson(response.body);
 
         log(allMembersData.value!.message.toString());
-      } else {
+      } else if (response.statusCode == 500) {
         loadingGetMembersInTeam.value = false;
         customScaffoldMessenger(
             context!, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingGetMembersInTeam.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context!);
+        }
       }
     });
   }
 
   // Edit Member Profile
   handleEditMemberProfile(
-    BuildContext? context, {
+    BuildContext? context,
+    defaultTeam, {
     token,
     teamMemberId,
     groupId,
@@ -530,11 +634,12 @@ class GetGroupsController extends GetxController {
 
         // Call group Data
         if (groupId != 'null') {
-          handleGetMembersInGroups(context, token: token, groupId: groupId);
+          handleGetMembersInGroups(context, language,
+              token: token, groupId: groupId);
           handleGetGroups(context, token: token, language: language);
-          handleGetMembersInTeam(context, token: token);
+          handleGetMembersInTeam(context, defaultTeam, language, token: token);
         } else {
-          handleGetMembersInTeam(context, token: token);
+          handleGetMembersInTeam(context, defaultTeam, language, token: token);
         }
 
         Fluttertoast.showToast(
@@ -550,6 +655,13 @@ class GetGroupsController extends GetxController {
         Get.back();
         customScaffoldMessenger(
             context, 'Something went wrong. Please try again.'.tr);
+      } else if (response.statusCode == 401) {
+        loadingEditMemberProfile.value = false;
+        Get.back();
+        if (jsonData['message'] == "Please subscribe") {
+          setSubscription(false);
+          subscriptionDialogBox(context);
+        }
       } else {
         loadingEditMemberProfile.value = false;
         Get.back();
@@ -557,4 +669,5 @@ class GetGroupsController extends GetxController {
       }
     });
   }
+
 }

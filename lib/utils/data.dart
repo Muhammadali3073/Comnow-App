@@ -1,80 +1,13 @@
 import 'dart:ui';
 
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'color_data.dart';
 
 class DataFile {
-  static RxString selectedLanguage = "".obs;
-
-  static getCurrentLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    selectedLanguage.value =
-        sharedPreferences.getString('selectedLanguage') ?? 'English';
-  }
-
-  List<UserTypeModel> userTypeList = [
-    UserTypeModel(
-      "Admin",
+  static List<SubscriptionPackagesModel> subscriptionPackagesModel = [
+    SubscriptionPackagesModel(
+      "Test Version",
+      "3 months",
     ),
-    UserTypeModel(
-      "Team Member",
-    ),
-  ];
-
-
-  List<MessageTemplatesModel> messageTemplatesModel = [
-    MessageTemplatesModel(
-      "Give me water",
-      '1',
-    ),
-    MessageTemplatesModel(
-      "Send next person",
-      '2',
-    ),
-    MessageTemplatesModel(
-      "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
-      '3',
-    ), MessageTemplatesModel(
-      "Give me water",
-      '4',
-    ),
-    MessageTemplatesModel(
-      "Send next person",
-      '5',
-    ),
-    MessageTemplatesModel(
-      "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
-      '6',
-    ), MessageTemplatesModel(
-      "Give me water",
-      '7',
-    ),
-    MessageTemplatesModel(
-      "Send next person",
-      '8',
-    ),
-    MessageTemplatesModel(
-      "Although a text is often a quick way to discuss matters, recruiters are often busy with their full-time job. You might follow up after a week of no response, but being patient can show you have respect for their time.",
-      '9',
-    ),
-  ];
-
-
-  List<MemberModel> memberList = [
-    MemberModel("Mohsin", "Khan", "MOH", CustomColors.greenColor, "Online", '1',
-        false, CustomColors.acceptColor),
-    MemberModel("Ali", "Nawaz", "ANB", CustomColors.yellowColor, "Offline", '2',
-        false, CustomColors.declineColor),
-    MemberModel("Raza", "Farooq", "RFQ", CustomColors.orangeColor, "Away", '3',
-        true, CustomColors.pendingColor),
-    MemberModel("Luqman", "Qasim", "ANB", CustomColors.yellowColor, "Left team",
-        '4', false, CustomColors.pendingColor),
-    MemberModel("Zeeshan", "Rana", "RFQ", CustomColors.orangeColor, "Away", '5',
-        true, CustomColors.declineColor),
-    MemberModel("Ramzan", "Ali", "RNA", CustomColors.blueColor, "Left team",
-        '6', true, CustomColors.acceptColor),
   ];
 
   List<TeamMemberModel> teamMemberList = [
@@ -114,79 +47,14 @@ class DataFile {
       NotificationModel("Zeeshan", 'voice', '23:36 Thu', true),
     ]),
   ];
-
-  List<GroupModel> groupList = [
-    GroupModel(
-        "Group One",
-        "2",
-        [
-          MemberModel("Mohsin", "Khan", "MOH", CustomColors.greenColor,
-              "Online", '1', false, CustomColors.pendingColor),
-          MemberModel("Ali", "Nawaz", "ANB", CustomColors.yellowColor,
-              "Offline", '2', false, CustomColors.acceptColor),
-        ],
-        "1"),
-    GroupModel(
-        "Group Two",
-        "3",
-        [
-          MemberModel("Raza", "Farooq", "RFQ", CustomColors.orangeColor, "Away",
-              '3', true, CustomColors.acceptColor),
-          MemberModel("Luqman", "Qasim", "ANB", CustomColors.yellowColor,
-              "Left team", '4', false, CustomColors.declineColor),
-          MemberModel("Zeeshan", "Rana", "RFQ", CustomColors.orangeColor,
-              "Away", '5', true, CustomColors.declineColor),
-        ],
-        "2"),
-    GroupModel(
-        "Group Three",
-        "1",
-        [
-          MemberModel("Ramzan", "Ali", "RNA", CustomColors.blueColor,
-              "Left team", '6', true, CustomColors.pendingColor),
-        ],
-        "3"),
-  ];
 }
 
-///// Models
-
-
-/// Gender
-class UserTypeModel {
+/// Subscription Packages Model
+class SubscriptionPackagesModel {
   String? name;
+  String? duration;
 
-  UserTypeModel(this.name);
-}
-
-/// Message Templates
-class MessageTemplatesModel {
-  String? message;
-  String? uniqueId;
-
-  MessageTemplatesModel(this.message, this.uniqueId);
-}
-
-/// Member Model
-class MemberModel {
-  String? firstName;
-  String? middleName;
-  String? initialName;
-  Color? initialBGColor;
-  String? type;
-  String? uniqueId;
-  bool? isBlocked;
-  Color? pingStatus;
-
-  MemberModel(
-      this.firstName,
-      this.middleName,
-      this.initialName,
-      this.initialBGColor,
-      this.type,
-      this.uniqueId,
-      this.isBlocked,
-      this.pingStatus);
+  SubscriptionPackagesModel(this.name, this.duration);
 }
 
 /// Member Model
@@ -228,21 +96,3 @@ class DayByNotificationModel {
     this.notificationModel,
   );
 }
-
-/// Group Model
-class GroupModel {
-  String? groupName;
-  String? numberOfGroupMembers;
-  List<MemberModel>? membersOfGroup;
-  String? groupUniqueId;
-
-  GroupModel(this.groupName, this.numberOfGroupMembers, this.membersOfGroup,
-      this.groupUniqueId);
-}
-
-//// Images for Slider
-final List<String> imgList = [
-  'https://img.lovepik.com//back_pic/05/63/87/405b6056074ac17.jpg_wh300.jpg',
-  'https://img.freepik.com/premium-vector/back-school-banner-design-illustration-background_131806-9.jpg',
-  'https://img.lovepik.com/background/20211023/medium/lovepik-school-season-flat-cartoon-poster-banner-background-image_605820710.jpg'
-];

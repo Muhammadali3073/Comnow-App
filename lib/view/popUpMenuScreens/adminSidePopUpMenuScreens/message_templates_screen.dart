@@ -29,7 +29,7 @@ class _MessageTemplatesScreenState extends State<MessageTemplatesScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Message Templates',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -42,7 +42,7 @@ class _MessageTemplatesScreenState extends State<MessageTemplatesScreen> {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 3.0.h,

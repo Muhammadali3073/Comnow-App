@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../controller/authControllers/member_login_controller.dart';
 import '../../../utils/constant.dart';
 import '../../widgets/widget_utils.dart';
 import 'scan_qr_code_screen.dart';
 
-class LoginWithQRScreen extends StatelessWidget {
+class LoginWithQRScreen extends StatefulWidget {
   const LoginWithQRScreen({super.key});
 
+  @override
+  State<LoginWithQRScreen> createState() => _LoginWithQRScreenState();
+}
+
+class _LoginWithQRScreenState extends State<LoginWithQRScreen> {
+
+  MemberLoginController memberLoginController =
+  Get.put(MemberLoginController(), tag: 'memberLoginController');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +30,7 @@ class LoginWithQRScreen extends StatelessWidget {
             image: DecorationImage(
                 image: AssetImage('assets/png/auth_background_image.png'),
                 fit: BoxFit.fitWidth),
-            gradient: Constant.authGradient),
+            gradient: Constants.authGradient),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,7 +52,12 @@ class LoginWithQRScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 11.h),
               child: gradientButton(
                 'Next',
-                onTap: () => Get.to(() => const ScanQRCodeScreen()),
+                onTap: () => memberLoginController.handleMemberLogin(
+                  context,
+                  enrollmentCode: 'E9bKGHgXgwcCnRNYjpD9',
+                  language: 'en',
+                ),
+                    // Get.to(() => const ScanQRCodeScreen()),
               ),
             ),
           ],

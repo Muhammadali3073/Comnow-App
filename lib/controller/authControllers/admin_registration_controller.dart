@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../services/api_services.dart';
 import '../../services/time_out_method.dart';
-import '../../view/authScreens/adminAuthScreens/login_screen.dart';
 import '../../view/widgets/widget_utils.dart';
 
 class AdminRegistrationController extends GetxController {
@@ -40,9 +39,9 @@ class AdminRegistrationController extends GetxController {
         Get.back();
 
         // Go to next screen
-        Get.offAll(() => const LoginScreen());
+        // Get.offAll(() => const LoginScreen());
 
-        customScaffoldMessenger(context, 'User register is successfully'.tr);
+        emailVerificationDialogBox(context);
       } else if (response.statusCode == 500) {
         loadingAdminRegistration.value = false;
         Get.back();

@@ -1,12 +1,9 @@
-import 'dart:developer';
 
-import 'package:comnow/utils/data.dart';
 import 'package:comnow/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../controller/groupController/get_groups_controller.dart';
 import '../../../../utils/color_data.dart';
@@ -34,27 +31,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
   TextEditingController initialsTextController = TextEditingController();
 
   var initialsString = ''.obs;
-  var currentToken = ''.obs;
   var initialColorCode = ''.obs;
-  String? selectedLanguageCode;
+
   dynamic initialColor = CustomColors.topButtonColor.obs;
-  DataFile dataFile = DataFile();
-
-  getTokenAndLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    currentToken.value = sharedPreferences.getString('token') ?? '';
-    log(currentToken.toString());
-
-    // Get App Language in SharedPreferences
-    selectedLanguageCode =
-        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
-    log('App Language: $selectedLanguageCode');
-  }
 
   @override
   void initState() {
-    getTokenAndLanguage();
     super.initState();
   }
 
@@ -67,7 +49,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
           centerTitle: true,
           title: customWhiteMediumText(
               text: 'Add Member',
-              fontFamily: Constant.fontsFamilyBold,
+              fontFamily: Constants.fontsFamilyBold,
               fontSize: 16.sp),
           leading: IconButton(
               onPressed: () => Get.back(),
@@ -83,7 +65,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             height: MediaQuery.sizeOf(context).height,
             padding:
                 EdgeInsets.only(top: 4.h, bottom: 16.h, left: 4.h, right: 4.h),
-            decoration: const BoxDecoration(gradient: Constant.appGradient),
+            decoration: const BoxDecoration(gradient: Constants.appGradient),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -126,7 +108,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                         children: [
                           customWhiteMediumText(
                             text: 'Select color',
-                            fontFamily: Constant.fontsFamilyRegular,
+                            fontFamily: Constants.fontsFamilyRegular,
                             fontSize: 14.sp,
                           ),
                           getVerSpace(1.h),
@@ -281,25 +263,27 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                           if(widget.routeName == 'team'){
                             getGroupsController.handleAddMemberInTeam(
                               context,
-                              token: currentToken.value,
+                              Constants.defaultTeamIdOfDoctor.value,
+                              token: Constants.tokenOfDoctor.value,
                               firstName:
                               firstNameTextController.text.trim(),
                               lastName: lastNameTextController.text.trim(),
                               initials: initialsTextController.text.trim(),
                               color: initialColorCode.value,
-                              language: selectedLanguageCode,
+                              language: Constants.codeOfLanguage.value,
                             );
                           }else if(widget.routeName == 'group'){
                             getGroupsController.handleAddMemberInGroup(
                               context,
-                              token: currentToken.value,
+                              Constants.defaultTeamIdOfDoctor.value,
+                              token: Constants.tokenOfDoctor.value,
                               groupId: widget.groupId,
                               firstName:
                               firstNameTextController.text.trim(),
                               lastName: lastNameTextController.text.trim(),
                               initials: initialsTextController.text.trim(),
                               color: initialColorCode.value,
-                              language: selectedLanguageCode,
+                              language: Constants.codeOfLanguage.value,
                             );
                           }
 

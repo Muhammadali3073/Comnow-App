@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
-import '../../../utils/data.dart';
 import '../../widgets/widget_utils.dart';
 
 class LanguageScreen extends StatefulWidget {
@@ -42,7 +41,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Language',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -56,7 +55,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 4.0.h),
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: languagesList.length,
@@ -80,7 +79,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   setCurrentSelectedLanguageCode('it');
                 }
                 setCurrentSelectedLanguage(languagesList[index].toString().tr);
-                DataFile.getCurrentLanguage();
+                Constants.getRequiredDataForApis();
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 1.6.h),
@@ -94,7 +93,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 child: Obx(
                   () => Row(
                     children: [
-                      DataFile.selectedLanguage.value.toString().tr ==
+                      Constants.selectedLanguage.value.toString().tr ==
                               languagesList[index].toString().tr
                           ? Container(
                               padding: EdgeInsets.all(0.4.h),
@@ -132,12 +131,12 @@ class _LanguageScreenState extends State<LanguageScreen> {
                       getHorSpace(2.h),
                       customWhiteMediumText(
                         text: languagesList[index].toString().tr,
-                        color: DataFile.selectedLanguage.value.toString().tr ==
+                        color: Constants.selectedLanguage.value.toString().tr ==
                                 languagesList[index].toString().tr
                             ? CustomColors.blueButtonColor
                             : CustomColors.whiteButtonColor,
                         fontSize: 16.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                     ],
                   ),

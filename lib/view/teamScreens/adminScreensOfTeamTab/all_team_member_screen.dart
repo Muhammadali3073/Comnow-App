@@ -1,20 +1,15 @@
-import 'dart:developer';
-
 import 'package:comnow/utils/extensions.dart';
 import 'package:comnow/view/popUpMenuScreens/adminSidePopUpMenuScreens/message_templates_screen.dart';
 import 'package:comnow/view/popUpMenuScreens/adminSidePopUpMenuScreens/voice_message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../controller/groupController/get_groups_controller.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
-import '../../../utils/data.dart';
 import '../../widgets/widget_utils.dart';
 
 //ignore: must_be_immutable
@@ -39,26 +34,9 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
   Rx<Color> initialColor = CustomColors.topButtonColor.obs;
   var initialColorCode = ''.obs;
   var initialsString = ''.obs;
-  var currentToken = ''.obs;
-  String? selectedLanguageCode;
-
-  DataFile dataFile = DataFile();
-
-  getTokenAndLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    currentToken.value = sharedPreferences.getString('token') ?? '';
-    log(currentToken.toString());
-
-    // Get App Language in SharedPreferences
-    selectedLanguageCode =
-        sharedPreferences.getString('selectedLanguageCode') ?? 'en';
-    log('App Language: $selectedLanguageCode');
-  }
 
   @override
   void initState() {
-    getTokenAndLanguage();
     tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -75,69 +53,15 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
     return Obx(
       () => getGroupsController.loadingAddMemberInTeam.value ||
               getGroupsController.allMembersData.value == null
-          ? SizedBox(
-              height: MediaQuery.sizeOf(context).height,
-              width: MediaQuery.sizeOf(context).width,
-              child: Shimmer.fromColors(
-                  baseColor: CustomColors.bottomBackgroundColor,
-                  highlightColor: Colors.black12,
-                  child: Column(
-                    children: [
-                      Container(
-                        color: CustomColors.tabBarColor,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 2.4.h, vertical: 0.9.h),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              customWhiteMediumText(
-                                text: '',
-                                fontSize: 14.sp,
-                                fontFamily: Constant.fontsFamilyRegular,
-                              ),
-                              customWhiteMediumText(
-                                text: '',
-                                fontSize: 14.sp,
-                                fontFamily: Constant.fontsFamilyRegular,
-                              ),
-                            ]),
-                      ),
-                      Container(
-                        height: 3.8.h,
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 2.4.h,
-                          vertical: 2.4.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: CustomColors.textFormFieldBackgroundColor,
-                          borderRadius: BorderRadius.circular(
-                            25.0,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              height: 6.h,
-                              margin: EdgeInsets.only(
-                                  right: 2.4.h, left: 2.4.h, top: 1.h),
-                              decoration: BoxDecoration(
-                                color:
-                                    CustomColors.textFormFieldBackgroundColor,
-                                borderRadius: BorderRadius.circular(
-                                  16.0,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  )),
+          ? Center(
+              child: SizedBox(
+                height: 4.5.h,
+                width: 4.5.h,
+                child: const CircularProgressIndicator(
+                  color: CustomColors.hintColor,
+                  backgroundColor: CustomColors.dialogBoxColor,
+                ),
+              ),
             )
           : Column(
               children: [
@@ -152,13 +76,13 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                         customWhiteMediumText(
                           text: 'My Team',
                           fontSize: 14.sp,
-                          fontFamily: Constant.fontsFamilyRegular,
+                          fontFamily: Constants.fontsFamilyRegular,
                         ),
                         customWhiteMediumText(
                           text:
                               'Total Member(${getGroupsController.allMembersData.value!.data!.teamMembers!.length})',
                           fontSize: 14.sp,
-                          fontFamily: Constant.fontsFamilyRegular,
+                          fontFamily: Constants.fontsFamilyRegular,
                         ),
                       ]),
                 ),
@@ -189,18 +113,18 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                       ),
                       labelStyle: TextStyle(
                         fontSize: 14.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       unselectedLabelStyle: TextStyle(
                         fontSize: 14.sp,
-                        fontFamily: Constant.fontsFamilyRegular,
+                        fontFamily: Constants.fontsFamilyRegular,
                       ),
                       labelColor: CustomColors.titleBlackTextColor,
                       unselectedLabelColor: CustomColors.titleWhiteTextColor,
                       tabs: [
                         Tab(
                           text:
-                              'All (${getGroupsController.allMembersData.value!.data!.teamMembers!.length})',
+                              'All (${getGroupsController.allMembersData.value!.data!.teamMembers!.where((element) => element.blocked == false).length})',
                         ),
                         Tab(
                           text:
@@ -340,7 +264,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                         customWhiteMediumText(
                                                           text: item.fullName,
                                                           fontSize: 15.sp,
-                                                          fontFamily: Constant
+                                                          fontFamily: Constants
                                                               .fontsFamilyRegular,
                                                         ),
                                                         getVerSpace(0.4.h),
@@ -349,15 +273,26 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                 .shrink()
                                                             : customWhiteMediumText(
                                                                 text: item.isOnline ==
-                                                                        true
+                                                                            true &&
+                                                                        item.leavedTeam ==
+                                                                            false
                                                                     ? 'Online'
-                                                                    : 'Offline',
+                                                                    : item.isOnline ==
+                                                                                false &&
+                                                                            item.leavedTeam ==
+                                                                                false
+                                                                        ? 'Offline'
+                                                                        : 'Left team',
                                                                 color: item.isOnline ==
-                                                                        true
+                                                                            true &&
+                                                                        item.leavedTeam ==
+                                                                            false
                                                                     ? CustomColors
                                                                         .greenColor
                                                                     : item.isOnline ==
-                                                                            false
+                                                                                false &&
+                                                                            item.leavedTeam ==
+                                                                                false
                                                                         ? CustomColors
                                                                             .redColor
                                                                         // : listOfMembers.type ==
@@ -367,8 +302,9 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                         : CustomColors
                                                                             .titleBlackTextColor,
                                                                 fontSize: 13.sp,
-                                                                fontFamily: Constant
-                                                                    .fontsFamilyRegular,
+                                                                fontFamily:
+                                                                    Constants
+                                                                        .fontsFamilyRegular,
                                                               ),
                                                       ],
                                                     ),
@@ -384,12 +320,16 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                         : CircleAvatar(
                                                             radius: 0.5.h,
                                                             backgroundColor: item
-                                                                        .isOnline ==
-                                                                    true
+                                                                            .isOnline ==
+                                                                        true &&
+                                                                    item.leavedTeam ==
+                                                                        false
                                                                 ? CustomColors
                                                                     .greenColor
                                                                 : item.isOnline ==
-                                                                        false
+                                                                            false &&
+                                                                        item.leavedTeam ==
+                                                                            false
                                                                     ? CustomColors
                                                                         .redColor
                                                                     //         : listOfMembers
@@ -397,14 +337,9 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                     //                 'Away'
                                                                     //             ? CustomColors
                                                                     //                 .yellowColor
-                                                                    : item.leavedTeam ==
-                                                                                false ||
-                                                                            item.leavedGroup ==
-                                                                                false
-                                                                        ? Colors
-                                                                            .transparent
-                                                                        : Colors
-                                                                            .transparent,
+
+                                                                    : Colors
+                                                                        .transparent,
                                                           ),
                                                     getHorSpace(1.5.h),
                                                     GestureDetector(
@@ -416,29 +351,26 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                               item.fullName,
                                                               onRemoveTap: () {
                                                                 Get.back();
-                                                                Fluttertoast.showToast(
-                                                                    msg:
-                                                                        "${item.fullName} is removed successfully",
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_SHORT,
-                                                                    gravity: ToastGravity
-                                                                        .BOTTOM,
-                                                                    timeInSecForIosWeb:
-                                                                        1,
-                                                                    backgroundColor:
-                                                                        CustomColors
-                                                                            .toastColor,
-                                                                    textColor:
-                                                                        CustomColors
-                                                                            .titleWhiteTextColor,
-                                                                    fontSize:
-                                                                        14.sp);
+                                                                getGroupsController
+                                                                    .handleDeleteMember(
+                                                                  context,
+                                                                  Constants
+                                                                      .defaultTeamIdOfDoctor
+                                                                      .value,
+                                                                  groupId:
+                                                                      'null',
+                                                                  userName: item
+                                                                      .fullName,
+                                                                  teamMemberId:
+                                                                      item.id,
+                                                                  token: Constants
+                                                                      .tokenOfDoctor
+                                                                      .value,
+                                                                );
                                                               },
                                                               onScanTap: () {
                                                                 Get.back();
-                                                                // Get.to(() =>
-                                                                //     const ShareQRCodeScreen());
+
                                                               },
                                                             )
                                                           : memberCardBottomSheet(
@@ -471,15 +403,20 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                     getGroupsController
                                                                         .handleEditMemberStatus(
                                                                       context,
-                                                                      language:
-                                                                          selectedLanguageCode,
+                                                                      Constants
+                                                                          .defaultTeamIdOfDoctor
+                                                                          .value,
+                                                                      language: Constants
+                                                                          .codeOfLanguage
+                                                                          .value,
                                                                       userName:
                                                                           item.fullName,
                                                                       groupId:
                                                                           'null',
                                                                       teamMemberId:
                                                                           item.id,
-                                                                      token: currentToken
+                                                                      token: Constants
+                                                                          .tokenOfDoctor
                                                                           .value,
                                                                       blockedStatus:
                                                                           'blocked',
@@ -498,13 +435,17 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                     getGroupsController
                                                                         .handleDeleteMember(
                                                                       context,
+                                                                      Constants
+                                                                          .defaultTeamIdOfDoctor
+                                                                          .value,
                                                                       groupId:
                                                                           'null',
                                                                       userName:
                                                                           item.fullName,
                                                                       teamMemberId:
                                                                           item.id,
-                                                                      token: currentToken
+                                                                      token: Constants
+                                                                          .tokenOfDoctor
                                                                           .value,
                                                                     );
                                                                   },
@@ -612,7 +553,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                                       children: [
                                                                                         customWhiteMediumText(
                                                                                           text: 'Select color',
-                                                                                          fontFamily: Constant.fontsFamilyRegular,
+                                                                                          fontFamily: Constants.fontsFamilyRegular,
                                                                                           fontSize: 14.sp,
                                                                                         ),
                                                                                         getVerSpace(0.7.h),
@@ -759,14 +700,15 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                                                         Get.back();
                                                                                         getGroupsController.handleEditMemberProfile(
                                                                                           context,
+                                                                                          Constants.defaultTeamIdOfDoctor.value,
                                                                                           groupId: 'null',
                                                                                           userName: '${firstNameTextController.text.trim()} ${lastNameTextController.text.trim()}',
                                                                                           teamMemberId: item.id,
                                                                                           initialsColor: initialColorCode.value,
                                                                                           initials: initialsTextController.text,
                                                                                           fullName: '${firstNameTextController.text} ${lastNameTextController.text}',
-                                                                                          language: selectedLanguageCode,
-                                                                                          token: currentToken.value,
+                                                                                          language: Constants.codeOfLanguage.value,
+                                                                                          token: Constants.tokenOfDoctor.value,
                                                                                         );
                                                                                       },
                                                                                     )),
@@ -931,7 +873,7 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                         customWhiteMediumText(
                                                           text: item.fullName,
                                                           fontSize: 15.sp,
-                                                          fontFamily: Constant
+                                                          fontFamily: Constants
                                                               .fontsFamilyRegular,
                                                         ),
                                                       ],
@@ -948,13 +890,18 @@ class _AllTeamMemberScreenState extends State<AllTeamMemberScreen>
                                                       getGroupsController
                                                           .handleEditMemberStatus(
                                                         context,
-                                                        language:
-                                                            selectedLanguageCode,
+                                                        Constants
+                                                            .defaultTeamIdOfDoctor
+                                                            .value,
+                                                        language: Constants
+                                                            .codeOfLanguage
+                                                            .value,
                                                         userName: item.fullName,
                                                         groupId: 'null',
                                                         teamMemberId: item.id,
-                                                        token:
-                                                            currentToken.value,
+                                                        token: Constants
+                                                            .tokenOfDoctor
+                                                            .value,
                                                         blockedStatus:
                                                             'unblocked',
                                                       );

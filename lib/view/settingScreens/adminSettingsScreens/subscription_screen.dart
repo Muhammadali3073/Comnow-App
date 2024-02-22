@@ -17,7 +17,7 @@ class SubscriptionScreen extends StatelessWidget {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Current Subscription',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -31,7 +31,7 @@ class SubscriptionScreen extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 4.0.h),
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Column(
           children: [
             Container(
@@ -67,7 +67,7 @@ class SubscriptionScreen extends StatelessWidget {
                             customWhiteMediumText(
                                 text: 'Started on: 11/08/2023',
                                 fontSize: 13.5.sp,
-                                fontFamily: Constant.fontsFamilyRegular),
+                                fontFamily: Constants.fontsFamilyRegular),
                           ],
                         ),
                       ],
@@ -84,7 +84,7 @@ class SubscriptionScreen extends StatelessWidget {
                         'Get our trial test version of our communication app today and experience the benefits of streamlined and efficient communication. With our app, you can easily ping, send messages and voice notes, and manage your team with our efficient control system. Try it out for trial and see for yourself how our app can transform the way vou work. The Test Version subscription includes a 90 day trial period, charges will automatically commence once the trial period concludes',
                     fontSize: 14.sp,
                     textAlign: TextAlign.justify,
-                    fontFamily: Constant.fontsFamilyRegular),
+                    fontFamily: Constants.fontsFamilyRegular),
                 getVerSpace(2.h),
                 Row(
                   children: [
@@ -135,14 +135,14 @@ class SubscriptionScreen extends StatelessWidget {
                     customWhiteMediumText(
                       text: 'Terms & Condition',
                       fontSize: 14.sp,
-                      fontFamily: Constant.fontsFamilyRegular,
+                      fontFamily: Constants.fontsFamilyRegular,
                       decoration: TextDecoration.underline,
                       decorationColor: Colors.white,
                     ),
                     customWhiteMediumText(
                       text: 'Privacy Policy',
                       fontSize: 14.sp,
-                      fontFamily: Constant.fontsFamilyRegular,
+                      fontFamily: Constants.fontsFamilyRegular,
                       decoration: TextDecoration.underline,
                       decorationColor: Colors.white,
                     ),

@@ -1,9 +1,11 @@
+
 import 'package:comnow/utils/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../controller/profileControllers/profile_controller.dart';
 import '../../../utils/color_data.dart';
 import '../../../utils/constant.dart';
 import '../../../validations/validations.dart';
@@ -26,6 +28,9 @@ class EditYourNameScreen extends StatefulWidget {
 }
 
 class _EditYourNameScreenState extends State<EditYourNameScreen> {
+  ProfileController profileController = Get.find(tag: 'profileController');
+
+
   TextEditingController fullNameTextController = TextEditingController();
   TextEditingController initialsTextController = TextEditingController();
 
@@ -33,13 +38,25 @@ class _EditYourNameScreenState extends State<EditYourNameScreen> {
   var initialsString = ''.obs;
   var initialColorCode = ''.obs;
 
-  @override
-  Widget build(BuildContext context) {
+
+
+  getProfileData() {
     initialColor.value = widget.initialColor.toColor();
     initialsString.value = widget.initials.toString();
     initialsTextController.text = widget.initials.toString();
     fullNameTextController.text = widget.fullName.toString();
+  }
 
+
+  @override
+  void initState() {
+    getProfileData();
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -47,7 +64,7 @@ class _EditYourNameScreenState extends State<EditYourNameScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Edit Your Profile',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -61,7 +78,7 @@ class _EditYourNameScreenState extends State<EditYourNameScreen> {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 3.h, vertical: 5.6.h),
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Column(children: [
           Obx(
             () => CircleAvatar(
@@ -84,6 +101,10 @@ class _EditYourNameScreenState extends State<EditYourNameScreen> {
             controller: initialsTextController,
             titleText: 'Initials',
             hintText: 'Enter initials',
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(3),
+            ],
+            onChanged: (value) => initialsString.value = value,
           ),
           getVerSpace(3.h),
           Column(
@@ -91,7 +112,7 @@ class _EditYourNameScreenState extends State<EditYourNameScreen> {
             children: [
               customWhiteMediumText(
                 text: 'Select color',
-                fontFamily: Constant.fontsFamilyRegular,
+                fontFamily: Constants.fontsFamilyRegular,
                 fontSize: 14.sp,
               ),
               getVerSpace(1.h),
@@ -238,15 +259,13 @@ class _EditYourNameScreenState extends State<EditYourNameScreen> {
                     ),
                   );
                 } else {
-                  Get.back();
-                  Fluttertoast.showToast(
-                      msg: "Update profile successfully",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: CustomColors.toastColor,
-                      textColor: CustomColors.titleWhiteTextColor,
-                      fontSize: 14.sp);
+                  profileController.handleAdminEditProfile(context,
+                  token: Constants.tokenOfDoctor.value,
+                    language: Constants.codeOfLanguage.value,
+                    fullName: fullNameTextController.text,
+                    initials: initialsTextController.text,
+                    color: initialColorCode.value,
+                  );
                 }
               },
             ),

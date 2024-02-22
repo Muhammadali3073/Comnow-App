@@ -17,7 +17,7 @@ class ContactSupportScreen extends StatelessWidget {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'Contact Support',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -32,7 +32,7 @@ class ContactSupportScreen extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height,
         padding: EdgeInsets.symmetric(horizontal: 2.4.h, vertical: 3.2.h),
         decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+            gradient: Constants.appGradient),
         child: Column(
           children: [
             Container(
@@ -55,7 +55,7 @@ class ContactSupportScreen extends StatelessWidget {
                         getHorSpace(1.h),
                         customWhiteMediumText(
                           text: '( +41 ) 79 713 66 66',
-                          fontFamily: Constant.fontsFamilyRegular,
+                          fontFamily: Constants.fontsFamilyRegular,
                           fontSize: 15.sp,
                         )
                       ],
@@ -72,7 +72,7 @@ class ContactSupportScreen extends StatelessWidget {
                         getHorSpace(1.h),
                         customWhiteMediumText(
                           text: 'info@com-now.ch',
-                          fontFamily: Constant.fontsFamilyRegular,
+                          fontFamily: Constants.fontsFamilyRegular,
                           fontSize: 15.sp,
                         )
                       ],
@@ -89,7 +89,7 @@ class ContactSupportScreen extends StatelessWidget {
                         getHorSpace(1.h),
                         customWhiteMediumText(
                           text: 'www.com-now.ch',
-                          fontFamily: Constant.fontsFamilyRegular,
+                          fontFamily: Constants.fontsFamilyRegular,
                           fontSize: 15.sp,
                         )
                       ],

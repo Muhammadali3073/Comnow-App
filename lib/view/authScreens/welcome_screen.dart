@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: EdgeInsets.only(
               top: 4.h, left: 9.5.h, right: 9.5.h, bottom: 17.1.h),
           decoration: const BoxDecoration(
-              gradient: Constant.authGradient),
+              gradient: Constants.authGradient),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -28,7 +28,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'All Messages',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -53,7 +53,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
                   customWhiteMediumText(
                       text: 'Sort',
                       fontSize: 14.sp,
-                      fontFamily: Constant.fontsFamilyRegular),
+                      fontFamily: Constants.fontsFamilyRegular),
                   getHorSpace(1.h),
                 ],
               ))
@@ -62,7 +62,7 @@ class _AllMessagesScreenState extends State<AllMessagesScreen> {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        decoration: const BoxDecoration(gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 3.0.h,

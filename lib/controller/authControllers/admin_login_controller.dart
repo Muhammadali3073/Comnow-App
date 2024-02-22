@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'package:comnow/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,14 +14,12 @@ class AdminLoginController extends GetxController {
   var loadingAdminLogin = false.obs;
   late LoginAdminModel loginModel;
 
-  sharedPreferences() async {
+  sharedPreferences(token, success, defaultTeam) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     // Save Token and IsLogin in SharedPreferences
-    sharedPreferences.setString('token', loginModel.data!.token!);
-    sharedPreferences.setBool('isAdminLogin', loginModel.success!);
-
-    log('User Login Status: ${sharedPreferences.getBool('isAdminLogin')}');
-    log('User Login Token: ${sharedPreferences.getString('token')}');
+    sharedPreferences.setString('token', token);
+    sharedPreferences.setBool('isAdminLogin', success);
+    sharedPreferences.setString('defaultTeamId', defaultTeam);
   }
 
   // Admin Login
@@ -30,7 +28,7 @@ class AdminLoginController extends GetxController {
     password,
     email,
     language,
-  }) {
+  })  {
     loadingAdminLogin.value = true;
     loadingDialogBox(context!, RxBool(loadingAdminLogin.value));
 
@@ -49,12 +47,19 @@ class AdminLoginController extends GetxController {
         // Add Data to Model
         loginModel = loginModelFromJson(response.body.toString());
 
-        sharedPreferences();
+        if (loginModel.data != null) {
+          sharedPreferences(
+            loginModel.data!.token,
+            loginModel.success,
+            loginModel.data!.user!.defaultTeam,
+          );
 
-        // Go to next screen
-        Get.offAll(() => const AdminBottomNavigationBarScreen());
+          Constants.getRequiredDataForApis();
 
-        customScaffoldMessenger(context, 'User login Success'.tr);
+          // Go to next screen
+          Get.offAll(() => const AdminBottomNavigationBarScreen());
+          customScaffoldMessenger(context, 'User login Success'.tr);
+        }
       } else if (response.statusCode == 500) {
         loadingAdminLogin.value = false;
         Get.back();

@@ -1,4 +1,5 @@
 import 'package:comnow/view/navBarScreen/team_member_nav_bar_screen.dart';
+import 'package:comnow/view/subscription/subscription_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
       alignment: Alignment.center,
-      decoration: const BoxDecoration(gradient: Constant.authGradient),
+      decoration: const BoxDecoration(gradient: Constants.authGradient),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

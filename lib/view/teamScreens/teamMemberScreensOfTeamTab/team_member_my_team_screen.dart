@@ -1,3 +1,4 @@
+import 'package:comnow/controller/profileControllers/member_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -17,6 +18,26 @@ class TeamMemberMyTeamScreen extends StatefulWidget {
 }
 
 class _TeamMemberMyTeamScreenState extends State<TeamMemberMyTeamScreen> {
+  MemberProfileController memberProfileController =
+      Get.find(tag: 'memberProfileController');
+
+  void getMemberData() {
+    if (memberProfileController.getMemberData.value == null) {
+      memberProfileController.handleGetMemberProfile(
+        context,
+        token: Constants.tokenOfMember.value,
+        language: Constants.codeOfLanguage.value,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    getMemberData();
+    super.initState();
+  }
+
+
   DataFile dataFile = DataFile();
 
   @override
@@ -27,14 +48,13 @@ class _TeamMemberMyTeamScreenState extends State<TeamMemberMyTeamScreen> {
         centerTitle: true,
         title: customWhiteMediumText(
             text: 'My Team',
-            fontFamily: Constant.fontsFamilyBold,
+            fontFamily: Constants.fontsFamilyBold,
             fontSize: 16.sp),
       ),
       body: Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-            gradient: Constant.appGradient),
+        decoration: const BoxDecoration(gradient: Constants.appGradient),
         child: Theme(
           data: Theme.of(context).copyWith(
             canvasColor: Colors.transparent,
